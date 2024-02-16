@@ -1,0 +1,12 @@
+{
+  "require": {
+      "altorouter/altorouter": "^2.0",
+      "symfony/var-dumper": "5.4.6",
+    "twig/twig": "^3.8"
+  },
+  "autoload": {
+      "psr-4": {
+          "MPuget\\blog\\": "app/"
+      }
+  }
+}
