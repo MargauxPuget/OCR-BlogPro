@@ -1,0 +1,48 @@
+
+
+
+html {
+  max-width: 80% ;
+  margin: auto ;
+  box-sizing:  border-box;
+}
+
+header,
+footer {
+  background-color: rgb(233, 229, 229);
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size:xx-large;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: larger;
+  font-weight: 500;
+  margin-top:20px;
+}
+
+.btn {
+  border: grey 1px solid;
+  padding: 5px 12px;
+  margin: 20px 3px;
+  border-radius: 5px;
+  color: black;
+  text-decoration: none;
+}
+
+.btn--add {
+  background-color: rgb(114, 172, 29);
+}
+
+.btn--update {
+  background-color: rgb(218, 156, 42);
+}
+
+.btn--delete {
+  background-color: rgb(172, 29, 29);
+}
