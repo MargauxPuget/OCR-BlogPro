@@ -1,0 +1,37 @@
+header {
+  background-color: rgb(233, 229, 229);
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 900px) {
+  .header {
+    justify-content: space-around;
+    flex-direction: row;
+  }
+}
+
+.header_title {
+  display:flex;
+}
+
+.header_subtitle {
+  
+  font-size: x-large;
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+.navigation {
+  display:flex;
+  justify-content: center;
+  gap: 20px;
+}

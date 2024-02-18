@@ -1,0 +1,16 @@
+li {
+  list-style: none;
+  color: black;
+  text-transform: uppercase;
+}
+
+a:hover {
+  font-weight: 600;
+  color: rgb(33, 84, 143);
+}
+
+
+a {
+  color: black;
+  text-decoration: none;
+}

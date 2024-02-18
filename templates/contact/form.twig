@@ -1,0 +1,21 @@
+<div style="form">
+    <form action="#" method="post">
+        <div class="input input-text">
+            <label for="body">Nom et prénom</label>
+            <input type="text" name="body"></input>
+        </div>
+
+        <div class="input input-email">
+            <label for="body">Email</label>
+            <input type="email" name="body"></input>
+        </div>
+
+        <div class="input input-textarea">
+            <label for="body">Message</label>
+            <textarea name="body"></textarea>
+        </div>
+		
+    	<input hidden type="number" name="postId" value="<?= $viewData['post']->getId() ?>">
+    <button class="btn btn--add btn--form" type="submit">gggg</button>
+    </form>
+</div>

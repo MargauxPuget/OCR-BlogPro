@@ -1,0 +1,16 @@
+@import 'typo.css';
+@import 'btn.css';
+@import 'header.css';
+@import 'list.css';
+@import 'input.css';
+
+html {
+  max-width: 80% ;
+  margin: auto ;
+  box-sizing:  border-box;
+}
+
+.border {
+
+  border: 1px solid red;
+}
