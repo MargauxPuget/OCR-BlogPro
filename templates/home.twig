@@ -28,6 +28,11 @@
 		{% include "contact/form.twig" %}
 
 		<p>Merci de nous faire confiance pour vos projets de menuiserie sur mesure !</p>
+
+		<h2>Curriculum Vitae</h2>
+		{{dump(ASSET_PATH)}}
+		<a href={{ASSET_PATH ~ '/files/ton_fichier.pdf'}}>Cliquez ici pour voir le pdf</a>
+
 	</div>
 
 {% endblock %}

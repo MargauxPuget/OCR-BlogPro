@@ -4,3 +4,21 @@ footer {
   margin-bottom: 20px;
   text-align: center;
 }
+
+.socialNetworkList {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap:20px;
+  margin: 10px;
+}
+
+.socialNetwork {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.socialNetwork img{
+  width: 16px;
+}

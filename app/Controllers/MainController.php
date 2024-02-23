@@ -8,6 +8,7 @@ use MPuget\blog\Models\User;
 use MPuget\blog\Models\TimeTrait;
 use MPuget\blog\Repository\UserRepository;
 use MPuget\blog\Controllers\CoreController;
+use MPuget\blog\Utils\Mail;
 
 class MainController extends CoreController
 {
@@ -30,8 +31,25 @@ class MainController extends CoreController
             'pageTitle' => 'OCR - Blog - Accueil',
             'userList' => $userList
         ];
-
+        
         echo $this->twig->getTwig()->render('home.twig', $viewData);
+       // $this->show('home', $viewData);
+    }
+
+    public function contactForm()
+    {
+        var_dump('MainControler::contactForm()');
+        /* $this->twig = new Twig(); */
+       
+        /* $userList = $this->userRepo->find(1);
+        
+        $viewData = [
+            'pageTitle' => 'OCR - Blog - Accueil',
+            'userList' => $userList
+        ]; */
+        $mail = new Mail();
+        $mail->sendMail();
+        // echo $this->twig->getTwig()->render('home.twig', $viewData);
        // $this->show('home', $viewData);
     }
 
