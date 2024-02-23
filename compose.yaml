@@ -1,0 +1,7 @@
+version: "3.8"
+services:
+  mailer:
+    image: maildev/maildev
+    container_name: maildev
+    ports: [ "1025", "1080" ]
+   
