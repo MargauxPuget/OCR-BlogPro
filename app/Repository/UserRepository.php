@@ -8,15 +8,7 @@ use MPuget\blog\Utils\Database;
 
 class UserRepository extends AbstractRepository
 {
-
-       // 3ème chose à ajouter dans nos modèles : des méthodes findAll() & find()
-
-    /**
-     * findAll() permet de récupérer tous les enregistrement de la table product
-     * 
-     * @return User[]
-     */
-    public function findAll()
+    public function findAll(): ?User
     {
         $pdoStatement = $this->pdo->prepare('SELECT id FROM `user`');
         $pdoStatement->execute();
@@ -30,13 +22,7 @@ class UserRepository extends AbstractRepository
         return $users;
     }
 
-    /**
-     * find() permet de récupérer un produit spécifique par son id
-     * 
-     * @param Integer id du produit à récupérer
-     * @return User
-     */
-    public function find($id)
+    public function find(Integer $id): ?User
     {
         $id = intval($id); 
         $pdoStatement = $this->pdo->prepare('SELECT * FROM `user` WHERE id = :id');
@@ -60,7 +46,7 @@ class UserRepository extends AbstractRepository
         return $user;
     }
 
-    public function addUser(User $user)
+    public function addUser(User $user): ?User
     {
         var_dump("UserRepository->addUser()");
 
@@ -80,6 +66,7 @@ class UserRepository extends AbstractRepository
         return $user;
     }
 
+    // TODO elle ne retrun vraiment rien ????
     public function updateUser(User $user)
     {
         var_dump("UserRepository->updateUser()");
@@ -98,6 +85,7 @@ class UserRepository extends AbstractRepository
 
     }
 
+    // TODO elle ne retrun vraiment rien ????
     public function deleteUser(User $user)
     {
         var_dump("UserRepository->deleteUser()");

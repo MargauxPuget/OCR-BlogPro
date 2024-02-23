@@ -8,12 +8,7 @@ trait IdTrait
 
     private $id;
 
-    /**
-     * Get the value of id
-     * 
-     * @return Integer Id du produit
-     */ 
-    public function getId()
+    public function getId() : ?integer
     {
         return $this->id;
     }
@@ -23,7 +18,7 @@ trait IdTrait
      *
      * @return  self
      */ 
-    public function setId($id)
+    public function setId($id) : ?self
     {
         $this->id = $id;
 

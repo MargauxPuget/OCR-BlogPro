@@ -12,14 +12,7 @@ use MPuget\blog\Repository\PostRepository;
 
 class CommentRepository extends AbstractRepository
 {
-
-    /**
-     * find() permet de récupérer un produit spécifique par son id
-     * 
-     * @param Integer id du produit à récupérer
-     * @return Comment
-     */
-    public function find($id): ?Comment
+    public function find(Integer $id): ?Comment
     {
         $id = intval($id);
 
@@ -55,12 +48,7 @@ class CommentRepository extends AbstractRepository
         return $comment;
     }
 
-    /**
-     * findAll() permet de récupérer tous les enregistrement de la table product
-     * 
-     * @return Post[]
-     */
-    public function findAll()
+    public function findAll(): Post
     {
         $pdoStatement = $this->pdo->prepare('SELECT id FROM `comment`');
         $pdoStatement->execute();
@@ -74,7 +62,7 @@ class CommentRepository extends AbstractRepository
         return $comments;
     }
 
-    public function findAllforOnePost(Post $post)
+    public function findAllforOnePost(Post $post): ?Array
     {
         $pdoStatement = $this->pdo->prepare('SELECT id FROM `comment`
         WHERE post_id=:postId ORDER BY `created_at` DESC');
@@ -104,13 +92,13 @@ class CommentRepository extends AbstractRepository
 			|| !isset($newComment['userId'])
         ) {
             echo('Il faut un un message et un auteur valide pour soumettre le formulaire.');
-            return;
+            return ;
         }
 		
         $userRepo = new UserRepository();
         $user = $userRepo->find($newComment['userId']);
 		$newComment['user'] = $user;
-var_dump($newComment);
+
         $postRepo = new PostRepository();
         $post = $postRepo->find($newComment['postId']);
 		$newComment['post'] = $post;
@@ -134,7 +122,6 @@ var_dump($newComment);
 
         unset($_POST);
         
-
         return $comment;
     }
 

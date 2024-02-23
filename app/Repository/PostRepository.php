@@ -10,14 +10,7 @@ use MPuget\blog\Repository\UserRepository;
 
 class PostRepository extends AbstractRepository
 {
-
-    /**
-     * find() permet de récupérer un produit spécifique par son id
-     * 
-     * @param Integer id du produit à récupérer
-     * @return Post
-     */
-    public function find($id)
+    public function find(Integer $id) : Post
     {
         $id = intval($id);
         $pdoStatement = $this->pdo->prepare('SELECT * FROM `post` WHERE id = :id');
@@ -45,12 +38,7 @@ class PostRepository extends AbstractRepository
         return $post;
     }
 
-    /**
-     * findAll() permet de récupérer tous les enregistrement de la table product
-     * 
-     * @return Post[]
-     */
-    public function findAll()
+    public function findAll() : Post
     {
         $pdoStatement = $this->pdo->prepare('SELECT id FROM `post`');
         $pdoStatement->execute();
@@ -63,7 +51,7 @@ class PostRepository extends AbstractRepository
         return $posts;
     }
 
-    public function addPost(Post $post)
+    public function addPost(Post $post) : Post
     {
         var_dump("PostRepository->addPost()");
 
@@ -82,6 +70,7 @@ class PostRepository extends AbstractRepository
         return $post;
     }
 
+    // TODO elle ne retrun vraiment rien ????
     public function updatePost(Post $post)
     {
         var_dump("PostRepository->updatePost()");
@@ -109,7 +98,6 @@ class PostRepository extends AbstractRepository
         ]);
 
         return true;
-
     }
 
 }

@@ -16,22 +16,8 @@ class Post
     use IdTrait;
     use TimeTrait;
 
-    /**
-     * title
-     * type="string", length=128
-     */
-    private $title;
-
-    /**
-     * body
-     * type="text"
-     */
-    private $body;
-
-    /**
-     * user-id
-     * type="integer"
-     */
+    private ?string $title;
+    private ?string $body;
     private User $user;
 
     
