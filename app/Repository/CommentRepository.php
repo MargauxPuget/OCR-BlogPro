@@ -12,7 +12,7 @@ use MPuget\blog\Repository\PostRepository;
 
 class CommentRepository extends AbstractRepository
 {
-    public function find(Integer $id): ?Comment
+    public function find(Int $id): ?Comment
     {
         $id = intval($id);
 

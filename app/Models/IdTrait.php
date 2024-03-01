@@ -8,7 +8,7 @@ trait IdTrait
 
     private $id;
 
-    public function getId() : ?integer
+    public function getId() : ?Int
     {
         return $this->id;
     }

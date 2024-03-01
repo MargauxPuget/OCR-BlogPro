@@ -10,7 +10,7 @@ use MPuget\blog\Repository\UserRepository;
 
 class PostRepository extends AbstractRepository
 {
-    public function find(Integer $id) : Post
+    public function find(Int $id) : Post
     {
         $id = intval($id);
         $pdoStatement = $this->pdo->prepare('SELECT * FROM `post` WHERE id = :id');

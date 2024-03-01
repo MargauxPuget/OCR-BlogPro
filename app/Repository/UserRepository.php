@@ -22,7 +22,7 @@ class UserRepository extends AbstractRepository
         return $users;
     }
 
-    public function find(Integer $id): ?User
+    public function find(Int $id): ?User
     {
         $id = intval($id); 
         $pdoStatement = $this->pdo->prepare('SELECT * FROM `user` WHERE id = :id');
