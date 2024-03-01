@@ -51,7 +51,7 @@ $router->generate('contactForm');
 
 $router->map(
   'get',
-  'articles',
+  'post',
   // target :
   [
       'action' => 'home',

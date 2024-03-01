@@ -38,7 +38,7 @@ class PostRepository extends AbstractRepository
         return $post;
     }
 
-    public function findAll() : Post
+    public function findAll() : Array
     {
         $pdoStatement = $this->pdo->prepare('SELECT id FROM `post`');
         $pdoStatement->execute();

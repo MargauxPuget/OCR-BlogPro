@@ -17,6 +17,6 @@ class ErrorController
             'pageTitle' => 'OCR - Blog - 404 Error'
         ];
 
-        echo $this->twig->getTwig()->render('home.twig', $viewData);
+        echo $this->twig->getTwig()->render('404.twig', $viewData);
     }
 }

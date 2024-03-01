@@ -1,9 +1,11 @@
-@import 'typo.css';
-@import 'btn.css';
-@import 'header.css';
-@import 'footer.css';
-@import 'list.css';
-@import 'input.css';
+
+@import 'commont/header.css';
+@import 'commont/footer.css';
+@import 'utility/typo.css';
+@import 'utility/btn.css';
+@import 'utility/list.css';
+@import 'utility/input.css';
+@import 'post/post.css';
 
 html {
   max-width: 80% ;

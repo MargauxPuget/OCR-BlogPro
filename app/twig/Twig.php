@@ -19,6 +19,7 @@ class Twig
 
         $this->twig->addExtension(new \Twig\Extension\DebugExtension());
         //$this->twig->addExtension(new \App\Libs\twigFiltersExtensions());
+
     }
     public function getTwig()
     {
