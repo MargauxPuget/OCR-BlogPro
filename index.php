@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/vendor/autoload.php';
 
 // require de nos Controllers
@@ -61,7 +60,17 @@ $router->map(
 );
 $router->generate('postHome');
 
-
+$router->map(
+  'GET',
+  'post/[i:id_post]',
+  // target :
+  [
+      'action' => 'post',
+      'controller' => 'MPuget\blog\Controllers\PostController'
+  ],
+  'post'
+);
+$router->generate('post');
 
 $match = $router->match();
 

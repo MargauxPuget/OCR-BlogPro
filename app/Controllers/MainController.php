@@ -3,11 +3,11 @@
 namespace MPuget\blog\controllers;
 
 use MPuget\blog\twig\Twig;
+use MPuget\blog\Utils\Mail;
 use MPuget\blog\Models\Post;
 use MPuget\blog\Models\User;
 use MPuget\blog\Models\TimeTrait;
 use MPuget\blog\Repository\UserRepository;
-use MPuget\blog\Utils\Mail;
 
 class MainController
 {
@@ -21,6 +21,11 @@ class MainController
     // une page = une méthode
     public function home()
     {
+
+
+
+
+
         var_dump('MainControler::home()');
         $this->twig = new Twig();
        
