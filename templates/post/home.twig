@@ -1,0 +1,76 @@
+<?php
+
+    // var_dump($viewData['postList']);
+
+    
+?>
+{% extends "../base.twig" %}
+
+
+{% block content %}
+<h2>HoMe POST : CRUD utilisateur</h2>
+
+<form class="btn" action="/formPost" method="post">
+    <button class="btn btn--add" type="submit">Ajouter</button>
+</form>
+
+<ul>
+    <?php foreach($viewData['postList'] as $post) : ?>
+    <?php 
+        $body = $post->getBody();
+        $bodyArray = explode(' ', $body, 15);
+        $shortBody = implode(' ', $bodyArray);
+    ?>
+        <li style="border:1px solid black;margin:5px;padding:5px;">
+            <div>
+                <h3><?= $post->getTitle(); ?></h3>
+                <p><?= $shortBody ?></p>
+                <p><?= $post->getUser()->getName(); ?></p>
+            </div>
+            <div style="display:flex;">
+                <form style="margin:10px;" action="/singlePost" method="post">
+                    <input hidden type="number" name="identifiant" value="<?= $post->getId() ?>">
+                    <button class="btn btn--add" type="submit">Voir</button>
+                </form>
+                <form style="margin:10px;" action="/formPost" method="post">
+                    <input hidden type="number" name="identifiant" value="<?= $post->getId() ?>">
+                    <button class="btn btn--update" type="submit">Modifier</button>
+                </form>
+                 <form style="margin:10px;" action="/deletePost" method="post">
+                    <input hidden type="number" name="identifiant" value="<?= $post->getId() ?>">
+                    <button class="btn btn--delete" type="submit">Supprimer</button>
+                </form>
+            </div>
+        </li>
+    <?php endforeach; ?>
+</ul>
+
+
+<!-- <form class="btn" action="/formPost" method="post">
+    <label for="post">Choisissez un utilisateur : </label>
+
+    <select name="identifiant" id="post">
+        <option value="">--Choisissez quelqu'un--</option>
+
+        <?php foreach ($viewData['postList'] as $post): ?>
+            <option value="<?= $post->getId() ?>"> <?= $post->getTitle() ?></option>
+        <?php endforeach; ?>
+    </select>
+    <button class="btn btn--update" type="submit">Modifier</button>
+</form>
+
+<form class="btn" action="/deletePost" method="post">
+    <label for="post">Choisissez un utilisateur : </label>
+
+    <select name="identifiant" id="post">
+        <option value="">--Choisissez quelqu'un--</option>
+
+        <?php foreach ($viewData['postList'] as $post): ?>
+            <option value="<?= $post->getId() ?>"> <?= $post->getTitle() ?></option>
+        <?php endforeach; ?>
+    </select>
+    <button class="btn btn--delete" type="submit">Supprimer</button>
+</form> -->
+
+
+{% endblock %}

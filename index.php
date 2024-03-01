@@ -34,6 +34,23 @@ $router->map(
 $router->generate('home');
 
 
+//*--------------------------
+//*   Post
+//*--------------------------
+
+$router->map(
+  'get',
+  'articles',
+  // target :
+  [
+      'action' => 'home',
+      'controller' => 'MPuget\blog\Controllers\PostController'
+  ],
+  'postHome'
+);
+$router->generate('postHome');
+
+
 
 $match = $router->match();
 
