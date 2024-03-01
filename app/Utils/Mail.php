@@ -12,10 +12,8 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class Mail {
 
-    
     public function sendMail (Array $data) : bool
     {
-
         $result = $this->validateInformation($data);
 
         if (!$result) {

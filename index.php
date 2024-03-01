@@ -19,8 +19,11 @@ $router = new AltoRouter();
 $publicFolder = dirname($_SERVER['SCRIPT_NAME']);
 $router->setBasePath($publicFolder);
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> main
 // On va ensuite pouvoir mapper nos routes
 $router->map(
     'GET',
@@ -57,7 +60,6 @@ $router->map(
   'contactForm' // le nom qu'on donne à notre route (pour $router->generate())
 );
 $router->generate('contactForm');
-
 
 
 $match = $router->match();

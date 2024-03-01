@@ -46,7 +46,6 @@ class MainController extends CoreController
             'userList' => $userList,
             'responseMail' => $responseMail
         ];
-
         echo $this->twig->getTwig()->render('home.twig', $viewData);
        // $this->show('home', $viewData);
     }

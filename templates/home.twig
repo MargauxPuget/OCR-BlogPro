@@ -2,10 +2,13 @@
 
 {% block content %}
 
+<<<<<<< HEAD
 	{% if responseMail is not null %}
 		<span class="responseMail{{ responseMail ? '' : ' error'}}">{{ responseMail ? 'Votre mail est bien parti, je vous répond dans les meilleur delais !' : 'Il est probable que vous ayez oublié un champ / on que votre email ne soit pas valide !'}}</span>
 	{% endif %}
 
+=======
+>>>>>>> main
 	<h1>Bienvenue sur mon blog dédié à la création de site web ! </h1>
 
 	<div>
@@ -36,7 +39,6 @@
 				<p class="download_title">Curriculum Vitae</p>
 				{# {{dump(ASSET_PATH)}} #}
 				<p class="btn"><a href={{ASSET_PATH ~ '/files/ton_fichier.pdf'}}>Cliquez ici pour voir le pdf</a></p>
-
 		</div>
 	</div>
 
