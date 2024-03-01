@@ -15,23 +15,9 @@ class Comment
     use IdTrait;
     use TimeTrait;
 
-    /**
-     * body
-     * type="text"
-     */
-    private $body;
-
-    /**
-     * user
-     * type="User"
-     */
-    private $user;
-
-    /**
-     * post
-     * type="Post"
-     */
-    private $post;
+    private ?string $body;
+    private ?user $user;
+    private ?Post $post;
 
 
     public function __construct()

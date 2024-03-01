@@ -20,6 +20,10 @@ $publicFolder = dirname($_SERVER['SCRIPT_NAME']);
 $router->setBasePath($publicFolder);
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 387360b9f5635a2c206386790277b1c5f536adcf
 // On va ensuite pouvoir mapper nos routes
 $router->map(
     'GET',
@@ -33,6 +37,21 @@ $router->map(
 );
 $router->generate('home');
 
+<<<<<<< HEAD
+=======
+$router->map(
+  'POST',
+  'homeContact', // l'URL de cette route
+  // target :
+  [
+      'action' => 'contactForm', // méthode à appeler
+      'controller' => 'MPuget\blog\Controllers\MainController' // controller concerné
+  ],
+  'contactForm' // le nom qu'on donne à notre route (pour $router->generate())
+);
+$router->generate('contactForm');
+
+>>>>>>> 387360b9f5635a2c206386790277b1c5f536adcf
 
 
 $match = $router->match();
