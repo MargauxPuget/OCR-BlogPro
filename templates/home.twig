@@ -1,0 +1,39 @@
+{% extends "base.twig" %}
+
+{% block content %}
+
+	<h1>Bienvenue sur mon blog dédié à la création de site web ! </h1>
+
+	<div>
+		<p>Bienvenue chez <span class="nameEntity">UnSitePourVous</span>, votre partenaire de confiance pour la création de site internet à votre image.</p>
+
+		<h2>Qui suis-je ?</h2>
+		<p><span class="nameEntity">Margaux</span>, dynamique et entreprenante. Je veux pour vous Le site qui vous ressemble. Fait sur mesure, a votre entreprise, évènement, association ....</p>
+
+		<h2>Notre Savoir-Faire</h2>
+		<p>Formé dans une agence web, avec des personnes au top de leur métier, c'est avec plaisir que je marche sur leur pas avec mon entrprise.</p>
+		<p>Je suis diplomée d'une licence et d'une formation complémentaire.</p>
+
+		<h2>Nos Valeurs</h2>
+		<p>À <span class="nameEntity">UnSitePourVous</span>, je croie en la qualité, la durabilité et le service clientèle exceptionnel. Chaque site que je fabrique est réalisée avec une attention méticuleuse aux détails.</p>
+
+		<h2>Notre Engagement</h2>
+		<p>Je m'efforce d'adopter des pratiques respectueuses de l'environnement dans tout ce que je mes en oeuvre, en minimisant notre empreinte écologique.</p>
+
+		<h2>Blog</h2>
+		<p>Quelque idée de réalisation !</p>
+		<a href="post">Voir les articles de la maison !</a>
+
+		<h2>Contactez-Nous</h2>
+		<p>Vous avez un projet en tête ? N'hésitez pas à nous contacter pour discuter de vos idées et obtenir un devis personnalisé. Chez <span class="nameEntity">UnSitePourVous</span>, nous sommes là pour transformer vos rêves en réalité.</p>
+		{% include "contact/form.twig" %}
+
+		<p>Merci de nous faire confiance pour vos projets sur mesure !</p>
+
+		<h2>Curriculum Vitae</h2>
+		{{dump(ASSET_PATH)}}
+		<a href={{ASSET_PATH ~ '/files/ton_fichier.pdf'}}>Cliquez ici pour voir le pdf</a>
+
+	</div>
+
+{% endblock %}

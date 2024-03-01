@@ -14,29 +14,13 @@ class User
     use IdTrait;
     use TimeTrait;
 
-    /**
-     * type="string", length=64
-     */
-    private $firstname;
-
-    /**
-     * type="string", length=64
-     */
-    private $lastname;
-
-    /**
-     * type="string", length=128
-     */
-    private $email;
-
-    /**
-     * type="string", length=128
-     */
-    private $password;
+    private ?string $firstname;
+    private ?string $lastname;
+    private ?string $email;
+    private ?string $password;
 
     public function __construct()
     {
-        
     }
 
     public function getFirstname(): ?string

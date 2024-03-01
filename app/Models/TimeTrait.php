@@ -12,40 +12,24 @@ trait TimeTrait
     protected $created_at;
     protected $updated_at;
 
-    /**
-     * Get the value of created_at
-     */ 
     public function getCreatedAt()
     {
         return $this->created_at;
     }
 
-    /**
-     * Set the value of created_at
-     *
-     * @return  self
-     */ 
-    public function setCreatedAt($created_at)
+    public function setCreatedAt($created_at) : self
     {
         $this->created_at = $created_at;
 
         return $this;
     }  
 
-    /**
-     * Get the value of updated_at
-     */ 
-    public function getUpdatedAt()
+    public function getUpdatedAt() : self
     {
         return $this->updated_at;
     }
 
-    /**
-     * Set the value of updated_at
-     *
-     * @return  self
-     */ 
-    public function setUpdatedAt($updated_at)
+    public function setUpdatedAt($updated_at) :self
     {
         $this->updated_at = $updated_at;
 

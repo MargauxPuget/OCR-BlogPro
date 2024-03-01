@@ -1,0 +1,19 @@
+.input {
+  margin: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.input label {
+  width: 30%;
+  text-align: end;
+}
+
+.input.input-textarea {
+  flex-direction: column;
+}
+
+.input.input-textarea label{
+  flex-direction: column;
+  text-align: start;
+}
