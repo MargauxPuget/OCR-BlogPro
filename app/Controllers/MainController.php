@@ -7,10 +7,9 @@ use MPuget\blog\Models\Post;
 use MPuget\blog\Models\User;
 use MPuget\blog\Models\TimeTrait;
 use MPuget\blog\Repository\UserRepository;
-use MPuget\blog\Controllers\CoreController;
 use MPuget\blog\Utils\Mail;
 
-class MainController extends CoreController
+class MainController
 {
     protected $userRepo;
     protected $twig;
@@ -32,7 +31,6 @@ class MainController extends CoreController
             'userList' => $userList
         ];
         echo $this->twig->getTwig()->render('home.twig', $viewData);
-       // $this->show('home', $viewData);
     }
 
     public function contactForm()
@@ -49,7 +47,6 @@ class MainController extends CoreController
         $mail = new Mail();
         $mail->sendMail();
         // echo $this->twig->getTwig()->render('home.twig', $viewData);
-       // $this->show('home', $viewData);
     }
 
 }

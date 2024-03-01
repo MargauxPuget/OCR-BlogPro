@@ -2,19 +2,21 @@
 
 namespace MPuget\blog\Controllers;
 
-use MPuget\blog\Controllers\CoreController;
+use MPuget\blog\twig\Twig;
 
-class ErrorController extends CoreController
+class ErrorController
 {
-    // une page = une méthode
+    protected $twig;
+
     public function error404()
     {
         var_dump('Errorcontroller :: error404');
+        $this->twig = new Twig();
+
         $viewData = [
-            'pageTitle' => 'Oshop - 404 Error'
+            'pageTitle' => 'OCR - Blog - 404 Error'
         ];
 
-        // on délègue l'affichage de nos vues à la méthode show()
-        $this->show('404', $viewData);
+        echo $this->twig->getTwig()->render('home.twig', $viewData);
     }
 }

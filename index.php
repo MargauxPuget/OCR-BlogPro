@@ -3,7 +3,6 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 // require de nos Controllers
-use MPuget\blog\Controllers\CoreController;
 use MPuget\blog\Controllers\MainController;
 use MPuget\blog\Controllers\ErrorController;
 

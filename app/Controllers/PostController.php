@@ -5,12 +5,11 @@ namespace MPuget\blog\Controllers;
 use MPuget\blog\twig\Twig;
 use MPuget\blog\Models\Post;
 use MPuget\blog\Models\TimeTrait;
-use MPuget\blog\Controllers\CoreController;
 use MPuget\blog\Repository\PostRepository;
 use MPuget\blog\Repository\UserRepository;
 use MPuget\blog\Repository\CommentRepository;
 
-class PostController extends CoreController
+class PostController
 {
     protected $postRepo;
     protected $userRepo;
@@ -36,7 +35,6 @@ class PostController extends CoreController
         //var_dump($viewData['postList']);
 
         echo $this->twig->getTwig()->render('post/home.twig', $viewData);
-        // $this->show('post/home', $viewData);
     }
 
     public function singlePost()
