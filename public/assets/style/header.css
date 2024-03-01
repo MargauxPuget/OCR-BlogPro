@@ -32,6 +32,9 @@ header {
   font-size: 18px;
 }
 
+.header_img {
+  object-fit: contain;
+}
 
 .header_title {
   display:flex;

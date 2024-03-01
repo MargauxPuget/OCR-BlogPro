@@ -2,6 +2,10 @@
 
 {% block content %}
 
+	{% if responseMail is not null %}
+		<span class="responseMail{{ responseMail ? '' : ' error'}}">{{ responseMail ? 'Votre mail est bien parti, je vous répond dans les meilleur delais !' : 'Il est probable que vous ayez oublié un champ / on que votre email ne soit pas valide !'}}</span>
+	{% endif %}
+
 	<h1>Bienvenue sur mon blog dédié à la création de site web ! </h1>
 
 	<div>
@@ -28,12 +32,12 @@
 		<p>Vous avez un projet en tête ? N'hésitez pas à nous contacter pour discuter de vos idées et obtenir un devis personnalisé. Chez <span class="nameEntity">UnSitePourVous</span>, nous sommes là pour transformer vos rêves en réalité.</p>
 		{% include "contact/form.twig" %}
 
-		<p>Merci de nous faire confiance pour vos projets sur mesure !</p>
+		<div class="download">
+				<p class="download_title">Curriculum Vitae</p>
+				{# {{dump(ASSET_PATH)}} #}
+				<p class="btn"><a href={{ASSET_PATH ~ '/files/ton_fichier.pdf'}}>Cliquez ici pour voir le pdf</a></p>
 
-		<h2>Curriculum Vitae</h2>
-		{{dump(ASSET_PATH)}}
-		<a href={{ASSET_PATH ~ '/files/ton_fichier.pdf'}}>Cliquez ici pour voir le pdf</a>
-
+		</div>
 	</div>
 
 {% endblock %}

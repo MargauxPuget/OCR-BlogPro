@@ -4,6 +4,9 @@
 @import 'footer.css';
 @import 'list.css';
 @import 'input.css';
+@import 'formContact.css';
+@import 'download.css';
+
 
 html {
   max-width: 80% ;

@@ -36,6 +36,18 @@ $router->generate('home');
 
 $router->map(
   'POST',
+  '', // l'URL de cette route
+  // target :
+  [
+      'action' => 'home', // méthode à appeler
+      'controller' => 'MPuget\blog\Controllers\MainController' // controller concerné
+  ],
+  'homePost' // le nom qu'on donne à notre route (pour $router->generate())
+);
+$router->generate('homePost');
+
+$router->map(
+  'POST',
   'homeContact', // l'URL de cette route
   // target :
   [

@@ -23,15 +23,30 @@ class MainController extends CoreController
     public function home()
     {
         var_dump('MainControler::home()');
+        $responseMail = null;
+        if($_POST) {
+            $mail = new Mail;
+            $result = $mail->sendMail($_POST);
+
+            if ($result) {
+                $result = true;
+            } else {
+                $result=false;
+            }
+
+            $responseMail = $result;
+        }
+
         $this->twig = new Twig();
        
         $userList = $this->userRepo->find(1);
         
         $viewData = [
             'pageTitle' => 'OCR - Blog - Accueil',
-            'userList' => $userList
+            'userList' => $userList,
+            'responseMail' => $responseMail
         ];
-        
+
         echo $this->twig->getTwig()->render('home.twig', $viewData);
        // $this->show('home', $viewData);
     }
