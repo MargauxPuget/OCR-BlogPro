@@ -19,11 +19,7 @@ $router = new AltoRouter();
 $publicFolder = dirname($_SERVER['SCRIPT_NAME']);
 $router->setBasePath($publicFolder);
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> main
 // On va ensuite pouvoir mapper nos routes
 $router->map(
     'GET',

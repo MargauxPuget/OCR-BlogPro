@@ -9,6 +9,7 @@ use MPuget\blog\Models\TimeTrait;
 use MPuget\blog\Repository\UserRepository;
 use MPuget\blog\Controllers\CoreController;
 use MPuget\blog\Utils\Mail;
+use MPuget\blog\Utils\Validations;
 
 class MainController extends CoreController
 {
@@ -24,17 +25,26 @@ class MainController extends CoreController
     {
         var_dump('MainControler::home()');
         $responseMail = null;
+        
         if($_POST) {
-            $mail = new Mail;
-            $result = $mail->sendMail($_POST);
 
-            if ($result) {
-                $result = true;
+            $isValidateData = Validations::validateDataMail($_POST);
+            var_dump('$isValidateData', $isValidateData);
+            if ($isValidateData) {
+                $mail = new Mail;
+                $result = $mail->sendMail($_POST);
+
+                if ($result) {
+                    $result = true;
+                } else {
+                    $result=false;
+                }
+                $responseMail = $result;
             } else {
-                $result=false;
+                $responseMail = false;
             }
-
-            $responseMail = $result;
+            var_dump('$responseMail', $responseMail);
+            
         }
 
         $this->twig = new Twig();

@@ -6,20 +6,12 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
-// require 'path/to/PHPMailer/src/Exception.php';
-// require 'path/to/PHPMailer/src/PHPMailer.php';
-// require 'path/to/PHPMailer/src/SMTP.php';
-
 class Mail {
 
+    // TODO pour pouvroi utiliser la fonction de amil il faut, lancer le conteneur docker de maildev (docker compose up -d on peut vérifier qu'il est up avec docker compose ps)
     public function sendMail (Array $data) : bool
     {
-        $result = $this->validateInformation($data);
-
-        if (!$result) {
-            return false;
-        }
-
+       var_dump($data);
         $transport = (new \Swift_SmtpTransport('172.18.0.2', 1025));
 
         // Create the Mailer using your created Transport
@@ -38,19 +30,5 @@ class Mail {
         return $result;
     }
 
-    private function validateInformation(Array $data) {
 
-        if (isset($data)){
-            if (
-                !isset($data['name'])
-                || !isset($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL)
-                || !isset($data['message'])
-            ) {
-                var_dump(false);
-                return false;
-            }
-            var_dump(true);
-            return true;
-        }
-    }
 }
