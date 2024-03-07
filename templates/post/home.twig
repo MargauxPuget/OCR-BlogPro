@@ -37,7 +37,7 @@
 
 <ul class="pagination">
     {% for i in 1..nbPage %}
-            <li class=""><a href="/posts/{{ i }}">{{ i }}</a></li>
+            <li class="{{pageActive == i ? 'pageActive': ''}}"><a href="/posts/{{ i }}">{{ i }}</a></li>
     {% endfor %}
 </ul>
 

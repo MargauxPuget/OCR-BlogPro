@@ -28,18 +28,20 @@ class PostController
         var_dump('PostControler->home()');
         $nbPost = $this->postRepo->nbAll();
         $nbPostPerPage = 5;
-        var_dump($params['page']);
+        $nbPage = ceil($nbPost/$nbPostPerPage);
+
+        if (!isset($params['page'])){
+            $params['page'] = 1;
+        }
+
         $postList = $this->postRepo->findAll($nbPostPerPage, $params['page']-1);
         
-        $nbPage = ceil($nbPost/$nbPostPerPage);
-        var_dump($nbPage);
-        var_dump(ceil($nbPage));
         $viewData = [
             'pageTitle'     => 'OCR - Blog - Post',
             'postList'      => $postList,
-            'nbPage'        => $nbPage
+            'nbPage'        => $nbPage,
+            'pageActive'    => $params['page']
         ];
-        //var_dump($viewData['postList']);
 
         echo $this->twig->getTwig()->render('post/home.twig', $viewData);
     }

@@ -74,6 +74,19 @@ $router->generate('postHome');
 
 $router->map(
   'GET',
+  'posts',
+  // target :
+  [
+      'action' => 'home',
+      'controller' => 'MPuget\blog\Controllers\PostController'
+  ],
+  'postHomeSimple'
+);
+$router->generate('postHomeSimple');
+
+
+$router->map(
+  'GET',
   'post/[i:id_post]',
   // target :
   [
@@ -85,6 +98,7 @@ $router->map(
 $router->generate('singlePost');
 
 $match = $router->match();
+
 
 //* -----------------------------------------------------
 //*                     Dispatcher

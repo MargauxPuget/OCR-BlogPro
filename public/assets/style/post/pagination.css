@@ -10,3 +10,7 @@
   padding: 4px;
   border-radius: 100%;
 }
+
+.pageActive {
+  background-color: rgb(250, 215, 215);
+}
