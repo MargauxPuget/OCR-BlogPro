@@ -15,7 +15,7 @@ class Twig
             'debug' => true,
         ]);
         //$this->twig->addGlobal('session', unserialize($_SESSION['user']));
-        $this->twig->addGlobal('ASSET_PATH', "./app/assets");
+        $this->twig->addGlobal('ASSET_PATH', "./public/assets");
 
         $this->twig->addExtension(new \Twig\Extension\DebugExtension());
         //$this->twig->addExtension(new \App\Libs\twigFiltersExtensions());

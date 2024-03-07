@@ -1,0 +1,30 @@
+.formContact {
+  background-color: rgb(233, 253, 143);
+  margin: 20px 0;
+  padding: 20px 0;
+  
+}
+
+.form {
+  margin: auto;
+}
+
+@media screen and (min-width: 900px) {
+  .form {
+    width: 60%;
+
+  }
+}
+
+.responseMail{
+  color: green;
+  font-weight: 600;
+  
+  display: flex;
+  justify-content: center;
+  margin: 5px;
+}
+
+.responseMail.error{
+  color: red;
+}

@@ -1,21 +1,20 @@
-<div style="form">
-    <form action="/homeContact" method="post">
+<div class="formContact">
+    <form class="form" action="" method="POST">
         <div class="input input-text">
-            <label for="body">Nom et prénom</label>
-            <input type="text" name="body"></input>
+            <label for="name">Nom et prénom</label>
+            <input type="text" name="name"></input>
         </div>
 
         <div class="input input-email">
-            <label for="body">Email</label>
-            <input type="email" name="body"></input>
+            <label for="email">Email</label>
+            <input type="email" name="email"></input>
         </div>
 
         <div class="input input-textarea">
-            <label for="body">Message</label>
-            <textarea name="body"></textarea>
+            <label for="message">Message</label>
+            <textarea name="message"></textarea>
         </div>
 		
-    	<input hidden type="number" name="postId" value="<?= $viewData['post']->getId() ?>">
-    <button class="btn btn--add btn--form" type="submit">gggg</button>
+    <button class="btn btn--add btn--form" type="submit">Envoyer !</button>
     </form>
 </div>

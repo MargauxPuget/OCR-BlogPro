@@ -6,6 +6,8 @@
 @import 'utility/list.css';
 @import 'utility/input.css';
 @import 'post/post.css';
+@import 'formContact.css';
+@import 'download.css';
 
 html {
   max-width: 80% ;
@@ -14,6 +16,5 @@ html {
 }
 
 .border {
-
   border: 1px solid red;
 }
