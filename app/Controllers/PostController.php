@@ -23,14 +23,21 @@ class PostController
         $this->commentRepo = new CommentRepository();
     }
 
-    public function home()
+    public function home($params)
     {
         var_dump('PostControler->home()');
-        $postList = $this->postRepo->findAll();
+        $nbPost = $this->postRepo->nbAll();
+        $nbPostPerPage = 5;
+        var_dump($params['page']);
+        $postList = $this->postRepo->findAll($nbPostPerPage, $params['page']-1);
         
+        $nbPage = ceil($nbPost/$nbPostPerPage);
+        var_dump($nbPage);
+        var_dump(ceil($nbPage));
         $viewData = [
-            'pageTitle' => 'OCR - Blog - Post',
-            'postList' => $postList
+            'pageTitle'     => 'OCR - Blog - Post',
+            'postList'      => $postList,
+            'nbPage'        => $nbPage
         ];
         //var_dump($viewData['postList']);
 

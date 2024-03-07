@@ -61,8 +61,8 @@ $router->generate('contactForm');
 //* --------------------------
 
 $router->map(
-  'get',
-  'post',
+  'GET',
+  'posts/[i:page]',
   // target :
   [
       'action' => 'home',

@@ -2,6 +2,7 @@
 
 namespace MPuget\blog\Repository;
 
+use PDO;
 use MPuget\blog\Models\Post;
 use MPuget\blog\Models\User;
 use MPuget\blog\Utils\Database;
@@ -39,9 +40,29 @@ class PostRepository extends AbstractRepository
         return $post;
     }
 
-    public function findAll() : Array
+    public function nbAll() : Int
     {
-        $pdoStatement = $this->pdo->prepare('SELECT id FROM `post`');
+        $pdoStatement = $this->pdo->prepare('SELECT COUNT(*) FROM `post`');
+        $pdoStatement->execute();
+        $nbPost = $pdoStatement->fetch();
+
+        return intval($nbPost['COUNT(*)']);
+    }
+
+    public function findAll(int $nb=0, int $page=0) : Array
+    {
+        if ($nb === 0) {
+            $pdoStatement = $this->pdo->prepare('SELECT id FROM `post`');
+        } else {
+            $pdoStatement = $this->pdo->prepare("
+                SELECT id
+                FROM `post`
+                LIMIT :nb OFFSET :offSet
+            ");
+            $pdoStatement->bindValue(':nb', $nb, PDO::PARAM_INT);
+            $pdoStatement->bindValue(':offSet', $page*$nb, PDO::PARAM_INT);
+        }
+
         $pdoStatement->execute();
         $postList = $pdoStatement->fetchAll();
         $posts = [];
