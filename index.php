@@ -19,6 +19,7 @@ $router = new AltoRouter();
 $publicFolder = dirname($_SERVER['SCRIPT_NAME']);
 $router->setBasePath($publicFolder);
 
+
 // On va ensuite pouvoir mapper nos routes
 $router->map(
     'GET',
@@ -31,6 +32,30 @@ $router->map(
     'home' // le nom qu'on donne à notre route (pour $router->generate())
 );
 $router->generate('home');
+
+$router->map(
+  'POST',
+  '', // l'URL de cette route
+  // target :
+  [
+      'action' => 'home', // méthode à appeler
+      'controller' => 'MPuget\blog\Controllers\MainController' // controller concerné
+  ],
+  'homePost' // le nom qu'on donne à notre route (pour $router->generate())
+);
+$router->generate('homePost');
+
+$router->map(
+  'POST',
+  'homeContact', // l'URL de cette route
+  // target :
+  [
+      'action' => 'contactForm', // méthode à appeler
+      'controller' => 'MPuget\blog\Controllers\MainController' // controller concerné
+  ],
+  'contactForm' // le nom qu'on donne à notre route (pour $router->generate())
+);
+$router->generate('contactForm');
 
 
 $match = $router->match();

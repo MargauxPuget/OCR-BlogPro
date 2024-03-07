@@ -9,6 +9,7 @@ use MPuget\blog\Models\TimeTrait;
 use MPuget\blog\Repository\UserRepository;
 use MPuget\blog\Controllers\CoreController;
 use MPuget\blog\Utils\Mail;
+use MPuget\blog\Utils\Validations;
 
 class MainController extends CoreController
 {
@@ -23,16 +24,29 @@ class MainController extends CoreController
     public function home()
     {
         var_dump('MainControler::home()');
+        $responseMail = null;
+        
+        if($_POST) {
+
+            $isValidateData = Validations::validateDataMail($_POST);
+            if ($isValidateData) {
+                $mail = new Mail;
+                $responseMail = $mail->sendMail($_POST);
+            } else {
+                $responseMail = false;
+            }
+        }
+
         $this->twig = new Twig();
        
         $userList = $this->userRepo->find(1);
         
         $viewData = [
             'pageTitle' => 'OCR - Blog - Accueil',
-            'userList' => $userList
+            'userList' => $userList,
+            'responseMail' => $responseMail
         ];
         echo $this->twig->getTwig()->render('home.twig', $viewData);
-       // $this->show('home', $viewData);
     }
 
     public function contactForm()
@@ -49,7 +63,5 @@ class MainController extends CoreController
         $mail = new Mail();
         $mail->sendMail();
         // echo $this->twig->getTwig()->render('home.twig', $viewData);
-       // $this->show('home', $viewData);
     }
-
 }
