@@ -29,7 +29,6 @@ class MainController extends CoreController
         if($_POST) {
 
             $isValidateData = Validations::validateDataMail($_POST);
-            var_dump('$isValidateData', $isValidateData);
             if ($isValidateData) {
                 $mail = new Mail;
                 $result = $mail->sendMail($_POST);
@@ -43,8 +42,6 @@ class MainController extends CoreController
             } else {
                 $responseMail = false;
             }
-            var_dump('$responseMail', $responseMail);
-            
         }
 
         $this->twig = new Twig();
@@ -57,7 +54,6 @@ class MainController extends CoreController
             'responseMail' => $responseMail
         ];
         echo $this->twig->getTwig()->render('home.twig', $viewData);
-       // $this->show('home', $viewData);
     }
 
     public function contactForm()
@@ -74,7 +70,5 @@ class MainController extends CoreController
         $mail = new Mail();
         $mail->sendMail();
         // echo $this->twig->getTwig()->render('home.twig', $viewData);
-       // $this->show('home', $viewData);
     }
-
 }

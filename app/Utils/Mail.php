@@ -8,7 +8,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class Mail {
 
-    // TODO pour pouvroi utiliser la fonction de amil il faut, lancer le conteneur docker de maildev (docker compose up -d on peut vérifier qu'il est up avec docker compose ps)
+    // pour pouvoir utiliser la fonction de amil il faut, lancer le conteneur docker de maildev (docker compose up -d on peut vérifier qu'il est up avec docker compose ps)
     public function sendMail (Array $data) : bool
     {
        var_dump($data);
@@ -29,6 +29,4 @@ class Mail {
         
         return $result;
     }
-
-
 }
