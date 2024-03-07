@@ -31,14 +31,7 @@ class MainController extends CoreController
             $isValidateData = Validations::validateDataMail($_POST);
             if ($isValidateData) {
                 $mail = new Mail;
-                $result = $mail->sendMail($_POST);
-
-                if ($result) {
-                    $result = true;
-                } else {
-                    $result=false;
-                }
-                $responseMail = $result;
+                $responseMail = $mail->sendMail($_POST);
             } else {
                 $responseMail = false;
             }
