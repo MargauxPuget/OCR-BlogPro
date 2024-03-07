@@ -12,3 +12,7 @@
 .post_img {
   height: 30px;
 }
+
+.post_autor {
+  text-align: end;
+}

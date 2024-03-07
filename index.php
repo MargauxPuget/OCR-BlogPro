@@ -56,9 +56,9 @@ $router->map(
 $router->generate('contactForm');
 
 
-//*--------------------------
+//* --------------------------
 //*   Post
-//*--------------------------
+//* --------------------------
 
 $router->map(
   'get',
@@ -77,12 +77,12 @@ $router->map(
   'post/[i:id_post]',
   // target :
   [
-      'action' => 'post',
+      'action' => 'singlePost',
       'controller' => 'MPuget\blog\Controllers\PostController'
   ],
-  'post'
+  'singlePost'
 );
-$router->generate('post');
+$router->generate('singlePost');
 
 $match = $router->match();
 

@@ -16,6 +16,7 @@ class User
 
     private ?string $firstname;
     private ?string $lastname;
+    private ?string $name;
     private ?string $email;
     private ?string $password;
 
@@ -47,9 +48,16 @@ class User
         return $this;
     }
 
-    public function getname(): ?string
+    public function getName(): ?string
     {
         return $this->firstname . ' ' . $this->lastname;
+    }
+
+    public function setName(): self
+    {
+        $this->name = $this->firstname . ' ' . $this->lastname;
+
+        return $this;
     }
 
     public function getEmail(): ?string

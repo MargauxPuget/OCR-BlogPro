@@ -8,7 +8,7 @@ use MPuget\blog\Utils\Database;
 
 class UserRepository extends AbstractRepository
 {
-    public function findAll(): ?User
+    public function findAll(): Array
     {
         $pdoStatement = $this->pdo->prepare('SELECT id FROM `user`');
         $pdoStatement->execute();
@@ -39,6 +39,7 @@ class UserRepository extends AbstractRepository
             $user->setId($result->id);
             $user->setFirstname($result->firstname);
             $user->setLastname($result->lastname);
+            $user->setName();
             $user->setEmail($result->email);
             $user->setPassword($result->password);
             $user->setCreatedAt($result->created_at);

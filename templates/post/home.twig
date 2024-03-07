@@ -16,24 +16,21 @@
         <li class="post">
             <div>
                 <h3 class="post_title"><img class="post_img" src="../../public/assets/images/article.png" alt="logo" />{{ post.title }}</h3>
-                <p>{{ post.body }}</p>
-                <p>{{ post.user.name }}</p>
+                <p>{{ post.chapo }}</p>
+                <p class="post_autor">{{ post.user.name }}</p>
                 <p>{{ post.updated_at is not empty ? post.updated_at : post.createdAt }}</p>
             </div>
-            <div style="display:flex;">
-                <form style="margin:10px;" action="/singlePost" method="post">
-                    <input hidden type="number" name="identifiant" value="{{ post.id}}">
-                    <button class="btn btn--add" type="submit">Voir</button>
-                </form>
-                <form style="margin:10px;" action="/formPost" method="post">
+            <ul style="display:flex;">
+                <li class="btn btn--add"> <a href="/post/{{ post.id }}">Voir</a></li>
+                <form action="/formPost" method="post">
                     <input hidden type="number" name="identifiant" value="{{ post.id}}">
                     <button class="btn btn--update" type="submit">Modifier</button>
                 </form>
-                 <form style="margin:10px;" action="/deletePost" method="post">
+                 <form action="/deletePost" method="post">
                     <input hidden type="number" name="identifiant" value="{{ post.id}}">
                     <button class="btn btn--delete" type="submit">Supprimer</button>
                 </form>
-            </div>
+            </ul>
         </li>
     {% endfor %}	
 </ul>

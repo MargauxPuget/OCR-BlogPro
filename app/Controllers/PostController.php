@@ -37,8 +37,19 @@ class PostController
         echo $this->twig->getTwig()->render('post/home.twig', $viewData);
     }
 
-    public function singlePost()
+    public function singlePost($params)
     {
+        var_dump("PostController->singlePost()");
+
+        $postId = $params['id_post'];
+        $post = $this->postRepo->find($postId);
+
+        $viewData = [
+            'pageTitle'     => 'OCR - Blog - post',
+            'post'          => $post,
+        ];
+
+        echo $this->twig->getTwig()->render('post/post.twig', $viewData);
     }
     
     public function formPost()

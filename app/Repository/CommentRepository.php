@@ -16,22 +16,18 @@ class CommentRepository extends AbstractRepository
     {
         $id = intval($id);
 
-        var_dump($id);
         $pdoStatement = $this->pdo->prepare('SELECT * FROM `comment` WHERE id = :id');
         $pdoStatement->execute([
             'id' => $id,
         ]);
         $result = $pdoStatement->fetchObject();
 
-        
         $comment = new Comment();
         if (!empty($result)) {
-
             $userRepo = new UserRepository();
             $userId = $result->user_id;
             $user = $userRepo->find($userId);
             $result->user = $user;
-
 
             $postRepo = new postRepository();
             $postId = $result->post_id;
@@ -86,7 +82,7 @@ class CommentRepository extends AbstractRepository
         var_dump("CommentRepository->addComment()");
 
         $newComment = $_POST;
-        var_dump($_POST);
+
         if (
 			!isset($newComment['body'])
 			|| !isset($newComment['userId'])

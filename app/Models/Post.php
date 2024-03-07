@@ -17,6 +17,7 @@ class Post
     use TimeTrait;
 
     private ?string $title;
+    private ?string $chapo;
     private ?string $body;
     private User $user;
 
@@ -33,6 +34,18 @@ class Post
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getChapo(): ?string
+    {
+        return $this->chapo;
+    }
+
+    public function setChapo(string $chapo): self
+    {
+        $this->chapo = $chapo;
 
         return $this;
     }
@@ -60,5 +73,4 @@ class Post
 
         return $this;
     }
-
 }
