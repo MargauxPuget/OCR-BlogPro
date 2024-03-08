@@ -1,0 +1,19 @@
+.post{
+  border:1px solid black;
+  margin:5px;
+  padding: 0px 20px;
+}
+
+.post_title {
+  display: flex;
+  align-items: center;
+}
+
+.post_img {
+  height: 30px;
+}
+
+.post_author {
+  text-align: end;
+  margin: 8px 0;
+}

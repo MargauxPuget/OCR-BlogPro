@@ -9,3 +9,10 @@ h2 {
   font-weight: 500;
   margin-top:20px;
 }
+
+h3 {
+  font-size: medium;
+  text-decoration: underline;
+  font-weight: 600;
+  margin: 20px 0 ;
+}

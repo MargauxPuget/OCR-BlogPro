@@ -2,6 +2,7 @@
 
 namespace MPuget\blog\Repository;
 
+use PDO;
 use MPuget\blog\Models\Post;
 use MPuget\blog\Models\User;
 use MPuget\blog\Utils\Database;
@@ -29,6 +30,7 @@ class PostRepository extends AbstractRepository
 
             $post->setId($result->id);
             $post->setTitle($result->title);
+            $post->setChapo($result->chapo);
             $post->setBody($result->body);
             $post->setUser($result->user);
             $post->setCreatedAt($result->created_at);
@@ -38,9 +40,29 @@ class PostRepository extends AbstractRepository
         return $post;
     }
 
-    public function findAll() : Post
+    public function nbAll() : Int
     {
-        $pdoStatement = $this->pdo->prepare('SELECT id FROM `post`');
+        $pdoStatement = $this->pdo->prepare('SELECT COUNT(*) FROM `post`');
+        $pdoStatement->execute();
+        $nbPost = $pdoStatement->fetch();
+
+        return intval($nbPost['COUNT(*)']);
+    }
+
+    public function findAll(int $nb=0, int $page=0) : Array
+    {
+        if ($nb === 0) {
+            $pdoStatement = $this->pdo->prepare('SELECT id FROM `post`');
+        } else {
+            $pdoStatement = $this->pdo->prepare("
+                SELECT id
+                FROM `post`
+                LIMIT :nb OFFSET :offSet
+            ");
+            $pdoStatement->bindValue(':nb', $nb, PDO::PARAM_INT);
+            $pdoStatement->bindValue(':offSet', $page*$nb, PDO::PARAM_INT);
+        }
+
         $pdoStatement->execute();
         $postList = $pdoStatement->fetchAll();
         $posts = [];
@@ -56,10 +78,11 @@ class PostRepository extends AbstractRepository
         var_dump("PostRepository->addPost()");
 
 
-        $pdoStatement = $this->pdo->prepare("INSERT INTO post (title, body, user_id)
-        VALUES (:title, :body, :userId)");
+        $pdoStatement = $this->pdo->prepare("INSERT INTO post (title, chapo, body, user_id)
+        VALUES (:title, :chapo, :body, :userId)");
         $pdoStatement->execute([
             'title'     => $post->getTitle(),
+            'chapo'      => $post->getChapo(),
             'body'      => $post->getBody(),
             'userId'    => $post->getUser()->getId(),
         ]);
@@ -75,12 +98,13 @@ class PostRepository extends AbstractRepository
     {
         var_dump("PostRepository->updatePost()");
 
-        $sql = "UPDATE post SET title=:title, body=:body, user_id=:userId, updated_at=:updatedAt
+        $sql = "UPDATE post SET title=:title, chapo=:chapo, body=:body, user_id=:userId, updated_at=:updatedAt
         WHERE id=:id";
         $pdoStatement = $this->pdo->prepare($sql);
         $pdoStatement->execute([
             'id'        => $post->getId(),
             'title'     => (isset($updatePost['title'])) ? $updatePost['title'] : $post->getTitle(),
+            'chapo'      => (isset($updatePost['chapo'])) ? $updatePost['chapo'] : $post->getChapo(),
             'body'      => (isset($updatePost['body'])) ? $updatePost['body'] : $post->getBody(),
             'userId'    => (isset($updatePost['userId'])) ? $updatePost['userId'] : $post->getUser()->getId(),
             'updatedAt' => $post->setUpdatedAt(date('Y-m-d H:i:s'))->getUpdatedAt()

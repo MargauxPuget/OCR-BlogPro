@@ -1,0 +1,16 @@
+.pagination {
+  display: flex;
+  margin: 10px 0;
+  justify-content: center;
+  gap: 10px;
+}
+
+.pagination li{
+  border: solid 1px rgb(77, 76, 76);
+  padding: 4px;
+  border-radius: 100%;
+}
+
+.pageActive {
+  background-color: rgb(250, 215, 215);
+}

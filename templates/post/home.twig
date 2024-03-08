@@ -1,0 +1,44 @@
+
+{% extends "base.twig" %}
+
+{% block content %}
+
+{# {{ dump(postList) }} #}
+<h2>HoMe POST : CRUD utilisateur</h2>
+
+<form class="btn" action="/formPost" method="post">
+    <button class="btn btn--add" type="submit">Ajouter</button>
+</form>
+
+<ul class="">
+
+    {% for post in postList %}
+    <li class="post">
+        <div>
+            <h3 class="post_title"><img class="post_img" src="../../public/assets/images/article.png" alt="logo" />{{ post.title }}</h3>
+            <p>{{ post.chapo }}</p>
+            <p class="post_author">{{ post.user.name }}</p>
+            <p>{{ post.updated_at is not empty ? post.updated_at : post.createdAt }}</p>
+        </div>
+        <ul style="display:flex;">
+            <li class="btn btn--add"> <a href="/post/{{ post.id }}">Voir</a></li>
+            <form action="/formPost" method="post">
+                <input hidden type="number" name="identifiant" value="{{ post.id}}">
+                <button class="btn btn--update" type="submit">Modifier</button>
+            </form>
+                <form action="/deletePost" method="post">
+                <input hidden type="number" name="identifiant" value="{{ post.id}}">
+                <button class="btn btn--delete" type="submit">Supprimer</button>
+            </form>
+        </ul>
+    </li>
+    {% endfor %}	
+</ul>
+
+<ul class="pagination">
+    {% for i in 1..nbPage %}
+            <li class="{{pageActive == i ? 'pageActive': ''}}"><a href="/posts/{{ i }}">{{ i }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

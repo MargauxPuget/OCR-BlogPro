@@ -1,9 +1,7 @@
 <?php
-
 require_once __DIR__ . '/vendor/autoload.php';
 
 // require de nos Controllers
-use MPuget\blog\Controllers\CoreController;
 use MPuget\blog\Controllers\MainController;
 use MPuget\blog\Controllers\ErrorController;
 
@@ -58,7 +56,49 @@ $router->map(
 $router->generate('contactForm');
 
 
+//* --------------------------
+//*   Post
+//* --------------------------
+
+$router->map(
+  'GET',
+  'posts/[i:page]',
+  // target :
+  [
+      'action' => 'home',
+      'controller' => 'MPuget\blog\Controllers\PostController'
+  ],
+  'postHome'
+);
+$router->generate('postHome');
+
+$router->map(
+  'GET',
+  'posts',
+  // target :
+  [
+      'action' => 'home',
+      'controller' => 'MPuget\blog\Controllers\PostController'
+  ],
+  'postHomeSimple'
+);
+$router->generate('postHomeSimple');
+
+
+$router->map(
+  'GET',
+  'post/[i:id_post]',
+  // target :
+  [
+      'action' => 'singlePost',
+      'controller' => 'MPuget\blog\Controllers\PostController'
+  ],
+  'singlePost'
+);
+$router->generate('singlePost');
+
 $match = $router->match();
+
 
 //* -----------------------------------------------------
 //*                     Dispatcher

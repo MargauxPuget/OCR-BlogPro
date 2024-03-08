@@ -7,11 +7,10 @@ use MPuget\blog\Models\Post;
 use MPuget\blog\Models\User;
 use MPuget\blog\Models\TimeTrait;
 use MPuget\blog\Repository\UserRepository;
-use MPuget\blog\Controllers\CoreController;
 use MPuget\blog\Utils\Mail;
 use MPuget\blog\Utils\Validations;
 
-class MainController extends CoreController
+class MainController
 {
     protected $userRepo;
     protected $twig;
