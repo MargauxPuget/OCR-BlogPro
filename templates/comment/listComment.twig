@@ -1,0 +1,28 @@
+{# {{ dump(commentlist) }} #}
+
+{% if commentlist is not empty %}
+<div class="commentlist" style="margin:10px">
+
+    <h3 class="commentlist_title" style="color:blue;">Commentaires</h3>
+
+	{% for comment in commentlist %}
+		
+    <div style="border-top:2px solid gray;padding:5px;display:flex;">
+
+        <div>
+            <p style="color:black;">{{ comment.body }}</p>
+            <span>{{ comment.updated_at is not empty ? comment.updated_at : comment.createdAt|date("l d F à G\\hi") }}</span>
+            <span style="color:gray;">{{ comment.user.name }}</span>
+        </div>
+
+			<a href="#" target="blanck"><img class="" src="../../public/assets/images/poubelle.png" alt="insta" /></a>
+        <form style="margin:10px;" action="/deleteComment" method="post">
+            <input hidden type="number" name="identifiant" value="<?= $comment->getId() ?>">
+            <button class="btn btn--delete" type="submit">Supprimer</button>
+        </form>
+    </div>
+	{% endfor %}
+</div>
+{% else %}
+<p>Il n'y a pas encore de commentaires, Commentez !! ;)</p>
+{% endif %}

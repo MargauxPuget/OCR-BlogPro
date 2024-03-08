@@ -53,9 +53,12 @@ class PostController
         $postId = $params['id_post'];
         $post = $this->postRepo->find($postId);
 
+        $commentlist = $this->commentRepo->findAllforOnePost($post);
+
         $viewData = [
             'pageTitle'     => 'OCR - Blog - post',
             'post'          => $post,
+            'commentlist'   => $commentlist,
         ];
 
         echo $this->twig->getTwig()->render('post/post.twig', $viewData);

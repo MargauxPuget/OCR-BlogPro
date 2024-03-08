@@ -13,6 +13,11 @@
   height: 30px;
 }
 
+.post_date {
+  padding: 0 0 10px 30px;
+  display: block;
+}
+
 .post_author {
   text-align: end;
   margin: 8px 0;
