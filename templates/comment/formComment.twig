@@ -1,0 +1,24 @@
+<div style="border:1px solid black;margin-top:10px;padding:10px;">
+    <h3 class="">Ajouter un nouveau commentaire !</h3>
+
+    <form action="/post/{{ post.id }}/addComment" method="post">
+        <div>
+            <label for="body">Message</label>
+            <textarea name="body" placeholder="Votre commentaire ..."></textarea>
+        </div>
+        <div>
+            <label for="user">Choisissez un utilisateur : </label>
+
+            <select name="userId" id="user">
+                <option value="">-- Choisiez un utilisateur / auteur --</option>
+
+                {% for user in userList %}
+				
+					<option value="{{ user.id }}">{{ user.name }}</option>
+				{% endfor %}
+            </select>
+        </div>
+		
+	    <button class="btn btn--add" type="submit">Commenter !</button>
+    </form>
+</div>

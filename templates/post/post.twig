@@ -7,7 +7,7 @@
 	<p>{{ post.body }}</p>
 	<p class="post_author">{{ post.user.name }}</p>
 
+	{% include 'comment/formComment.twig' %}
 	{% include 'comment/listComment.twig' %}
-
 
 {% endblock %}

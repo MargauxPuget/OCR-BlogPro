@@ -3,6 +3,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 // require de nos Controllers
 use MPuget\blog\Controllers\MainController;
+use MPuget\blog\Controllers\PostController;
+use MPuget\blog\Controllers\CommentController;
 use MPuget\blog\Controllers\ErrorController;
 
 //* -----------------------------------------------------
@@ -16,7 +18,6 @@ $router = new AltoRouter();
 // comparaison entre l'URL demandée par le visiteur (exemple /categoy/1) et l'URL de notre route
 $publicFolder = dirname($_SERVER['SCRIPT_NAME']);
 $router->setBasePath($publicFolder);
-
 
 // On va ensuite pouvoir mapper nos routes
 $router->map(
@@ -96,6 +97,43 @@ $router->map(
   'singlePost'
 );
 $router->generate('singlePost');
+
+
+
+
+//*--------------------------
+//*   Comment
+//*--------------------------
+
+$router->map(
+  'POST',
+  'post/[i:id_post]/addComment',
+  // target :
+  [
+      'action' => 'addComment',
+      'controller' => 'MPuget\blog\Controllers\PostController'
+  ],
+  'addComment'
+);
+$router->generate('addComment');
+
+
+$router->map(
+  'GET',
+  'comment',
+  // target :
+  [
+      'action' => 'deleteComment',
+      'controller' => 'MPuget\blog\Controllers\CommentController'
+  ],
+  'commentDelete'
+);
+$router->generate('commentDelete');
+
+
+
+
+
 
 $match = $router->match();
 

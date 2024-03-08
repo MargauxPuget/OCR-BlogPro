@@ -4,6 +4,7 @@ namespace MPuget\blog\Controllers;
 
 use MPuget\blog\twig\Twig;
 use MPuget\blog\Models\Post;
+use MPuget\blog\Models\Comment;
 use MPuget\blog\Models\TimeTrait;
 use MPuget\blog\Repository\PostRepository;
 use MPuget\blog\Repository\UserRepository;
@@ -53,12 +54,14 @@ class PostController
         $postId = $params['id_post'];
         $post = $this->postRepo->find($postId);
 
-        $commentlist = $this->commentRepo->findAllforOnePost($post);
+        $commentList = $this->commentRepo->findAllforOnePost($post);
+        $userList = $this->userRepo->findAll();
 
         $viewData = [
             'pageTitle'     => 'OCR - Blog - post',
             'post'          => $post,
-            'commentlist'   => $commentlist,
+            'commentList'   => $commentList,
+            'userList'      => $userList
         ];
 
         echo $this->twig->getTwig()->render('post/post.twig', $viewData);
@@ -78,6 +81,36 @@ class PostController
 
     public function deletePost()
     {
+    }
+
+    // ----------- //
+    //   Comment   //
+    // ----------- //
+
+    public function addComment($params)
+    {
+        var_dump("PostController->addComment()");
+
+        if (
+            !isset($_Post['body'])
+            || !isset($_Post['userId'])
+        ) {
+            echo('Il faut un message et un utilisateur valide pour soumettre le formulaire.');
+            return;
+        }
+
+        $comment = new Comment();
+        $user = $this->userRepo->find($_Post['userId']);
+        $post = $this->postRepo->find($params['id_post']);
+
+        $comment->setBody($_Post['body']);
+        $comment->setUser($user);
+        $comment->setPost($post);
+        $comment->setCreatedAt(date('Y-m-d H:i:s'));
+
+        $comment = $this->commentRepo->addComment($comment);
+
+        $this->singlePost($params);
     }
 
 }
