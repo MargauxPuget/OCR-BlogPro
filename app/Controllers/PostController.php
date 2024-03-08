@@ -110,6 +110,7 @@ class PostController
 
         $comment = $this->commentRepo->addComment($comment);
 
+        // TODO Benoit je sais pas si j'ai le droit de faire ça ? 
         $this->singlePost($params);
     }
 
