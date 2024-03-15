@@ -49,8 +49,6 @@ class UserRepository extends AbstractRepository
 
     public function addUser(User $user): ?User
     {
-        var_dump("UserRepository->addUser()");
-
         $sql = "INSERT INTO user (firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)";
         $pdoStatement = $this->pdo->prepare($sql);
         $pdoStatement->execute([
@@ -70,8 +68,6 @@ class UserRepository extends AbstractRepository
     // TODO elle ne retrun vraiment rien ????
     public function updateUser(User $user)
     {
-        var_dump("UserRepository->updateUser()");
-
         $sql = "UPDATE user SET firstname=:firstname, lastname=:lastname, email=:email, password=:password, updated_at=:updatedAt
         WHERE id=:id";
         $pdoStatement = $this->pdo->prepare($sql);
@@ -89,8 +85,6 @@ class UserRepository extends AbstractRepository
     // TODO elle ne retrun vraiment rien ????
     public function deleteUser(User $user)
     {
-        var_dump("UserRepository->deleteUser()");
-
         $id = $user->getid();
 
         $sql = "DELETE FROM `user` WHERE id = ( :id) ";

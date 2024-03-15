@@ -26,7 +26,6 @@ class PostController
 
     public function home($params)
     {
-        var_dump('PostControler->home()');
         $nbPost = $this->postRepo->nbAll();
         $nbPostPerPage = 5;
         $nbPage = ceil($nbPost/$nbPostPerPage);
@@ -49,8 +48,6 @@ class PostController
 
     public function singlePost($params)
     {
-        var_dump("PostController->singlePost()");
-
         $postId = $params['postId'];
         $post = $this->postRepo->find($postId);
 
@@ -89,8 +86,6 @@ class PostController
 
     public function addComment($params)
     {
-        var_dump("PostController->addComment()");
-var_dump($_POST);
         if (
             !isset($_POST['body'])
             || !isset($_POST['userId'])
@@ -116,8 +111,6 @@ var_dump($_POST);
 
     public function deleteComment($params)
     {
-        var_dump("PostController->deleteComment()");
-
         if (!isset($params['commentId']) && !is_int($params['commentId'])) {
             echo("Il faut l'identifiant d'un commentaire.");
             return false;

@@ -80,8 +80,6 @@ class CommentRepository extends AbstractRepository
 
     public function addComment($comment)
     {
-        var_dump("CommentRepository->addComment()");
-
         $pdoStatement = $this->pdo->prepare("INSERT INTO comment (body, user_id, post_id)
         VALUES (:body, :userId, :postId)");
         $pdoStatement->execute([
@@ -100,14 +98,10 @@ class CommentRepository extends AbstractRepository
 
     public function updateComment(Comment $comment)
     {
-        var_dump("CommentRepository->updateComment()");
-       
     }
 
     public function deleteComment(Comment $comment) : bool
     {
-        var_dump("CommentRepository->deleteComment()");
-
         $sql = "DELETE FROM `comment` WHERE id = ( :id) ";
         $pdoStatement = $this->pdo->prepare($sql);
         $pdoStatement->execute([

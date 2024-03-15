@@ -10,7 +10,6 @@ class ErrorController
 
     public function error404()
     {
-        var_dump('ErrorController :: error404');
         $this->twig = new Twig();
 
         $viewData = [

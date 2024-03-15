@@ -1,5 +1,5 @@
 .download {
-  border: solid red 1px;
+  border: solid rgb(182, 182, 182) 1px;
   margin: 10px auto;
   padding: 10px 20px 0 20px ;
   width: fit-content;
@@ -7,7 +7,6 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  border: rgb(98, 153, 236) solid 1px;
   border-radius: 40px;
 }
 
