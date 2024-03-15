@@ -90,7 +90,6 @@ class PostRepository extends AbstractRepository
         return $post;
     }
 
-    // TODO elle ne retrun vraiment rien ????
     public function updatePost(Post $post)
     {
         $sql = "UPDATE post SET title=:title, chapo=:chapo, body=:body, user_id=:userId, updated_at=:updatedAt

@@ -105,8 +105,7 @@ class PostController
 
         $comment = $this->commentRepo->addComment($comment);
 
-        // TODO Benoit je sais pas si j'ai le droit de faire ça ? 
-        $this->singlePost($params);
+        header('Location: /post/' . $params['postId']);
     }
 
     public function deleteComment($params)
@@ -120,7 +119,6 @@ class PostController
 
         $comment = $this->commentRepo->deleteComment($comment);
 
-        // TODO Benoit je sais pas si j'ai le droit de faire ça ? 
-        $this->singlePost($params);
+        header('Location: /post/' . $params['postId']);
     }
 }

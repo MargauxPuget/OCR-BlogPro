@@ -65,7 +65,6 @@ class UserRepository extends AbstractRepository
         return $user;
     }
 
-    // TODO elle ne retrun vraiment rien ????
     public function updateUser(User $user)
     {
         $sql = "UPDATE user SET firstname=:firstname, lastname=:lastname, email=:email, password=:password, updated_at=:updatedAt
@@ -82,7 +81,6 @@ class UserRepository extends AbstractRepository
 
     }
 
-    // TODO elle ne retrun vraiment rien ????
     public function deleteUser(User $user)
     {
         $id = $user->getid();

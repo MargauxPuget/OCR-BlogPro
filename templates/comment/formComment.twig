@@ -1,21 +1,20 @@
 <div class="commentForm">
-    <h3 >Ajouter un nouveau commentaire !</h3>
+    <h3 class="commentForm_title">Ajouter un nouveau commentaire !</h3>
 
     <form action="/post/{{ post.id }}/addComment" method="post">
-        <div>
+        <div class="commentForm_field">
             <label for="body">Message</label>
             <textarea name="body" placeholder="Votre commentaire ..."></textarea>
         </div>
-        <div>
+        <div class="commentForm_field">
             <label for="user">Choisissez un utilisateur : </label>
 
             <select name="userId" id="user">
                 <option value="">-- Choisiez un utilisateur / auteur --</option>
 
                 {% for user in userList %}
-				
-					<option value="{{ user.id }}">{{ user.name }}</option>
-				{% endfor %}
+                    <option value="{{ user.id }}">{{ user.name }}</option>
+                {% endfor %}
             </select>
         </div>
 		
