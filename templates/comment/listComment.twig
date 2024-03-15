@@ -5,7 +5,7 @@
 
 	{% for comment in commentList %}
 		
-    <div style="border-top:2px solid gray;padding:5px;display:flex;">
+    <div style="border-top:2px solid gray;padding:5px;">
 
         <div>
             <p style="color:black;">{{ comment.body }}</p>
@@ -13,11 +13,8 @@
             <span style="color:gray;">{{ comment.user.name }}</span>
         </div>
 
-		<a href="comment"><img class="" src="../../public/assets/images/poubelle.png" alt="insta" /></a>
-        <form style="margin:10px;" action="/deleteComment" method="post">
-            <input hidden type="number" name="identifiant" value="<?= $comment->getId() ?>">
-            <button class="btn btn--delete" type="submit">Supprimer</button>
-        </form>
+		<a href="{{ post.id }}/deleteComment/{{ comment.id }}"><img class="" src="../../public/assets/images/poubelle.png" alt="insta" /></a>
+
     </div>
 	{% endfor %}
 </div>

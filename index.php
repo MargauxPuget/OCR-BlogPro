@@ -4,7 +4,6 @@ require_once __DIR__ . '/vendor/autoload.php';
 // require de nos Controllers
 use MPuget\blog\Controllers\MainController;
 use MPuget\blog\Controllers\PostController;
-use MPuget\blog\Controllers\CommentController;
 use MPuget\blog\Controllers\ErrorController;
 
 //* -----------------------------------------------------
@@ -88,7 +87,7 @@ $router->generate('postHomeSimple');
 
 $router->map(
   'GET',
-  'post/[i:id_post]',
+  'post/[i:postId]',
   // target :
   [
       'action' => 'singlePost',
@@ -107,7 +106,7 @@ $router->generate('singlePost');
 
 $router->map(
   'POST',
-  'post/[i:id_post]/addComment',
+  'post/[i:postId]/addComment',
   // target :
   [
       'action' => 'addComment',
@@ -117,20 +116,17 @@ $router->map(
 );
 $router->generate('addComment');
 
-
 $router->map(
   'GET',
-  'comment',
+  'post/[i:postId]/deleteComment/[i:commentId]',
   // target :
   [
       'action' => 'deleteComment',
-      'controller' => 'MPuget\blog\Controllers\CommentController'
+      'controller' => 'MPuget\blog\Controllers\PostController'
   ],
-  'commentDelete'
+  'deleteComment'
 );
-$router->generate('commentDelete');
-
-
+$router->generate('deleteComment');
 
 
 

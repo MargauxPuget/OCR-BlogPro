@@ -51,7 +51,7 @@ class PostController
     {
         var_dump("PostController->singlePost()");
 
-        $postId = $params['id_post'];
+        $postId = $params['postId'];
         $post = $this->postRepo->find($postId);
 
         $commentList = $this->commentRepo->findAllforOnePost($post);
@@ -90,20 +90,20 @@ class PostController
     public function addComment($params)
     {
         var_dump("PostController->addComment()");
-
+var_dump($_POST);
         if (
-            !isset($_Post['body'])
-            || !isset($_Post['userId'])
+            !isset($_POST['body'])
+            || !isset($_POST['userId'])
         ) {
             echo('Il faut un message et un utilisateur valide pour soumettre le formulaire.');
             return;
         }
 
         $comment = new Comment();
-        $user = $this->userRepo->find($_Post['userId']);
-        $post = $this->postRepo->find($params['id_post']);
+        $user = $this->userRepo->find($_POST['userId']);
+        $post = $this->postRepo->find($params['postId']);
 
-        $comment->setBody($_Post['body']);
+        $comment->setBody($_POST['body']);
         $comment->setUser($user);
         $comment->setPost($post);
         $comment->setCreatedAt(date('Y-m-d H:i:s'));
@@ -114,4 +114,20 @@ class PostController
         $this->singlePost($params);
     }
 
+    public function deleteComment($params)
+    {
+        var_dump("PostController->deleteComment()");
+
+        if (!isset($params['commentId']) && !is_int($params['commentId'])) {
+            echo("Il faut l'identifiant d'un commentaire.");
+            return false;
+        }
+        
+        $comment = $this->commentRepo->find($params['commentId']);
+
+        $comment = $this->commentRepo->deleteComment($comment);
+
+        // TODO Benoit je sais pas si j'ai le droit de faire ça ? 
+        $this->singlePost($params);
+    }
 }

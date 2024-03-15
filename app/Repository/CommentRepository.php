@@ -38,7 +38,8 @@ class CommentRepository extends AbstractRepository
             $comment->setBody($result->body);
             $comment->setUser($result->user);
             $comment->setPost($result->post);
-            $comment->setCreatedAt(date('Y-m-d H:i:s'));
+            $comment->setCreatedAt($result->created_at);
+            $comment->setUpdatedAt($result->updated_at);
         }
 
         return $comment;
