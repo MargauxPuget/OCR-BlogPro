@@ -1,7 +1,7 @@
-<div class="loginPopup">
+<div class="js-popup loginPopup">
   <h1>Connection</h1>
 
-	<form class="loginForm" action="" method="post">
+	<form class="js-popup-form loginPopupForm loginForm" action="" method="post">
 		<div class="input">
 			<label for="email">Email :</label>
 			<input type="email" name="email" value="">
@@ -14,8 +14,29 @@
 		<button class="btn btn--login" type="submit">Connexion</button>
 	</form>
 
+	<form class="js-popup-form loginPopupForm addUser isHidden" action="" method="post">
+		<div class="input">
+			<label for="firstname">Prénom :</label>
+			<input type="text" name="firstname">
+		</div>
+		<div class="input">
+			<label for="lastname">Nom :</label>
+			<input type="text" name="lastname">
+		</div>
+		<div class="input">
+			<label for="email">Email :</label>
+			<input type="email" name="email">
+		</div>
+		<div class="input">
+			<label for="password">Mot de passe :</label>
+			<input type="password" name="password">
+		</div>
+
+		<button class="btn btn--login" type="submit">Se créer un compte</button>
+	</form>
+
 	<ul class="loginNav">
-		<li class=""><a href="" class="loginNav_link loginNav_link_active">Connection</a></li>
-		<li class=""><a href="" class="loginNav_link">Creation de compte</a></li>
+		<li class="js-popup-btn loginNav_link loginNav_link_active">Connection</li>
+		<li class="js-popup-btn loginNav_link">Creation de compte</li>
 	</ul>
 </div>
