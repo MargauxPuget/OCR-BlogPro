@@ -22,7 +22,6 @@ class MainController
     // une page = une méthode
     public function home()
     {
-        var_dump('MainControler::home()');
         $responseMail = null;
         
         if($_POST) {
@@ -50,17 +49,7 @@ class MainController
 
     public function contactForm()
     {
-        var_dump('MainControler::contactForm()');
-        /* $this->twig = new Twig(); */
-       
-        /* $userList = $this->userRepo->find(1);
-        
-        $viewData = [
-            'pageTitle' => 'OCR - Blog - Accueil',
-            'userList' => $userList
-        ]; */
         $mail = new Mail();
         $mail->sendMail();
-        // echo $this->twig->getTwig()->render('home.twig', $viewData);
     }
 }

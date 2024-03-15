@@ -75,9 +75,6 @@ class PostRepository extends AbstractRepository
 
     public function addPost(Post $post) : Post
     {
-        var_dump("PostRepository->addPost()");
-
-
         $pdoStatement = $this->pdo->prepare("INSERT INTO post (title, chapo, body, user_id)
         VALUES (:title, :chapo, :body, :userId)");
         $pdoStatement->execute([
@@ -93,11 +90,8 @@ class PostRepository extends AbstractRepository
         return $post;
     }
 
-    // TODO elle ne retrun vraiment rien ????
     public function updatePost(Post $post)
     {
-        var_dump("PostRepository->updatePost()");
-
         $sql = "UPDATE post SET title=:title, chapo=:chapo, body=:body, user_id=:userId, updated_at=:updatedAt
         WHERE id=:id";
         $pdoStatement = $this->pdo->prepare($sql);
@@ -113,8 +107,6 @@ class PostRepository extends AbstractRepository
 
     public function deletePost(Post $post) : bool
     {
-        var_dump("PostRepository->deletePost()");
-
         $sql = "DELETE FROM `post` WHERE id = ( :id) ";
         $pdoStatement = $this->pdo->prepare($sql);
         $pdoStatement->execute([

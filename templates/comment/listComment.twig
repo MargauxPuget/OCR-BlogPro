@@ -1,0 +1,23 @@
+{% if commentList is not empty %}
+<div class="commentList">
+
+    <h3 class="commentList_title">Commentaires</h3>
+
+	{% for comment in commentList %}
+		
+    <div class="comment">
+
+        <div>
+            <p class="comment_body">{{ comment.body }}</p>
+            <p>{{ comment.updated_at is not empty ? comment.updated_at : comment.createdAt|date("l d F à G\\hi") }}</p>
+            <p class="comment_author">{{ comment.user.name }}</p>
+        </div>
+
+		<a class="comment_delete" href="{{ post.id }}/deleteComment/{{ comment.id }}"><img class="" src="/public/assets/images/poubelle.png" alt="insta" /></a>
+
+    </div>
+	{% endfor %}
+</div>
+{% else %}
+<p>Il n'y a pas encore de commentaires, Commentez !! ;)</p>
+{% endif %}

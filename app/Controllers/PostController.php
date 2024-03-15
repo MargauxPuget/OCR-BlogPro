@@ -4,6 +4,7 @@ namespace MPuget\blog\Controllers;
 
 use MPuget\blog\twig\Twig;
 use MPuget\blog\Models\Post;
+use MPuget\blog\Models\Comment;
 use MPuget\blog\Models\TimeTrait;
 use MPuget\blog\Repository\PostRepository;
 use MPuget\blog\Repository\UserRepository;
@@ -25,7 +26,6 @@ class PostController
 
     public function home($params)
     {
-        var_dump('PostControler->home()');
         $nbPost = $this->postRepo->nbAll();
         $nbPostPerPage = 5;
         $nbPage = ceil($nbPost/$nbPostPerPage);
@@ -48,14 +48,17 @@ class PostController
 
     public function singlePost($params)
     {
-        var_dump("PostController->singlePost()");
-
-        $postId = $params['id_post'];
+        $postId = $params['postId'];
         $post = $this->postRepo->find($postId);
+
+        $commentList = $this->commentRepo->findAllforOnePost($post);
+        $userList = $this->userRepo->findAll();
 
         $viewData = [
             'pageTitle'     => 'OCR - Blog - post',
             'post'          => $post,
+            'commentList'   => $commentList,
+            'userList'      => $userList
         ];
 
         echo $this->twig->getTwig()->render('post/post.twig', $viewData);
@@ -77,4 +80,50 @@ class PostController
     {
     }
 
+    // ----------- //
+    //   Comment   //
+    // ----------- //
+
+    public function addComment($params)
+    {
+        if (
+            !isset($_POST['body'])
+            || !isset($_POST['userId'])
+        ) {
+            echo('Il faut un message et un utilisateur valide pour soumettre le formulaire.');
+            return;
+        }
+
+        $comment = new Comment();
+        $user = $this->userRepo->find($_POST['userId']);
+        $post = $this->postRepo->find($params['postId']);
+
+        $comment->setBody($_POST['body']);
+        if (isset($user)) {
+            $comment->setUser($user);
+        }
+        if (isset($post)) {
+            $comment->setPost($post);
+        }
+        $comment->setCreatedAt(date('Y-m-d H:i:s'));
+
+        $comment = $this->commentRepo->addComment($comment);
+
+        header('Location: /post/' . $params['postId']);
+    }
+
+    public function deleteComment($params)
+    {
+        if (!isset($params['commentId']) && !is_int($params['commentId'])) {
+            echo("Il faut l'identifiant d'un commentaire.");
+            return false;
+        }
+        
+        $comment = $this->commentRepo->find($params['commentId']);
+        if (isset($comment)) {
+        $comment = $this->commentRepo->deleteComment($comment);
+        }
+
+        header('Location: /post/' . $params['postId']);
+    }
 }

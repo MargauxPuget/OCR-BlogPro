@@ -38,7 +38,8 @@ class CommentRepository extends AbstractRepository
             $comment->setBody($result->body);
             $comment->setUser($result->user);
             $comment->setPost($result->post);
-            $comment->setCreatedAt(date('Y-m-d H:i:s'));
+            $comment->setCreatedAt($result->created_at);
+            $comment->setUpdatedAt($result->updated_at);
         }
 
         return $comment;
@@ -77,34 +78,8 @@ class CommentRepository extends AbstractRepository
         return $comments;
     }
 
-    public function addComment()
+    public function addComment($comment)
     {
-        var_dump("CommentRepository->addComment()");
-
-        $newComment = $_POST;
-
-        if (
-			!isset($newComment['body'])
-			|| !isset($newComment['userId'])
-        ) {
-            echo('Il faut un un message et un auteur valide pour soumettre le formulaire.');
-            return ;
-        }
-		
-        $userRepo = new UserRepository();
-        $user = $userRepo->find($newComment['userId']);
-		$newComment['user'] = $user;
-
-        $postRepo = new PostRepository();
-        $post = $postRepo->find($newComment['postId']);
-		$newComment['post'] = $post;
-
-        $comment = new Comment();
-        $comment->setBody($newComment['body']);
-        $comment->setUser($newComment['user']);
-        $comment->setPost($newComment['post']);
-        $comment->setCreatedAt(date('Y-m-d H:i:s'));
-
         $pdoStatement = $this->pdo->prepare("INSERT INTO comment (body, user_id, post_id)
         VALUES (:body, :userId, :postId)");
         $pdoStatement->execute([
@@ -123,14 +98,10 @@ class CommentRepository extends AbstractRepository
 
     public function updateComment(Comment $comment)
     {
-        var_dump("CommentRepository->updateComment()");
-       
     }
 
     public function deleteComment(Comment $comment) : bool
     {
-        var_dump("CommentRepository->deleteComment()");
-
         $sql = "DELETE FROM `comment` WHERE id = ( :id) ";
         $pdoStatement = $this->pdo->prepare($sql);
         $pdoStatement->execute([

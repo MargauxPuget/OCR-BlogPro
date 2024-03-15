@@ -1,0 +1,34 @@
+.commentList {
+  width: 50%;
+  margin: 10px;
+}
+
+.commentList_title{
+  margin-bottom: 20px;
+}
+
+.comment {
+  border-top : 2px solid gray;
+  padding : 5px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.comment_body {
+  padding-bottom: 5px;
+}
+
+.comment_author {
+  color:gray;
+  text-align: end;
+}
+
+.comment_delete {
+  align-self: flex-end;
+  margin-right: 10px;
+}
+
+.comment_delete img{
+  width: 35px;
+}

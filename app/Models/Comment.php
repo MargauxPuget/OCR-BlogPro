@@ -16,7 +16,7 @@ class Comment
     use TimeTrait;
 
     private ?string $body;
-    private ?user $user;
+    private ?User $user;
     private ?Post $post;
 
 
