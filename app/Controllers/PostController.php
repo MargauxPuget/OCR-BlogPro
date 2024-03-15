@@ -99,8 +99,12 @@ class PostController
         $post = $this->postRepo->find($params['postId']);
 
         $comment->setBody($_POST['body']);
-        $comment->setUser($user);
-        $comment->setPost($post);
+        if (isset($user)) {
+            $comment->setUser($user);
+        }
+        if (isset($post)) {
+            $comment->setPost($post);
+        }
         $comment->setCreatedAt(date('Y-m-d H:i:s'));
 
         $comment = $this->commentRepo->addComment($comment);
@@ -116,8 +120,9 @@ class PostController
         }
         
         $comment = $this->commentRepo->find($params['commentId']);
-
+        if (isset($comment)) {
         $comment = $this->commentRepo->deleteComment($comment);
+        }
 
         header('Location: /post/' . $params['postId']);
     }
