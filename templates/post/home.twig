@@ -20,13 +20,13 @@
             <p class="post_author">{{ post.user.name }}</p>
             <p>{{ post.updated_at is not empty ? post.updated_at : post.createdAt }}</p>
         </div>
-        <ul style="display:flex;">
+        <ul class="post_btn">
             <li class="btn btn--add"> <a href="/post/{{ post.id }}">Voir</a></li>
             <form action="/formPost" method="post">
                 <input hidden type="number" name="identifiant" value="{{ post.id}}">
                 <button class="btn btn--update" type="submit">Modifier</button>
             </form>
-                <form action="/deletePost" method="post">
+            <form action="/deletePost" method="post">
                 <input hidden type="number" name="identifiant" value="{{ post.id}}">
                 <button class="btn btn--delete" type="submit">Supprimer</button>
             </form>

@@ -1,19 +1,19 @@
 {% if commentList is not empty %}
-<div class="commentList" style="margin:10px">
+<div class="commentList">
 
-    <h3 class="commentList_title" style="color:blue;">Commentaires</h3>
+    <h3 class="commentList_title">Commentaires</h3>
 
 	{% for comment in commentList %}
 		
-    <div style="border-top:2px solid gray;padding:5px;">
+    <div class="comment">
 
         <div>
-            <p style="color:black;">{{ comment.body }}</p>
-            <span>{{ comment.updated_at is not empty ? comment.updated_at : comment.createdAt|date("l d F à G\\hi") }}</span>
-            <span style="color:gray;">{{ comment.user.name }}</span>
+            <p class="comment_body">{{ comment.body }}</p>
+            <p>{{ comment.updated_at is not empty ? comment.updated_at : comment.createdAt|date("l d F à G\\hi") }}</p>
+            <p class="comment_author">{{ comment.user.name }}</p>
         </div>
 
-		<a href="{{ post.id }}/deleteComment/{{ comment.id }}"><img class="" src="../../public/assets/images/poubelle.png" alt="insta" /></a>
+		<a class="comment_delete" href="{{ post.id }}/deleteComment/{{ comment.id }}"><img class="" src="../../public/assets/images/poubelle.png" alt="insta" /></a>
 
     </div>
 	{% endfor %}
