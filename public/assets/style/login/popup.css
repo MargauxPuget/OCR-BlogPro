@@ -1,0 +1,73 @@
+.loginPopup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  width: 50vw;
+  max-width: 500px;
+  height: 70vh;
+
+  background: rgb(43, 41, 41);
+  border-radius: 50px;
+  text-align: center;
+  color: white;
+  padding: 50px 20px;
+}
+
+.loginForm {
+}
+
+.loginForm .input {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginForm .input label {
+  width: 100%;
+  text-align: center;
+  font-size: large;
+}
+
+.loginForm .btn--login {
+  background: rgb(199, 197, 197);
+  border: none;
+}
+
+.loginNav{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: auto;
+}
+
+.loginNav li{
+
+
+  min-height: 40px;
+  width: 40%;
+
+}
+
+.loginNav .loginNav_link.loginNav_link_active {
+  background-color: #000;
+  color: rgb(231, 229, 229);
+}
+
+.loginNav .loginNav_link {
+  width: auto;
+  height: 100%;
+  color: black;
+  padding: 3px 25px;
+  border-radius: 50px;
+  background-color: rgb(204, 204, 204);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

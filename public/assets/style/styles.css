@@ -11,6 +11,7 @@
 @import 'comment/form.css';
 @import 'formContact.css';
 @import 'download.css';
+@import 'login/popup.css';
 
 html {
   max-width: 80% ;
