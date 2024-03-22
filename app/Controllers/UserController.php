@@ -20,8 +20,6 @@ class UserController
 
     public function addUser()
     {
-        var_dump("UserController->addUser()");
-
         $newUser = $_POST;
         if (
         !isset($newUser['firstname'])
@@ -30,7 +28,7 @@ class UserController
         || !filter_var($newUser['email'], FILTER_VALIDATE_EMAIL)
         || !isset($newUser['password'])
         ) {
-            echo('Il faut un email et un message valide pour soumettre le formulaire.');
+            echo('Il faut des informations valides pour soumettre le formulaire.');
             return;
         }
 
@@ -50,6 +48,45 @@ class UserController
 
         echo $this->twig->getTwig()->render('user/user.twig', $viewData);
     }
+
+    public function loginUser()
+    {
+        var_dump("UserController->loginUser()");
+
+        $newUser = $_POST;
+        if (
+           !isset($newUser['email'])
+        || !filter_var($newUser['email'], FILTER_VALIDATE_EMAIL)
+        || !isset($newUser['password'])
+        ) {
+            echo('Il faut un email et un mot de passe valides pour soumettre le formulaire.');
+            return;
+        }
+
+        var_dump($_POST);
+
+        $userList = $this->userRepo->findAll();
+        $userLogin;
+
+        foreach ($userList as $key => $user) {
+            if (
+                   $_POST['email'] === $user->getEmail()
+                && $_POST['password'] === $user->getPassword()
+            ) {
+                $userLogin = $user;
+
+                $_SESSION['user'] = $user;
+            };
+        }
+
+
+        $viewData = [
+            'pageTitle' => 'OCR - Blog - user',
+            'user' => $userLogin
+        ];
+
+        echo $this->twig->getTwig()->render('user/user.twig', $viewData);
+    } 
 
     public function updateUser()
     {

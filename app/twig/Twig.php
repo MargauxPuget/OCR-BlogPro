@@ -20,6 +20,9 @@ class Twig
         $this->twig->addExtension(new \Twig\Extension\DebugExtension());
         //$this->twig->addExtension(new \App\Libs\twigFiltersExtensions());
 
+        session_start();
+        $this->twig->addGlobal('SESSION', $_SESSION);
+
     }
     public function getTwig()
     {

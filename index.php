@@ -53,7 +53,6 @@ $router->map(
   ],
   'contactForm' // le nom qu'on donne à notre route (pour $router->generate())
 );
-$router->generate('contactForm');
 
 
 $router->map(
@@ -67,6 +66,19 @@ $router->map(
   'addUser' // le nom qu'on donne à notre route (pour $router->generate())
 );
 $router->generate('addUser');
+
+
+$router->map(
+  'POST',
+  'loginUser', // l'URL de cette route
+  // target :
+  [
+      'action' => 'loginUser', // méthode à appeler
+      'controller' => 'MPuget\blog\Controllers\UserController' // controller concerné
+  ],
+  'loginUser' // le nom qu'on donne à notre route (pour $router->generate())
+);
+$router->generate('loginUser');
 
 
 //* --------------------------

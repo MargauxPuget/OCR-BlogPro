@@ -7,10 +7,9 @@
 		</div>
 				<span class="header_subtitle">Le site dont vous avez besoin</span>
 	</div>
-
 	<div class="">
 		<div>
-			<button class="js-openPopup btn btn--login" type="submit">Se connecter !</button>
+			<button class="js-openPopup btn btn--login" type="submit">{{ SESSION ? 'Se déconnecter' :'Se connecter !'}}</button>
 		</div>
 		<nav class="navigation">
 			<li>
@@ -27,3 +26,5 @@
 
 
 </header>
+
+{{ dump(_context) }}
