@@ -50,13 +50,10 @@ class UserController
 
     public function userHome()
     {
-        if (!isset($_SESSION['user'])) {
+        if (!isset($_SESSION['userId'])) {
             header('Location: /');
         } else {
-
-            $viewData = [
-            ];
-
+            $viewData = [];
             echo $this->twig->getTwig()->render('/user/user.twig', $viewData);
         }
     }
@@ -81,7 +78,7 @@ class UserController
                    $_POST['email'] === $user->getEmail()
                 && $_POST['password'] === $user->getPassword()
             ) {
-                $_SESSION['user'] = $user;
+                $_SESSION['userId'] = $user->getId();
             };
         }
 
@@ -97,7 +94,7 @@ class UserController
     {
         var_dump("UserController->logoutUser()");
         
-        $_SESSION['user'] = [];
+        unset($_SESSION['userId']);
 
         header('Location: /');
     }

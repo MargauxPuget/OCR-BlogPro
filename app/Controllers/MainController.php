@@ -17,13 +17,15 @@ class MainController
 
     public function __construct(){
         $this->userRepo = new UserRepository();
+        $this->twig = new Twig();
     }
 
     // une page = une méthode
     public function home()
     {
+
+        // formulaire de contact
         $responseMail = null;
-        
         $dataForFromContact = $_POST;
         if($dataForFromContact) {
             $isValidateData = Validations::validateDataMail($dataForFromContact);
@@ -35,14 +37,18 @@ class MainController
             }
         }
 
-        $this->twig = new Twig();
-       
-        $userList = $this->userRepo->find(1);
+        // // suer connecter
+        // if (isset($_SESSION['userId'])){
+        //     var_dump('connecter');
+        //     $user = $this->userRepo->find($_SESSION['userId']);
+        //     var_dump($user);
+        // }
         
         $viewData = [
-            'userList' => $userList,
+            // 'user' => $user,
             'responseMail' => $responseMail
         ];
+
         echo $this->twig->getTwig()->render('home.twig', $viewData);
     }
 

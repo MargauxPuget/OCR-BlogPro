@@ -3,6 +3,8 @@
 
 namespace MPuget\blog\twig;
 
+use MPuget\blog\Repository\UserRepository;
+
 class Twig
 {
     private $twig;
@@ -21,9 +23,17 @@ class Twig
 
         session_start();
         var_dump($_SESSION);
-        // TODO benoit : c'est quoi le mieux ? // recupèrer de luser avec id // user et pas session
-        $this->twig->addGlobal('SESSION', $_SESSION);
-        $this->twig->addGlobal('session', $_SESSION['user']);
+        
+        
+
+        if (isset($_SESSION['userId'])) {
+
+            $userRepo = new UserRepository();
+            $user = $userRepo->find($_SESSION['userId']);
+
+            $this->twig->addGlobal('user', $user);
+            var_dump($user);
+        }
 
     }
     public function getTwig()
