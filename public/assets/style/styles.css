@@ -19,6 +19,10 @@ html {
   box-sizing:  border-box;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 .border {
   border: 1px solid red;
 }

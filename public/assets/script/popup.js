@@ -1,13 +1,27 @@
 // js-popup
 
-function toggleNavBtn(){
-	const form = document.querySelectorAll(".js-popup-form ")
-	console.log('je suis la', form)
+function openPopup(){
+	const popup = document.querySelector(".js-popup ")
+
+		console.log('je suis la', popup)
+	const btn = document.querySelector(".js-openPopup ")
+	console.log('je suis la', btn)
+	btn.addEventListener('click', function handleClick() {
+		popup.classList.remove("hidden")
+		console.log('je suis la', popup)
+	})
 }
 
-toggleNavBtn()
+function closePopup(){
+	const popup = document.querySelector(".js-popup ")
+	const form = document.querySelector(".js-closePopup ")
 
-function init() {
+	form.addEventListener('click', function handleClick() {
+		popup.classList.add("hidden")
+	})
+}
+
+function changeForm(){
 	const popupButtons = document.querySelectorAll('.js-popup-btn')
 	const forms = document.querySelectorAll(".js-popup-form ")
 
@@ -28,10 +42,8 @@ function init() {
 	popupButtons.forEach(btn => {
 		if (btn.classList.contains("loginNav_link_active")) {
 			btnActive = btn
-			console.log(btnActive)
 		} else {
 			btnNotActive = btn
-			console.log(btnNotActive)
 		}
 	});
 
@@ -48,6 +60,12 @@ function init() {
 			}
 		});
 	});
+}
+
+function init() {
+	openPopup()
+	closePopup()
+	changeForm()
 }
 
 init()
