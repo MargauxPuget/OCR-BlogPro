@@ -28,27 +28,27 @@ class UserController
         || !filter_var($newUser['email'], FILTER_VALIDATE_EMAIL)
         || empty($newUser['password'])
         ) {
-            
-            $viewData = [
-                'user' => $newUser,
-                'errorAddUser'  => false,
-            ];
+            $validatAddUser = false;
+        } else {
+            $user = new User();
+            $user->setFirstname($newUser['firstname']);
+            $user->setLastname($newUser['lastname']);
+            $user->setEmail($newUser['email']);
+            $user->setPassword($newUser['password']);
+            $user->setCreatedAt(date('Y-m-d H:i:s'));
 
-            echo $this->twig->getTwig()->render('home.twig', $viewData);
-            unset($_POST);
-            return;
+            $newUser = $this->userRepo->addUser($user);
+
+            $validatAddUser = true;
         }
 
-        $user = new User();
-        $user->setFirstname($newUser['firstname']);
-        $user->setLastname($newUser['lastname']);
-        $user->setEmail($newUser['email']);
-        $user->setPassword($newUser['password']);
-        $user->setCreatedAt(date('Y-m-d H:i:s'));
+        $viewData = [
+            'user' => $newUser,
+            'responceMessage' => $validatAddUser ? 'Votre compte à biee était créé' : 'Certains champs ne sont pas corrects !',
+            'boolMessage' => $validatAddUser ? true : false
+        ];
 
-        $newUser = $this->userRepo->addUser($user);
-
-            header('Location: /');
+        echo $this->twig->getTwig()->render('home.twig', $viewData);
     }
 
     public function userHome()
@@ -73,32 +73,32 @@ class UserController
             return;
         }
 
-        $userList = $this->userRepo->findAll();
-        $userLogin;
+        $resultLogin = $this->userRepo->findBy($user['email'], $user['password']);
 
-        foreach ($userList as $key => $user) {
-            if (
-                   $_POST['email'] === $user->getEmail()
-                && $_POST['password'] === $user->getPassword()
-            ) {
-                $_SESSION['userId'] = $user->getId();
-            };
+    
+        if ($resultLogin != -1) {
+            $userLogin = $this->userRepo->find($resultLogin);
+            
+            $_SESSION['userId'] = $userLogin->getId();
+
+            $viewData = [
+                'user' => $userLogin,
+                'responceMessage' => "Vous êtes connecté(e) !",
+                'boolMessage' => true
+            ];
+        } else {
+            $viewData = [
+                'responceMessage' => "Nous n'avons pas pu vous indientifier !",
+                'boolMessage' => false
+            ];
         }
 
-        $viewData = [
-            'user' => $user
-        ];
-
-        var_dump($_SESSION);
-        header('Location: /user/home');
+        echo $this->twig->getTwig()->render('home.twig', $viewData);
     } 
 
     public function logoutUser()
     {
-        var_dump("UserController->logoutUser()");
-        
         unset($_SESSION['userId']);
-
         header('Location: /');
     }
 

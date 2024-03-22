@@ -22,9 +22,6 @@ class Twig
         //$this->twig->addExtension(new \App\Libs\twigFiltersExtensions());
 
         session_start();
-        var_dump($_SESSION);
-        
-        
 
         if (isset($_SESSION['userId'])) {
 
@@ -32,7 +29,7 @@ class Twig
             $user = $userRepo->find($_SESSION['userId']);
 
             $this->twig->addGlobal('userSession', $user);
-            var_dump($user);
+
         }
 
     }

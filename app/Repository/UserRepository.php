@@ -48,6 +48,25 @@ class UserRepository extends AbstractRepository
         return $user;
     }
 
+    public function findBy(string $email, string $password): int
+    {
+        $pdoStatement = $this->pdo->prepare('SELECT * FROM `user` WHERE email = :email AND password = :password');
+        $pdoStatement->execute([
+            'email'        => $email,
+            'password'  => $password
+        ]);
+        // pour récupérer un seul objet de type User, on utilise 
+        // la méthode fetchObject() de PDO !
+        $result = $pdoStatement->fetchObject();
+
+        
+        if (!empty($result)) {
+            return $result->id;
+        } else {
+            return -1;
+        }
+    }
+
     public function addUser(User $user): ?User
     {
         $sql = "INSERT INTO user (firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)";

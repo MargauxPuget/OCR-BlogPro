@@ -16,6 +16,7 @@
   }
 }
 
+.responceMessage,
 .responseMail,
 .errorAddUser{
   color: green;
@@ -26,7 +27,8 @@
   margin: 5px;
 }
 
+.responceMessage.error,
 .responseMail.error,
-.errorAddUser.error {
+.errorAddUser.error{
   color: red;
 }
