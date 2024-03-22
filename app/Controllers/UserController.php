@@ -34,7 +34,7 @@ class UserController
             $user->setFirstname($newUser['firstname']);
             $user->setLastname($newUser['lastname']);
             $user->setEmail($newUser['email']);
-            $user->setPassword($newUser['password']);
+            $user->setPassword(md5($newUser['password']));
             $user->setCreatedAt(date('Y-m-d H:i:s'));
 
             $newUser = $this->userRepo->addUser($user);
@@ -73,7 +73,7 @@ class UserController
             return;
         }
 
-        $resultLogin = $this->userRepo->findBy($user['email'], $user['password']);
+        $resultLogin = $this->userRepo->findBy($user['email'], md5($user['password']));
 
     
         if ($resultLogin != -1) {

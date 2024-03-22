@@ -34,13 +34,18 @@ class MainController
             } else {
                 $responseMail = false;
             }
+            $viewData = [
+                // 'user' => $user,
+                'responceMessage' => $responseMail ? 'Votre mail est bien parti, je vous répond dans les meilleur delais !' : 'Il est probable que vous ayez oublié un champ ou que votre email ne soit pas valide !',
+                'boolMessage' => $responseMail
+            ];
+        } else {
+            $viewData = [
+                // 'user' => $user,
+                
+            ];
         }
         
-        $viewData = [
-            // 'user' => $user,
-            'responceMessage' => $responseMail ? 'Votre mail est bien parti, je vous répond dans les meilleur delais !' : 'Il est probable que vous ayez oublié un champ ou que votre email ne soit pas valide !',
-            'boolMessage' => $responseMail
-        ];
 
         echo $this->twig->getTwig()->render('home.twig', $viewData);
     }
