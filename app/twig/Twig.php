@@ -21,7 +21,7 @@ class Twig
 
         session_start();
         var_dump($_SESSION);
-        // TODO benoit : c'est quoi le mieux ?
+        // TODO benoit : c'est quoi le mieux ? // recupèrer de luser avec id // user et pas session
         $this->twig->addGlobal('SESSION', $_SESSION);
         $this->twig->addGlobal('session', $_SESSION['user']);
 

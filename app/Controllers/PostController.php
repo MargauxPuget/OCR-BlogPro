@@ -37,7 +37,6 @@ class PostController
         $postList = $this->postRepo->findAll($nbPostPerPage, $params['page']-1);
         
         $viewData = [
-            'pageTitle'     => 'OCR - Blog - Post',
             'postList'      => $postList,
             'nbPage'        => $nbPage,
             'pageActive'    => $params['page']
@@ -55,7 +54,6 @@ class PostController
         $userList = $this->userRepo->findAll();
 
         $viewData = [
-            'pageTitle'     => 'OCR - Blog - post',
             'post'          => $post,
             'commentList'   => $commentList,
             'userList'      => $userList

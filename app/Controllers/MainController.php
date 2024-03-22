@@ -40,7 +40,6 @@ class MainController
         $userList = $this->userRepo->find(1);
         
         $viewData = [
-            'pageTitle' => 'OCR - Blog - Accueil',
             'userList' => $userList,
             'responseMail' => $responseMail
         ];

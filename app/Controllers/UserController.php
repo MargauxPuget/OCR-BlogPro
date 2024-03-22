@@ -42,7 +42,6 @@ class UserController
         $newUser = $this->userRepo->addUser($user);
 
         $viewData = [
-            'pageTitle' => 'OCR - Blog - user',
             'user' => $newUser
         ];
 
@@ -52,13 +51,10 @@ class UserController
     public function userHome()
     {
         if (!isset($_SESSION['user'])) {
-            var_dump('true');
             header('Location: /');
         } else {
-            var_dump('flase');
 
             $viewData = [
-                'pageTitle' => 'OCR - Blog - user',
             ];
 
             echo $this->twig->getTwig()->render('/user/user.twig', $viewData);
@@ -67,19 +63,15 @@ class UserController
     
     public function loginUser()
     {
-        var_dump("UserController->loginUser()");
-
-        $newUser = $_POST;
+        $user = $_POST;
         if (
-           !isset($newUser['email'])
-        || !filter_var($newUser['email'], FILTER_VALIDATE_EMAIL)
-        || !isset($newUser['password'])
+           !isset($user['email'])
+        || !filter_var($user['email'], FILTER_VALIDATE_EMAIL)
+        || !isset($user['password'])
         ) {
             echo('Il faut un email et un mot de passe valides pour soumettre le formulaire.');
             return;
         }
-
-        var_dump($_POST);
 
         $userList = $this->userRepo->findAll();
         $userLogin;
@@ -90,13 +82,11 @@ class UserController
                 && $_POST['password'] === $user->getPassword()
             ) {
                 $_SESSION['user'] = $user;
-                $userLogin = $user;
             };
         }
 
         $viewData = [
-            'pageTitle' => 'OCR - Blog - user',
-            'user' => $userLogin
+            'user' => $user
         ];
 
         var_dump($_SESSION);
