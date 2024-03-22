@@ -14,6 +14,7 @@ class User
     use IdTrait;
     use TimeTrait;
 
+    private ?int $role;
     private ?string $firstname;
     private ?string $lastname;
     private ?string $name;
@@ -22,6 +23,18 @@ class User
 
     public function __construct()
     {
+    }
+
+    public function getRole() : ?int
+    {
+        return $this->role;
+    }
+
+    public function setRole(int $role): self
+    {
+        $this->role = $role;
+
+        return $this;
     }
 
     public function getFirstname(): ?string
