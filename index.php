@@ -62,7 +62,7 @@ $router->map(
 
 $router->map(
   'GET',
-  'user/home', // l'URL de cette route
+  'user/[i:userId]', // l'URL de cette route
   // target :
   [
       'action' => 'userHome', // méthode à appeler

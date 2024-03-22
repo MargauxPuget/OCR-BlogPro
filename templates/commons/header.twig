@@ -13,9 +13,10 @@
 		{# {{ dump(user) }} #}
 			{% if user %}
 			
+				<p class="header_userLogin">{{ user.name }}</p>
 				<div class="header_wrapper_userLogin">
-					<p class="header_userLogin">{{ user.name }}</p>
-					<a href="/logoutUser">{{ user ? 'Se déconnecter' : 'Se connecter !'}}</a>
+					<a href="/user/{{ user.id }}">Mon compte</a>
+					<a href="/logoutUser">Se déconnecter</a>
 				</div>
 			{% else %}
 				<button class="{{ user ? '' : 'js-openPopup'}} header_btn_login" type="submit">
