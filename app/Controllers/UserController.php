@@ -49,6 +49,22 @@ class UserController
         echo $this->twig->getTwig()->render('user/user.twig', $viewData);
     }
 
+    public function userHome()
+    {
+        if (!isset($_SESSION['user'])) {
+            var_dump('true');
+            header('Location: /');
+        } else {
+            var_dump('flase');
+
+            $viewData = [
+                'pageTitle' => 'OCR - Blog - user',
+            ];
+
+            echo $this->twig->getTwig()->render('/user/user.twig', $viewData);
+        }
+    }
+    
     public function loginUser()
     {
         var_dump("UserController->loginUser()");
@@ -73,20 +89,28 @@ class UserController
                    $_POST['email'] === $user->getEmail()
                 && $_POST['password'] === $user->getPassword()
             ) {
-                $userLogin = $user;
-
                 $_SESSION['user'] = $user;
+                $userLogin = $user;
             };
         }
-
 
         $viewData = [
             'pageTitle' => 'OCR - Blog - user',
             'user' => $userLogin
         ];
 
-        echo $this->twig->getTwig()->render('user/user.twig', $viewData);
+        var_dump($_SESSION);
+        header('Location: /user/home');
     } 
+
+    public function logoutUser()
+    {
+        var_dump("UserController->logoutUser()");
+        
+        $_SESSION['user'] = [];
+
+        header('Location: /');
+    }
 
     public function updateUser()
     {

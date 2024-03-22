@@ -52,6 +52,42 @@ header {
   margin-top: 20px;
 }
 
+.header_separat {
+  width: 30%;
+  margin: 20px;
+}
+
+@media screen and (min-width: 900px) {
+  .header_separat {
+    display: none;
+  }
+}
+
+.header_wrapper_userLogin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.header_userLogin {
+  font-size: large;
+  font-weight: 600;
+
+}
+
+.header_btn_login {
+  padding-bottom: 20px;
+  font-size: large;
+  font-weight: 600; 
+}
+
+.header_btn_login:hover {
+  color: rgb(33, 84, 143);
+  
+}
+
 .navigation {
   display:flex;
   justify-content: center;

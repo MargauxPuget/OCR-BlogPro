@@ -55,6 +55,23 @@ $router->map(
 );
 
 
+
+//*--------------------------
+//*   User
+//*--------------------------
+
+$router->map(
+  'GET',
+  'user/home', // l'URL de cette route
+  // target :
+  [
+      'action' => 'userHome', // méthode à appeler
+      'controller' => 'MPuget\blog\Controllers\UserController' // controller concerné
+  ],
+  'userHome' // le nom qu'on donne à notre route (pour $router->generate())
+);
+$router->generate('userHome');
+
 $router->map(
   'POST',
   'addUser', // l'URL de cette route
@@ -79,6 +96,19 @@ $router->map(
   'loginUser' // le nom qu'on donne à notre route (pour $router->generate())
 );
 $router->generate('loginUser');
+
+
+$router->map(
+  'GET',
+  'logoutUser', // l'URL de cette route
+  // target :
+  [
+      'action' => 'logoutUser', // méthode à appeler
+      'controller' => 'MPuget\blog\Controllers\UserController' // controller concerné
+  ],
+  'logoutUser' // le nom qu'on donne à notre route (pour $router->generate())
+);
+$router->generate('logoutUser');
 
 
 //* --------------------------

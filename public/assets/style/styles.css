@@ -19,6 +19,12 @@ html {
   box-sizing:  border-box;
 }
 
+button {
+  border: none;
+  background: none;
+  font: inherit;
+}
+
 button:hover {
   cursor: pointer;
 }
