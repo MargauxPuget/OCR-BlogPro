@@ -84,19 +84,20 @@ class PostController
 
     public function addComment($params)
     {
+        $dataComment = $_POST;
         if (
-            !isset($_POST['body'])
-            || !isset($_POST['userId'])
+            !isset($dataComment['body'])
+            || !isset($dataComment['userId'])
         ) {
             echo('Il faut un message et un utilisateur valide pour soumettre le formulaire.');
             return;
         }
 
         $comment = new Comment();
-        $user = $this->userRepo->find($_POST['userId']);
+        $user = $this->userRepo->find($dataComment['userId']);
         $post = $this->postRepo->find($params['postId']);
 
-        $comment->setBody($_POST['body']);
+        $comment->setBody($dataComment['body']);
         if (isset($user)) {
             $comment->setUser($user);
         }

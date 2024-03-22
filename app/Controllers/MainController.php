@@ -24,12 +24,12 @@ class MainController
     {
         $responseMail = null;
         
-        if($_POST) {
-
-            $isValidateData = Validations::validateDataMail($_POST);
+        $dataForFromContact = $_POST;
+        if($dataForFromContact) {
+            $isValidateData = Validations::validateDataMail($dataForFromContact);
             if ($isValidateData) {
                 $mail = new Mail;
-                $responseMail = $mail->sendMail($_POST);
+                $responseMail = $mail->sendMail($dataForFromContact);
             } else {
                 $responseMail = false;
             }
