@@ -22,13 +22,20 @@ class UserController
     {
         $newUser = $_POST;
         if (
-        !isset($newUser['firstname'])
-        || !isset($newUser['lastname'])
-        || !isset($newUser['email'])
+        empty($newUser['firstname'])
+        || empty($newUser['lastname'])
+        || empty($newUser['email'])
         || !filter_var($newUser['email'], FILTER_VALIDATE_EMAIL)
-        || !isset($newUser['password'])
+        || empty($newUser['password'])
         ) {
-            echo('Il faut des informations valides pour soumettre le formulaire.');
+            
+            $viewData = [
+                'user' => $newUser,
+                'errorAddUser'  => false,
+            ];
+
+            echo $this->twig->getTwig()->render('home.twig', $viewData);
+            unset($_POST);
             return;
         }
 
@@ -41,11 +48,7 @@ class UserController
 
         $newUser = $this->userRepo->addUser($user);
 
-        $viewData = [
-            'user' => $newUser
-        ];
-
-        echo $this->twig->getTwig()->render('user/user.twig', $viewData);
+            header('Location: /');
     }
 
     public function userHome()

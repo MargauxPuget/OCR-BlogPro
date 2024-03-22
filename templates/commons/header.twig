@@ -10,16 +10,16 @@
 <hr class="header_separat">
 	<div class="">
 		<div>
-		{# {{ dump(user) }} #}
-			{% if user %}
+		{# {{ dump(userSession) }} #}
+			{% if userSession %}
 			
-				<p class="header_userLogin">{{ user.name }}</p>
+				<p class="header_userLogin">{{ userSession.name }}</p>
 				<div class="header_wrapper_userLogin">
-					<a href="/user/{{ user.id }}">Mon compte</a>
+					<a href="/user/{{ userSessionuserSession.id }}">Mon compte</a>
 					<a href="/logoutUser">Se déconnecter</a>
 				</div>
 			{% else %}
-				<button class="{{ user ? '' : 'js-openPopup'}} header_btn_login" type="submit">
+				<button class="{{ userSession ? '' : 'js-openPopup'}} header_btn_login" type="submit">
 					Se connecter !
 				</button>
 			{% endif %}

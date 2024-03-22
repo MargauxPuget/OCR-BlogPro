@@ -6,6 +6,10 @@
 		<span class="responseMail{{ responseMail ? '' : ' error'}}">{{ responseMail ? 'Votre mail est bien parti, je vous répond dans les meilleur delais !' : 'Il est probable que vous ayez oublié un champ ou que votre email ne soit pas valide !'}}</span>
 	{% endif %}
 
+	{% if errorAddUser is not null %}
+		<span class="errorAddUser{{ errorAddUser ? '' : ' error'}}">{{ errorAddUser ? 'Votre compte à biee était créé' : 'Certains champs ne sont pas corrects !'}}</span>
+	{% endif %}
+
 	<h1>Bienvenue sur mon blog dédié à la création de site web ! </h1>
 
 	<div>

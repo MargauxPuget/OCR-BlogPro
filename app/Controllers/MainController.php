@@ -23,7 +23,6 @@ class MainController
     // une page = une méthode
     public function home()
     {
-
         // formulaire de contact
         $responseMail = null;
         $dataForFromContact = $_POST;
@@ -36,13 +35,6 @@ class MainController
                 $responseMail = false;
             }
         }
-
-        // // suer connecter
-        // if (isset($_SESSION['userId'])){
-        //     var_dump('connecter');
-        //     $user = $this->userRepo->find($_SESSION['userId']);
-        //     var_dump($user);
-        // }
         
         $viewData = [
             // 'user' => $user,
