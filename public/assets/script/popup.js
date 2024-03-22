@@ -2,13 +2,10 @@
 
 function openPopup(){
 	const popup = document.querySelector(".js-popup ")
-
-		console.log('je suis la', popup)
 	const btn = document.querySelector(".js-openPopup ")
-	console.log('je suis la', btn)
+
 	btn.addEventListener('click', function handleClick() {
 		popup.classList.remove("hidden")
-		console.log('je suis la', popup)
 	})
 }
 
