@@ -40,10 +40,7 @@ class MainController
                 'boolMessage' => $responseMail
             ];
         } else {
-            $viewData = [
-                // 'user' => $user,
-                
-            ];
+            $viewData = [];
         }
         
 

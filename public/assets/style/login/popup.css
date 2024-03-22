@@ -85,3 +85,7 @@
 .isHidden {
   display: none;
 }
+
+.addUser_password{
+  font-size: smaller;
+}

@@ -21,12 +21,15 @@ class UserController
     public function addUser()
     {
         $newUser = $_POST;
+        
         if (
         empty($newUser['firstname'])
         || empty($newUser['lastname'])
         || empty($newUser['email'])
         || !filter_var($newUser['email'], FILTER_VALIDATE_EMAIL)
         || empty($newUser['password'])
+        || !(strlen($newUser['password']) >= 8)
+        || !(true && preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).+$/', $newUser['password'])) //Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule et un chiffre.
         ) {
             $validatAddUser = false;
         } else {
