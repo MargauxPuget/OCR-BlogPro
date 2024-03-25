@@ -13,7 +13,6 @@ class ErrorController
         $this->twig = new Twig();
 
         $viewData = [
-            'pageTitle' => 'OCR - Blog - 404 Error'
         ];
 
         echo $this->twig->getTwig()->render('404.twig', $viewData);

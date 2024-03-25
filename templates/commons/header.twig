@@ -7,11 +7,21 @@
 		</div>
 				<span class="header_subtitle">Le site dont vous avez besoin</span>
 	</div>
-
+<hr class="header_separat">
 	<div class="">
 		<div>
-		<button class="btn btn--login" type="submit">Se connecter !</button>
-					
+			{% if userSession %}
+			
+				<p class="header_userLogin">{{ userSession.name }}</p>
+				<div class="header_wrapper_userLogin">
+					<a href="/user/{{ userSessionuserSession.id }}">Mon compte</a>
+					<a href="/logoutUser">Se déconnecter</a>
+				</div>
+			{% else %}
+				<button class="{{ userSession ? '' : 'js-openPopup'}} header_btn_login" type="submit">
+					Se connecter !
+				</button>
+			{% endif %}
 		</div>
 		<nav class="navigation">
 			<li>
@@ -25,4 +35,6 @@
 			</li>
 		</nav>	
 	</div>
+
+
 </header>

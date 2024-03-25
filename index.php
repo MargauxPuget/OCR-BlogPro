@@ -53,7 +53,62 @@ $router->map(
   ],
   'contactForm' // le nom qu'on donne à notre route (pour $router->generate())
 );
-$router->generate('contactForm');
+
+
+
+//*--------------------------
+//*   User
+//*--------------------------
+
+$router->map(
+  'GET',
+  'user/[i:userId]', // l'URL de cette route
+  // target :
+  [
+      'action' => 'userHome', // méthode à appeler
+      'controller' => 'MPuget\blog\Controllers\UserController' // controller concerné
+  ],
+  'userHome' // le nom qu'on donne à notre route (pour $router->generate())
+);
+$router->generate('userHome');
+
+$router->map(
+  'POST',
+  'addUser', // l'URL de cette route
+  // target :
+  [
+      'action' => 'addUser', // méthode à appeler
+      'controller' => 'MPuget\blog\Controllers\UserController' // controller concerné
+  ],
+  'addUser' // le nom qu'on donne à notre route (pour $router->generate())
+);
+$router->generate('addUser');
+
+
+$router->map(
+  'POST',
+  'loginUser', // l'URL de cette route
+  // target :
+  [
+      'action' => 'loginUser', // méthode à appeler
+      'controller' => 'MPuget\blog\Controllers\UserController' // controller concerné
+  ],
+  'loginUser' // le nom qu'on donne à notre route (pour $router->generate())
+);
+$router->generate('loginUser');
+
+
+$router->map(
+  'GET',
+  'logoutUser', // l'URL de cette route
+  // target :
+  [
+      'action' => 'logoutUser', // méthode à appeler
+      'controller' => 'MPuget\blog\Controllers\UserController' // controller concerné
+  ],
+  'logoutUser' // le nom qu'on donne à notre route (pour $router->generate())
+);
+$router->generate('logoutUser');
 
 
 //* --------------------------

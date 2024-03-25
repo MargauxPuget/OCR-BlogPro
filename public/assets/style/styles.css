@@ -11,11 +11,22 @@
 @import 'comment/form.css';
 @import 'formContact.css';
 @import 'download.css';
+@import 'login/popup.css';
 
 html {
   max-width: 80% ;
   margin: auto ;
   box-sizing:  border-box;
+}
+
+button {
+  border: none;
+  background: none;
+  font: inherit;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 .border {

@@ -1,0 +1,91 @@
+.loginPopup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 50vw;
+  max-width: 31.25rem;
+  height: 70vh;
+
+  background: rgb(43, 41, 41);
+  border-radius: 3.125rem;
+  text-align: center;
+  color: white;
+  padding: 3.125rem 1.25rem;
+}
+
+.loginPopup.hidden {
+  display: none;
+}
+
+.closePopup {
+  background: #fff;
+  color: #000;
+  border: none;
+  border-radius: 100%;
+  width: 25px;
+  height: 25px;
+  padding: 0.3125rem;
+  position: absolute;
+  right: 2.5rem;
+}
+
+.loginPopupForm .input {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginPopupForm .input label {
+  width: 100%;
+  text-align: center;
+  font-size: large;
+}
+
+.loginPopupForm .btn--login {
+  background: rgb(199, 197, 197);
+  border: none;
+  border-radius: 3.125rem;
+}
+
+.loginNav{
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: auto;
+}
+
+.loginNav li{
+  min-height: 2.5rem;
+  width: 40%;
+}
+
+.loginNav .loginNav_link.loginNav_link_active {
+  background-color: #000;
+  color: rgb(231, 229, 229);
+}
+
+.loginNav .loginNav_link {
+  width: auto;
+  height: 100%;
+  color: black;
+  padding: 0.1875rem 1.5625rem;
+  border-radius: 3.125rem;
+  background-color: rgb(204, 204, 204);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.isHidden {
+  display: none;
+}
+
+.addUser_password{
+  font-size: smaller;
+}

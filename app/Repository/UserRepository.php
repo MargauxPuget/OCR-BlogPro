@@ -34,9 +34,10 @@ class UserRepository extends AbstractRepository
         $result = $pdoStatement->fetchObject();
 
         $user = new User();
-
+        
         if (!empty($result)) {
             $user->setId($result->id);
+            $user->setRole($result->role);
             $user->setFirstname($result->firstname);
             $user->setLastname($result->lastname);
             $user->setName();
@@ -45,6 +46,25 @@ class UserRepository extends AbstractRepository
             $user->setCreatedAt($result->created_at);
         }
         return $user;
+    }
+
+    public function findBy(string $email, string $password): int
+    {
+        $pdoStatement = $this->pdo->prepare('SELECT * FROM `user` WHERE email = :email AND password = :password');
+        $pdoStatement->execute([
+            'email'        => $email,
+            'password'  => $password
+        ]);
+        // pour récupérer un seul objet de type User, on utilise 
+        // la méthode fetchObject() de PDO !
+        $result = $pdoStatement->fetchObject();
+
+        
+        if (!empty($result)) {
+            return $result->id;
+        } else {
+            return -1;
+        }
     }
 
     public function addUser(User $user): ?User

@@ -17,33 +17,33 @@ class MainController
 
     public function __construct(){
         $this->userRepo = new UserRepository();
+        $this->twig = new Twig();
     }
 
     // une page = une méthode
     public function home()
     {
+        // formulaire de contact
         $responseMail = null;
-        
-        if($_POST) {
-
-            $isValidateData = Validations::validateDataMail($_POST);
+        $dataForFromContact = $_POST;
+        if($dataForFromContact) {
+            $isValidateData = Validations::validateDataMail($dataForFromContact);
             if ($isValidateData) {
                 $mail = new Mail;
-                $responseMail = $mail->sendMail($_POST);
+                $responseMail = $mail->sendMail($dataForFromContact);
             } else {
                 $responseMail = false;
             }
+            $viewData = [
+                // 'user' => $user,
+                'responceMessage' => $responseMail ? 'Votre mail est bien parti, je vous répond dans les meilleur delais !' : 'Il est probable que vous ayez oublié un champ ou que votre email ne soit pas valide !',
+                'boolMessage' => $responseMail
+            ];
+        } else {
+            $viewData = [];
         }
-
-        $this->twig = new Twig();
-       
-        $userList = $this->userRepo->find(1);
         
-        $viewData = [
-            'pageTitle' => 'OCR - Blog - Accueil',
-            'userList' => $userList,
-            'responseMail' => $responseMail
-        ];
+
         echo $this->twig->getTwig()->render('home.twig', $viewData);
     }
 
