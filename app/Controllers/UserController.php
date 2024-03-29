@@ -29,7 +29,7 @@ class UserController
         || !filter_var($newUser['email'], FILTER_VALIDATE_EMAIL)
         || empty($newUser['password'])
         || !(strlen($newUser['password']) >= 8)
-        || !(true && preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).+$/', $newUser['password'])) //Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule et un chiffre.
+        || !(preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).+$/', $newUser['password'])) //Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule et un chiffre.
         ) {
             $validatAddUser = false;
         } else {
@@ -79,6 +79,11 @@ class UserController
         $resultLogin = $this->userRepo->findBy($user['email'], md5($user['password']));
 
     
+        $viewData = [
+            'responceMessage' => "Nous n'avons pas pu vous indientifier !",
+            'boolMessage' => false
+        ];
+
         if ($resultLogin != -1) {
             $userLogin = $this->userRepo->find($resultLogin);
             
@@ -88,11 +93,6 @@ class UserController
                 'user' => $userLogin,
                 'responceMessage' => "Vous êtes connecté(e) !",
                 'boolMessage' => true
-            ];
-        } else {
-            $viewData = [
-                'responceMessage' => "Nous n'avons pas pu vous indientifier !",
-                'boolMessage' => false
             ];
         }
 
