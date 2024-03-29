@@ -125,7 +125,7 @@ $router->map(
 $router->generate('formUser');
 
 $router->map(
-	'POST',
+	'POST', //TODO a verifier sinon GET
 	'user/[i:userId]/update',
 	[
 		'action' 	=> 'updateUser',

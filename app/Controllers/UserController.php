@@ -131,6 +131,7 @@ class UserController
     public function formUser($params)
     {
         $viewData = [];
+
         if ($params['userId']) {
             // ou veux mettre à jours
 
