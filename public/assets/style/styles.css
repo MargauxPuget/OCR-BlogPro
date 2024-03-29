@@ -6,6 +6,7 @@
 @import 'utility/list.css';
 @import 'utility/input.css';
 @import 'post/post.css';
+@import 'user/user.css';
 @import 'post/pagination.css';
 @import 'comment/comment.css';
 @import 'comment/form.css';

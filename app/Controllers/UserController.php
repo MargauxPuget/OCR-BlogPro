@@ -105,8 +105,59 @@ class UserController
         header('Location: /');
     }
 
+    public function formUser($params)
+    {
+        $viewData = [];
+
+        if ($params['userId']) {
+            // ou veux mettre à jours
+
+            $userId = intval($params['userId']);
+            $user = $this->userRepo->find($userId);
+
+            array_push($viewData, ['user' => $user]);
+            
+        } 
+        
+        echo $this->twig->getTwig()->render('user/formUser.twig', $viewData);
+    }
+
     public function updateUser()
     {
+        var_dump("UserController->updateUser()");
+        
+        $postData = $_POST;
+        
+        if (!isset($postData['identifiant']) && !is_int($postData['identifiant'])) {
+            echo("Il faut l'identifiant d'un utilisateur.");
+            return false;
+        }
+
+        $user = $this->userRepo->find($_POST['identifiant']);
+
+        if (isset($_POST['firstname']) && ($_POST['firstname'] !== $user->getFirstname())){
+            $user->setFirstname($_POST['firstname']);
+        }
+        if (isset($_POST['lastname']) && ($_POST['lastname'] !== $user->getLastname())){
+            $user->setLastname($_POST['lastname']);
+        }
+        if (isset($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)
+        && ($_POST['email'] !== $user->getEmail())){
+            $user->setEmail($_POST['email']);
+        }
+        if (isset($_POST['password']) && ($_POST['password'] !== $user->getPassword())){
+            $user->setPassword($_POST['password']);
+        }      
+        
+        $user = $this->userRepo->updateUser($user);
+
+        $viewData = [
+            'pageTitle' => 'OCR - Blog - user - update',
+            'user' => $user
+        ];
+
+        echo $this->twig->getTwig()->render('user/updateUser.twig', $viewData);
+
     } 
 
     public function deleteUser()
