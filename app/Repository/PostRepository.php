@@ -39,6 +39,9 @@ class PostRepository extends AbstractRepository
             $post->setCreatedAt($result->created_at);
             $post->setUpdatedAt($result->updated_at);
         }
+        echo'<pre>';
+        var_dump($post->getUser());
+        echo'</pre>';
 
         return $post;
     }

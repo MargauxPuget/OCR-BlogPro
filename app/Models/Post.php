@@ -69,6 +69,7 @@ class Post
 
     public function setUser(User $user): self
     {
+        var_dump($user);
         $this->user = $user;
 
         return $this;
