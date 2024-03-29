@@ -32,10 +32,19 @@ class PostRepository extends AbstractRepository
             $post->setTitle($result->title);
             $post->setChapo($result->chapo);
             $post->setBody($result->body);
-            $post->setUser($result->user);
+            if($user) {
+                $post->setUser($result->user);
+                var_dump("define");
+            } else {
+                var_dump("NOT define");
+
+            }
             $post->setCreatedAt($result->created_at);
             $post->setUpdatedAt($result->updated_at);
         }
+        echo'<pre>';
+        var_dump($post->getUser());
+        echo'</pre>';
 
         return $post;
     }
