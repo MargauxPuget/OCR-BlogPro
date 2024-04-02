@@ -187,16 +187,30 @@ class UserController
             $userChange->setPassword($updatDataUser['password']);
         }      
         
+<<<<<<< HEAD
         $this->userRepo->updateUser($userChange);
 
         $viewData = [
             'user' => $userChange
-        ];
+=======
+        $this->userRepo->updateUser($user);
 
+        $viewData = [
+            'user' => $user
+>>>>>>> b9a6fed (update user WIP)
+        ];
+        $this->twig->setUserSession($user);
+
+<<<<<<< HEAD
         // on vérifier que la personne qui veut modifier un user soit cet user, ou une personne admin
         if($updatDataUser['identifiant'] == $userLogin->getId()){
             $this->twig->setUserSession($userLogin);
         }
+=======
+        //var_dump($user,  $user->getId());
+        header('Location: /user/' . $user->getId());
+        //echo $this->twig->getTwig()->render('user/user.twig', $viewData);
+>>>>>>> b9a6fed (update user WIP)
 
         header('Location: /user/' . $userLogin->getId());
     } 
