@@ -64,16 +64,7 @@ class Post
 
 	public function getUser(): ?User
     {
-        var_dump(isset($this->user));
-        if (isset($this->user)) {
-            // L'objet utilisateur est créé
-            var_dump("L'objet utilisateur est créé", $this);
-        return $this->user;
-          } else {
-            // "L'objet utilisateur n'est pas créé"
-            var_dump("L'objet utilisateur N'est PAs créé", $this);
-        return null;
-          }
+        return isset($this->user) ? $this->user : null ;
     }
 
     public function setUser(User $user): self

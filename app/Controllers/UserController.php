@@ -89,11 +89,7 @@ class UserController
             
             $_SESSION['userId'] = $userLogin->getId();
 
-            $viewData = [
-                'user' => $userLogin,
-                'responceMessage' => "Vous êtes connecté(e) !",
-                'boolMessage' => true
-            ];
+            header('Location: /');
         }
 
         echo $this->twig->getTwig()->render('home.twig', $viewData);

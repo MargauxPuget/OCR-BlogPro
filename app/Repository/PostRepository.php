@@ -26,6 +26,7 @@ class PostRepository extends AbstractRepository
             $userRepo = new UserRepository();
             $userId = $result->user_id;
             $user = $userRepo->find($userId);
+    
             $result->user = $user;
 
             $post->setId($result->id);
@@ -34,7 +35,7 @@ class PostRepository extends AbstractRepository
             $post->setBody($result->body);
             if($user) {
                 $post->setUser($result->user);
-                var_dump("define");
+                
             } else {
                 var_dump("NOT define");
 
@@ -42,9 +43,9 @@ class PostRepository extends AbstractRepository
             $post->setCreatedAt($result->created_at);
             $post->setUpdatedAt($result->updated_at);
         }
-        echo'<pre>';
+        /* echo'<pre>';
         var_dump($post->getUser());
-        echo'</pre>';
+        ech o'</pre>';*/
 
         return $post;
     }

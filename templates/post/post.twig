@@ -5,7 +5,8 @@
 	<h1>{{ post.title }}</h1>
 	<span class="post_date">{{ post.updated_at is not empty ? post.updated_at : post.createdAt|date("l d F à G\\hi") }}</span>
 	<p>{{ post.body }}</p>
-	<p class="post_author">{{ post.user.name }}</p>
+
+	<p class="post_author">{{ post.user ? post.user.name : 'toto' }}</p>
 
 	<div class="comments">
 		{% include 'comment/listComment.twig' %}
