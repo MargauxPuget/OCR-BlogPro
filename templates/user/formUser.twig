@@ -1,0 +1,44 @@
+{% extends "base.twig" %}
+
+{% block content %}
+
+
+    {% include 'user/launcher.twig' %}
+
+
+{{ dump(userSession) }}
+    <?php
+        $updateUser = false;
+        if (!empty($viewData['user'])) {
+            var_dump($viewData);
+            $updateUser = true;
+        }
+        var_dump('$updateUser', $updateUser);
+    ?>
+
+    <h2>{{ userSession ? 'Mettre à jour ' : 'Ajouter'}} un utilisateur</h2>
+
+    <form action="{{ userSession ? '/user/' ~ userSession.id ~ '/update' : '/user/add'}}" method="{{ userSession ? 'get' : 'post'}}">
+
+        <div>
+            <label for="firstname">Prénom</label>
+            <input type="text" name="firstname" value="{{ userSession ? userSession.firstname : '' }}">
+        </div>
+        <div>
+            <label for="lastname">Nom</label>
+            <input type="text" name="lastname" value="{{ userSession ? userSession.lastname : '' }}">
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="email" name="email" value="{{ userSession ? userSession.email : '' }}">
+        </div>
+        <div>
+            <label for="password">mot de passe</label>
+            <input type="password" name="password" value="{{ userSession ? userSession.password : '' }}">
+        </div>
+
+        <button type="submit">{{ userSession ? 'mettre à jour' : 'Créer' }}</button>
+    </form>
+
+{% endblock %}
+
