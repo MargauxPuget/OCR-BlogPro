@@ -120,11 +120,9 @@ class UserController
 
     public function updateUser()
     {
-        var_dump("UserController->updateUser()");
         
-        $postData = $_POST;
         
-        if (!isset($postData['identifiant']) && !is_int($postData['identifiant'])) {
+        if (!isset($_POST['identifiant']) && !is_int($_POST['identifiant'])) {
             echo("Il faut l'identifiant d'un utilisateur.");
             return false;
         }
@@ -145,14 +143,16 @@ class UserController
             $user->setPassword($_POST['password']);
         }      
         
-        $user = $this->userRepo->updateUser($user);
+        $this->userRepo->updateUser($user);
 
         $viewData = [
-            'pageTitle' => 'OCR - Blog - user - update',
             'user' => $user
         ];
+        $this->twig->setUserSession($user);
 
-        echo $this->twig->getTwig()->render('user/updateUser.twig', $viewData);
+        //var_dump($user,  $user->getId());
+        header('Location: /user/' . $user->getId());
+        //echo $this->twig->getTwig()->render('user/user.twig', $viewData);
 
     } 
 

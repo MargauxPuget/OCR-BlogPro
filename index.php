@@ -121,10 +121,10 @@ $router->map(
 );
 $router->generate('formUser');
 
-
+// TODO benoit le POST c'est correct ?
 $router->map(
-	'GET',
-	'user/[i:userId]/update',
+	'POST',
+	'user/update',
 	[
 		'action' 	=> 'updateUser',
 		'controller' => 'MPuget\blog\Controllers\UserController'

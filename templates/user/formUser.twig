@@ -7,18 +7,10 @@
 
 
 {{ dump(userSession) }}
-    <?php
-        $updateUser = false;
-        if (!empty($viewData['user'])) {
-            var_dump($viewData);
-            $updateUser = true;
-        }
-        var_dump('$updateUser', $updateUser);
-    ?>
 
     <h2>{{ userSession ? 'Mettre à jour ' : 'Ajouter'}} un utilisateur</h2>
 
-    <form action="{{ userSession ? '/user/' ~ userSession.id ~ '/update' : '/user/add'}}" method="{{ userSession ? 'get' : 'post'}}">
+    <form action="{{ userSession ? '/user/update' : '/user/add'}}" method="{{ 'post'}}">
 
         <div>
             <label for="firstname">Prénom</label>
@@ -37,7 +29,8 @@
             <input type="password" name="password" value="{{ userSession ? userSession.password : '' }}">
         </div>
 
-        <button type="submit">{{ userSession ? 'mettre à jour' : 'Créer' }}</button>
+        <input hidden type="number" name="identifiant" value="{{ userSession ? userSession.id : '' }}">
+    <button type="submit">{{ userSession ? 'mettre à jour' : 'Créer' }}</button>
     </form>
 
 {% endblock %}

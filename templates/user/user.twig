@@ -2,6 +2,7 @@
 
 {% block content %}
 
+{{ dump(userSession) }}
 	<div class="headerUser">
 		<h1>Bien le bonjour {{ userSession.name }} !</h1>
 		<a href="/user/{{ userSession.id }}/form"><img class="post_img" src="/public/assets/images/article.png" alt="logo" /></a>
