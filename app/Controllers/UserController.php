@@ -81,12 +81,18 @@ class UserController
 
         // récupération des commentaires de cet utilisateur
         $commentsByUser = $this->commentRepo->findAllforOneUser($user);
+<<<<<<< HEAD
         // récupération des commentaires de cet utilisateur
         $commentsForValidation = $this->commentRepo->findAllforOneUser($user, 0);
 
         $viewData = [
             'commentsByUser' => $commentsByUser,
             'commentsForValidation' => $commentsForValidation
+=======
+
+        $viewData = [
+            'commentsByUser' => $commentsByUser
+>>>>>>> 7a5cdce (display comment in user page)
         ];
         echo $this->twig->getTwig()->render('/user/user.twig', $viewData);
     }
@@ -145,8 +151,12 @@ class UserController
 
     public function updateUser()
     {
+<<<<<<< HEAD
         $updatDataUser = $_POST;
         if (!isset($updatDataUser['identifiant']) && !is_int($updatDataUser['identifiant'])) {
+=======
+        if (!isset($_POST['identifiant']) && !is_int($_POST['identifiant'])) {
+>>>>>>> 7a5cdce (display comment in user page)
             echo("Il faut l'identifiant d'un utilisateur.");
             header('Location: /user/' . $userLogin->getId());
             return false;

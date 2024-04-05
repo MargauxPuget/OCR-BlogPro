@@ -3,9 +3,15 @@
 {% block content %}
     {% include 'user/launcher.twig' %}
 
+<<<<<<< HEAD
     <h2>Mettre à jour un utilisateur</h2>
 {{ dump(user) }}
     <form action="/user/{{ user.id }}/update" method="post" enctype="multipart/form-data">
+=======
+    <h2>{{ userSession ? 'Mettre à jour ' : 'Ajouter'}} un utilisateur</h2>
+
+    <form action="{{ userSession ? '/user/update' : '/user/add'}}" method="{{ 'post'}}">
+>>>>>>> 7a5cdce (display comment in user page)
 
         <div>
             <label for="firstname">Prénom</label>
