@@ -190,6 +190,7 @@ class UserController
         
         $this->userRepo->updateUser($userChange);
 
+          
         $viewData = [
             'user' => $userChange
         ];
