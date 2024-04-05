@@ -24,7 +24,8 @@ class UserController
     public function addUser()
     {
         $newUser = $_POST;
-        
+        $image = isset($_FILES['picture']) ? $_FILES['picture'] : null ;
+       
         if (
         empty($newUser['firstname'])
         || empty($newUser['lastname'])
@@ -33,6 +34,7 @@ class UserController
         || empty($newUser['password'])
         || !(strlen($newUser['password']) >= 8)
         || !(preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).+$/', $newUser['password'])) //Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule et un chiffre.
+        || !(isset($image) && ($image['error'] === 0))
         ) {
             $validatAddUser = false;
         } else {
@@ -42,6 +44,16 @@ class UserController
             $user->setEmail($newUser['email']);
             $user->setPassword(md5($newUser['password']));
             $user->setCreatedAt(date('Y-m-d H:i:s'));
+
+            if (isset($image)) {
+                // Déplacer l'image vers le dossier de destination
+                // is_dir('public/assets/images/uploads/') ? var_dump('existe') : var_dump('N existe PAS') ;
+                $resultMoveImg = move_uploaded_file($image['tmp_name'], 'public/assets/images/uploads/' . $image['name'] );
+                if($resultMoveImg){
+
+                    $user->setPicture($image['name']);
+                }
+            }
 
             $newUser = $this->userRepo->addUser($user);
 
@@ -149,20 +161,11 @@ class UserController
             $user->setLastname($_POST['lastname']);
         }
 
-
-        var_dump($_POST);
-        var_dump($_FILES);
-
         $image = $_FILES['picture'];
         if (isset($image) && ($image['error'] === 0) && ($image !== $user->getPicture())){
-            
-
-
             // Déplacer l'image vers le dossier de destination
             is_dir('public/assets/images/uploads/') ? var_dump('existe') : var_dump('N existe PAS') ;
             $toto = move_uploaded_file($image['tmp_name'], 'public/assets/images/uploads/' . $image['name'] );
-            
-            var_dump('toto', $toto);
             
             $user->setPicture($image['name']);
         }
@@ -171,7 +174,7 @@ class UserController
         && ($_POST['email'] !== $user->getEmail())){
             $user->setEmail($_POST['email']);
         }
-        if (isset($_POST['password']) && ($_POST['password'] !== $user->getPassword())){
+        if (isset($_POST['password']) && ($_POST['password'] !== $user->getPassword())){ 
             $user->setPassword($_POST['password']);
         }      
         

@@ -134,6 +134,7 @@ $router->map(
 $router->generate('updateUser');
 
 // TODO BEnoit est ce que la route est correct
+// -> supprimer id user --> comment/id/refus
 $router->map(
 	'GET',
 	'user/[i:userId]/refusedComment/[i:commentId]',

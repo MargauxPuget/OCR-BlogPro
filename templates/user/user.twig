@@ -3,7 +3,7 @@
 {% block content %}
 
 	<div class="headerUser">
-			<h1><img class="pictureUser" src="{{ userSession.picture ? '/public/assets/images/upload/' ~ userSession.picture : '/public/assets/images/portrait.png' }}" alt="" />Bien le bonjour <span class="nameUser">{{ userSession.name }}</span> !</h1>
+			<h1><img class="pictureUser" src="{{ userSession.picture ? '/public/assets/images/uploads/' ~ userSession.picture : '/public/assets/images/portrait.png' }}" alt="" />Bien le bonjour <span class="nameUser">{{ userSession.name }}</span> !</h1>
 			<a href="/user/{{ userSession.id }}/form"><img class="post_img" src="/public/assets/images/article.png" alt="modifier mes données" /></a>
 	</div>
 

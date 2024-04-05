@@ -4,7 +4,7 @@
     {% include 'user/launcher.twig' %}
 
     <h2>{{ userSession ? 'Mettre à jour ' : 'Ajouter'}} un utilisateur</h2>
-
+{#  TODO nettoyer le adda user qui ne sert plsu a rien  #}
     <form action="{{ userSession ? '/user/update' : '/user/add'}}" method="{{ 'post' }}" enctype="multipart/form-data">
 
         <div>

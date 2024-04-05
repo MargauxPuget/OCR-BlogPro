@@ -17,22 +17,26 @@
 		<button class="btn btn--login" type="submit">Connexion</button>
 	</form>
 
-	<form class="js-popup-form loginPopupForm addUser isHidden" action="/addUser" method="post">
+	<form class="js-popup-form loginPopupForm addUser isHidden" action="/addUser" method="post" enctype="multipart/form-data">
 		<div class="input">
 			<label for="firstname">Prénom :</label>
-			<input type="text" name="firstname" value="Mar">
+			<input type="text" name="firstname" value="Jimmy">
 		</div>
 		<div class="input">
 			<label for="lastname">Nom :</label>
-			<input type="text" name="lastname">
+			<input type="text" name="lastname" value="Vion">
 		</div>
+        <div>
+            <label for="picture">Image : </label>
+            <input type="file" id="picture" name="picture">
+        </div>
 		<div class="input">
 			<label for="email">Email :</label>
-			<input type="email" name="email" value="mar.pu@gmil.com">
+			<input type="email" name="email" value="jim.vi@gmail.com">
 		</div>
 		<div class="input">
 			<label for="password">Mot de passe :</label>
-			<input type="password" name="password" value="devine">
+			<input type="password" name="password" value="Jimmy123">
 			<p class="addUser_password">Votre mot de passse doit faire un minimun de 8 caractères, possèder au minimun une majuscule, une miniscule et un chiffre.</p>
 		</div>
 
