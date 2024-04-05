@@ -124,6 +124,13 @@ $router->map(
 );
 $router->generate('formUser');
 
+<<<<<<< HEAD
+=======
+// TODO benoit le POST c'est correct ?
+// user/id/update
+// userActif = session
+// userActif = admin
+>>>>>>> e243579 (improvement update user)
 $router->map(
 	'POST',
 	'user/[i:userId]/update',
@@ -136,7 +143,7 @@ $router->map(
 $router->generate('updateUser');
 
 // TODO BEnoit est ce que la route est correct
-// -> supprimer id user --> comment/id/refus
+// -> supprimer id user --> comment/id/refused
 $router->map(
 	'GET',
 	'user/[i:userId]/refusedComment/[i:commentId]',

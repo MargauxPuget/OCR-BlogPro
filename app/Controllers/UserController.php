@@ -163,29 +163,19 @@ class UserController
             return false;
         }
 
-<<<<<<< HEAD
         if (isset($updatDataUser['firstname']) && ($updatDataUser['firstname'] !== $userChange->getFirstname())){
             $userChange->setFirstname($updatDataUser['firstname']);
         }
         if (isset($updatDataUser['lastname']) && ($updatDataUser['lastname'] !== $userChange->getLastname())){
             $userLuserChangeogin->setLastname($updatDataUser['lastname']);
+
         }
 
         $image = $_FILES['picture'];
         if (isset($image) && ($image['error'] === 0) && ($image !== $userChange->getPicture())){
-=======
-        $image = $_FILES['picture'];
-        if (isset($image) && ($image['error'] === 0) && ($image !== $user->getPicture())){
->>>>>>> 2c9e371 (upload image for new user)
             // Déplacer l'image vers le dossier de destination
             //is_dir('public/assets/images/uploads/') ? var_dump('existe') : var_dump('N existe PAS') ;
-            $toto = move_uploaded_file($image['tmp_name'], 'public/assets/images/uploads/' . $image['name'] );
-            
-<<<<<<< HEAD
             $userChange->setPicture($image['name']);
-=======
-            $user->setPicture($image['name']);
->>>>>>> 2c9e371 (upload image for new user)
         }
 
         if (isset($updatDataUser['email']) || !filter_var($updatDataUser['email'], FILTER_VALIDATE_EMAIL)
@@ -198,7 +188,7 @@ class UserController
         
         $this->userRepo->updateUser($userChange);
 
-          
+          var_dump($userChange);
         $viewData = [
             'user' => $userChange
         ];
