@@ -81,18 +81,13 @@ class UserController
 
         // récupération des commentaires de cet utilisateur
         $commentsByUser = $this->commentRepo->findAllforOneUser($user);
-<<<<<<< HEAD
+
         // récupération des commentaires de cet utilisateur
         $commentsForValidation = $this->commentRepo->findAllforOneUser($user, 0);
 
         $viewData = [
             'commentsByUser' => $commentsByUser,
             'commentsForValidation' => $commentsForValidation
-=======
-
-        $viewData = [
-            'commentsByUser' => $commentsByUser
->>>>>>> 7a5cdce (display comment in user page)
         ];
         echo $this->twig->getTwig()->render('/user/user.twig', $viewData);
     }
@@ -152,12 +147,8 @@ class UserController
 
     public function updateUser()
     {
-<<<<<<< HEAD
         $updatDataUser = $_POST;
         if (!isset($updatDataUser['identifiant']) && !is_int($updatDataUser['identifiant'])) {
-=======
-        if (!isset($_POST['identifiant']) && !is_int($_POST['identifiant'])) {
->>>>>>> 7a5cdce (display comment in user page)
             echo("Il faut l'identifiant d'un utilisateur.");
             header('Location: /user/' . $userLogin->getId());
             return false;
@@ -197,35 +188,17 @@ class UserController
             $userChange->setPassword($updatDataUser['password']);
         }      
         
-<<<<<<< HEAD
         $this->userRepo->updateUser($userChange);
 
         $viewData = [
             'user' => $userChange
-=======
-        $this->userRepo->updateUser($user);
-
-        $viewData = [
-            'user' => $user
->>>>>>> b9a6fed (update user WIP)
         ];
         $this->twig->setUserSession($user);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
         // on vérifier que la personne qui veut modifier un user soit cet user, ou une personne admin
         if($updatDataUser['identifiant'] == $userLogin->getId()){
             $this->twig->setUserSession($userLogin);
         }
-=======
-        //var_dump($user,  $user->getId());
-=======
-        
-        // TODO Benoit -> header pour recharger ? mais l'update_a ne se met pas a jour?
->>>>>>> 3167a83 (cleanning)
-        header('Location: /user/' . $user->getId());
-        //echo $this->twig->getTwig()->render('user/user.twig', $viewData);
->>>>>>> b9a6fed (update user WIP)
 
         header('Location: /user/' . $userLogin->getId());
     } 
