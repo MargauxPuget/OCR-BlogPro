@@ -1,12 +1,7 @@
 {% extends "base.twig" %}
 
 {% block content %}
-
-
     {% include 'user/launcher.twig' %}
-
-
-{{ dump(userSession) }}
 
     <h2>{{ userSession ? 'Mettre à jour ' : 'Ajouter'}} un utilisateur</h2>
 

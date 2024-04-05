@@ -21,6 +21,7 @@ header {
 }
 
 .nameAuthor,
+.nameUser,
 .nameEntity {
   font-family: "Indie Flower", cursive;
   font-weight: 400;

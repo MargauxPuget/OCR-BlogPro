@@ -35,6 +35,7 @@ class CommentRepository extends AbstractRepository
             $result->post = $post;
 
             $comment->setId($result->id);
+            $comment->setStatus($result->status);
             $comment->setBody($result->body);
             $comment->setUser($result->user);
             $comment->setPost($result->post);
@@ -65,6 +66,25 @@ class CommentRepository extends AbstractRepository
         WHERE post_id=:postId ORDER BY `created_at` DESC');
         $pdoStatement->execute([
             "postId" => $post->getId(),
+        ]);
+        $commentList = $pdoStatement->fetchAll();
+
+        $comments = [];
+        foreach ($commentList as $comment) {
+
+            $comment = $this->find($comment['id']);
+            $comments[] = $comment;
+        }
+        
+        return $comments;
+    }
+
+    public function findAllforOneUser(User $user): ?Array
+    {
+        $pdoStatement = $this->pdo->prepare('SELECT id FROM `comment`
+        WHERE user_id=:userId ORDER BY `created_at` DESC');
+        $pdoStatement->execute([
+            "userId" => $user->getId(),
         ]);
         $commentList = $pdoStatement->fetchAll();
 

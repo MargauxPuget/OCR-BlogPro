@@ -2,14 +2,30 @@
 
 {% block content %}
 
-{{ dump(userSession) }}
-	<div class="headerUser">
-		<h1>Bien le bonjour {{ userSession.name }} !</h1>
-		<a href="/user/{{ userSession.id }}/form"><img class="post_img" src="/public/assets/images/article.png" alt="logo" /></a>
-	</div>
+		<div class="headerUser">
+				<h1>Bien le bonjour <span class="nameUser">{{ userSession.name }}</span> !</h1>
+				<a href="/user/{{ userSession.id }}/form"><img class="post_img" src="/public/assets/images/article.png" alt="logo" /></a>
+		</div>
 
+		<h2>Votre activité : </h2>
+		<h2>Vos commentaires : </h2>
+		<ul>
+    {% for comment in commentsByUser %}
+        {# <li class="commentUser">
+			{{ dump(comment) }}
+		</li> #}
+        <li class="commentUser commentUser-{{ comment.status }}">
+			<div>
+				<p class="comment_body">{{ comment.body }}</p>
+				<p>{{ comment.updated_at is not empty ? comment.updated_at : comment.createdAt|date("l d F à G\\hi") }}</p>
+				<p class="comment_author">{{ comment.user.name }}</p>
+			</div>
 
+			<a class="comment_delete" href="{{ post.id }}/deleteComment/{{ comment.id }}"><img class="" src="/public/assets/images/poubelle.png" alt="insta" /></a>
 
+		</li>
+        {# <li>{{ comment|e }}</li> #}
+    {% endfor %}
+		</ul>
 
-	
 {% endblock %}

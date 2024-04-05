@@ -9,3 +9,29 @@
   width: 68px;
   height: 68px;
 }
+
+.commentUser {
+  border: 1px black solid;
+  border-radius: 5px;
+  margin: 5px 0;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+}
+
+
+.commentUser--1 {
+  border: 1px red solid;
+  border-radius: 5px;
+}
+
+.commentUser-0 {
+  border: 1px orange solid;
+  border-radius: 5px;
+}
+
+.commentUser-1 {
+  border: 1px green solid;
+  border-radius: 5px;
+}

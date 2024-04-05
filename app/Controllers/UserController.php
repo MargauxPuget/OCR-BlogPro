@@ -7,14 +7,17 @@ use MPuget\blog\Models\Post;
 use MPuget\blog\Models\User;
 use MPuget\blog\Models\TimeTrait;
 use MPuget\blog\Repository\UserRepository;
+use MPuget\blog\Repository\CommentRepository;
 
 class UserController
 {
     protected $userRepo;
+    protected $commentRepo;
     protected $twig;
 
     public function __construct(){
         $this->userRepo = new UserRepository();
+        $this->commentRepo = new CommentRepository();
         $this->twig = new Twig();
     }
 
@@ -58,10 +61,19 @@ class UserController
     {
         if (!isset($_SESSION['userId'])) {
             header('Location: /');
-        } else {
-            $viewData = [];
-            echo $this->twig->getTwig()->render('/user/user.twig', $viewData);
+            die;
         }
+
+        // récupération de cet utilisateur
+        $user = $this->userRepo->find($_SESSION['userId']);
+
+        // récupération des commentaires de cet utilisateur
+        $commentsByUser = $this->commentRepo->findAllforOneUser($user);
+
+        $viewData = [
+            'commentsByUser' => $commentsByUser
+        ];
+        echo $this->twig->getTwig()->render('/user/user.twig', $viewData);
     }
     
     public function loginUser()
@@ -120,8 +132,6 @@ class UserController
 
     public function updateUser()
     {
-        
-        
         if (!isset($_POST['identifiant']) && !is_int($_POST['identifiant'])) {
             echo("Il faut l'identifiant d'un utilisateur.");
             return false;

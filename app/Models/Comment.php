@@ -15,6 +15,7 @@ class Comment
     use IdTrait;
     use TimeTrait;
 
+    private int $status;
     private ?string $body;
     private ?User $user;
     private ?Post $post;
@@ -22,6 +23,18 @@ class Comment
 
     public function __construct()
     {
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
+
+        return $this;
     }
 
     public function getBody(): ?string
