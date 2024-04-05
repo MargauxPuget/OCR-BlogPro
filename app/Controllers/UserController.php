@@ -132,7 +132,6 @@ class UserController
     public function formUser($params)
     {
         $viewData = [];
-
         if ($params['userId']) {
             // ou veux mettre à jours
 
@@ -190,11 +189,10 @@ class UserController
         
         $this->userRepo->updateUser($userChange);
 
-          
+          var_dump($userChange);
         $viewData = [
             'user' => $userChange
         ];
-        $this->twig->setUserSession($user);
 
         // on vérifier que la personne qui veut modifier un user soit cet user, ou une personne admin
         if($updatDataUser['identifiant'] == $userLogin->getId()){
