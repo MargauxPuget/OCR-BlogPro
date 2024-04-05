@@ -148,6 +148,25 @@ class UserController
         if (isset($_POST['lastname']) && ($_POST['lastname'] !== $user->getLastname())){
             $user->setLastname($_POST['lastname']);
         }
+
+
+        var_dump($_POST);
+        var_dump($_FILES);
+
+        $image = $_FILES['picture'];
+        if (isset($image) && ($image['error'] === 0) && ($image !== $user->getPicture())){
+            
+
+
+            // Déplacer l'image vers le dossier de destination
+            is_dir('public/assets/images/uploads/') ? var_dump('existe') : var_dump('N existe PAS') ;
+            $toto = move_uploaded_file($image['tmp_name'], 'public/assets/images/uploads/' . $image['name'] );
+            
+            var_dump('toto', $toto);
+            
+            $user->setPicture($image['name']);
+        }
+
         if (isset($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)
         && ($_POST['email'] !== $user->getEmail())){
             $user->setEmail($_POST['email']);
@@ -158,6 +177,7 @@ class UserController
         
         $this->userRepo->updateUser($user);
 
+          
         $viewData = [
             'user' => $user
         ];
