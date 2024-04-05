@@ -165,6 +165,7 @@ class CommentRepository extends AbstractRepository
         return true;
     }
 
+<<<<<<< HEAD
     public function changedStatusComment(Comment $comment, string $newStatus) : bool
     {
         $codeStatus = null;
@@ -180,12 +181,20 @@ class CommentRepository extends AbstractRepository
                 break;
         }
 
+=======
+    public function changedStatusComment(Comment $comment, int $newStatus) : bool
+    {
+>>>>>>> 5901fef (change status of comments)
         $sql = "UPDATE comment SET status=:status
         WHERE id=:id";
         $pdoStatement = $this->pdo->prepare($sql);
         $pdoStatement->execute([
             'id'        => $comment->getId(),
+<<<<<<< HEAD
             'status'    => $codeStatus,
+=======
+            'status'    => $newStatus,
+>>>>>>> 5901fef (change status of comments)
         ]);
 
         return true;
