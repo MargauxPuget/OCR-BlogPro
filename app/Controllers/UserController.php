@@ -150,7 +150,8 @@ class UserController
         ];
         $this->twig->setUserSession($user);
 
-        //var_dump($user,  $user->getId());
+        
+        // TODO Benoit -> header pour recharger ? mais l'update_a ne se met pas a jour?
         header('Location: /user/' . $user->getId());
         //echo $this->twig->getTwig()->render('user/user.twig', $viewData);
 

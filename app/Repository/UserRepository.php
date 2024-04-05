@@ -48,6 +48,7 @@ class UserRepository extends AbstractRepository
             $user->setEmail($result->email);
             $user->setPassword($result->password);
             $user->setCreatedAt($result->created_at);
+            !empty($result->updated_at) ? $user->setUpdatedAt($result->updated_at) : null;
         }
         return $user;
     }
