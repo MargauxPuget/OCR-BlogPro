@@ -203,40 +203,4 @@ class UserController
     public function deleteUser()
     {
     }
-
-    // ------- //
-    // Comment //
-    // ------- //
-
-    public function refusedComment($params) {
-        var_dump($params);
-
-        // vérifier que l'utilisateur est un admin
-        $user = $this->userRepo->find($params['userId']);
-        if ($user->getRole() === 1) {
-            // modifier le status du commentaire
-            $comment = $this->commentRepo->find($params['commentId']);
-        
-            $comment = $this->commentRepo->changedStatusComment($comment, -1);
-        }
-        header('Location: /user/' . $user->getId());
-    }
-
-
-    public function acceptedComment($params) {
-        var_dump($params);
-
-        // vérifier que l'utilisateur est un admin
-        $user = $this->userRepo->find($params['userId']);
-        if ($user->getRole() === 1) {
-            // modifier le status du commentaire
-            $comment = $this->commentRepo->find($params['commentId']);
-        
-            $comment = $this->commentRepo->changedStatusComment($comment, 1);
-        }
-        header('Location: /user/' . $user->getId());
-    }
-
-
-
 }

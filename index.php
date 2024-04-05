@@ -4,6 +4,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 // require de nos Controllers
 use MPuget\blog\Controllers\MainController;
 use MPuget\blog\Controllers\PostController;
+use MPuget\blog\Controllers\CommentController;
+use MPuget\blog\Controllers\UserController;
 use MPuget\blog\Controllers\ErrorController;
 
 //* -----------------------------------------------------
@@ -121,10 +123,6 @@ $router->map(
 );
 $router->generate('formUser');
 
-// TODO benoit le POST c'est correct ?
-// user/id/update
-// userActif = session
-// userActif = admin
 $router->map(
 	'POST',
 	'user/[i:userId]/update',
@@ -136,33 +134,6 @@ $router->map(
 );
 $router->generate('updateUser');
 
-// TODO BEnoit est ce que la route est correct
-// -> supprimer id user --> comment/id/refused
-$router->map(
-	'GET',
-	'user/[i:userId]/refusedComment/[i:commentId]',
-	// target :
-	[
-		'action' => 'refusedComment',
-		'controller' => 'MPuget\blog\Controllers\UserController'
-	],
-	'refusedComment'
-);
-$router->generate('refusedComment');
-
-
-// TODO BEnoit est ce que la route est correct
-$router->map(
-	'GET',
-	'user/[i:userId]/acceptedComment/[i:commentId]',
-	// target :
-	[
-		'action' => 'acceptedComment',
-		'controller' => 'MPuget\blog\Controllers\UserController'
-	],
-	'acceptedComment'
-);
-$router->generate('refusedComment');
 
 //* --------------------------
 //*   Post
@@ -211,6 +182,19 @@ $router->generate('singlePost');
 //*--------------------------
 //*   Comment
 //*--------------------------
+
+
+$router->map(
+	'POST',
+	'comment/[i:commentId]/update',
+	// target :
+	[
+		'action' => 'updateComment',
+		'controller' => 'MPuget\blog\Controllers\CommentController'
+	],
+	'refusedComment'
+);
+$router->generate('refusedComment');
 
 $router->map(
 	'POST',

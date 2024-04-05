@@ -146,14 +146,27 @@ class CommentRepository extends AbstractRepository
         return true;
     }
 
-    public function changedStatusComment(Comment $comment, int $newStatus) : bool
+    public function changedStatusComment(Comment $comment, string $newStatus) : bool
     {
+        $codeStatus = null;
+        switch ($newStatus) {
+            case 'refused':
+                $codeStatus = -1;
+                break;
+            case 'pause':
+                $codeStatus = 0;
+                break;
+            case 'validated':
+                $codeStatus = 1;
+                break;
+        }
+
         $sql = "UPDATE comment SET status=:status
         WHERE id=:id";
         $pdoStatement = $this->pdo->prepare($sql);
         $pdoStatement->execute([
             'id'        => $comment->getId(),
-            'status'    => $newStatus,
+            'status'    => $codeStatus,
         ]);
 
         return true;
