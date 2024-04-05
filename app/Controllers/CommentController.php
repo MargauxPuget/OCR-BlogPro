@@ -21,7 +21,6 @@ class CommentController
     }
 
     public function updateComment($params) {
-        
         // vérifier que l'utilisateur est un admin
         $user = $this->userRepo->find($_SESSION['userId']);
 
