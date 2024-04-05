@@ -79,7 +79,6 @@ class CommentRepository extends AbstractRepository
         return $comments;
     }
 
-<<<<<<< HEAD
     public function findAllforOneUser(User $user, int $status = null): ?Array
     {
         if (isset($status)) {
@@ -96,15 +95,6 @@ class CommentRepository extends AbstractRepository
             ]);
         }
 
-=======
-    public function findAllforOneUser(User $user): ?Array
-    {
-        $pdoStatement = $this->pdo->prepare('SELECT id FROM `comment`
-        WHERE user_id=:userId ORDER BY `created_at` DESC');
-        $pdoStatement->execute([
-            "userId" => $user->getId(),
-        ]);
->>>>>>> 7a5cdce (display comment in user page)
         $commentList = $pdoStatement->fetchAll();
 
         $comments = [];
@@ -165,7 +155,6 @@ class CommentRepository extends AbstractRepository
         return true;
     }
 
-<<<<<<< HEAD
     public function changedStatusComment(Comment $comment, string $newStatus) : bool
     {
         $codeStatus = null;
@@ -181,20 +170,12 @@ class CommentRepository extends AbstractRepository
                 break;
         }
 
-=======
-    public function changedStatusComment(Comment $comment, int $newStatus) : bool
-    {
->>>>>>> 5901fef (change status of comments)
         $sql = "UPDATE comment SET status=:status
         WHERE id=:id";
         $pdoStatement = $this->pdo->prepare($sql);
         $pdoStatement->execute([
             'id'        => $comment->getId(),
-<<<<<<< HEAD
             'status'    => $codeStatus,
-=======
-            'status'    => $newStatus,
->>>>>>> 5901fef (change status of comments)
         ]);
 
         return true;
