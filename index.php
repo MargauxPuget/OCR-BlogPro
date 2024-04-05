@@ -135,6 +135,7 @@ $router->map(
 );
 $router->generate('updateUser');
 
+<<<<<<< HEAD
 
 // todo a verifier que ca ne manque pas !!
 // // TODO BEnoit est ce que la route est correct
@@ -149,6 +150,21 @@ $router->generate('updateUser');
 // 	'refusedComment'
 // );
 // $router->generate('refusedComment');
+=======
+// TODO BEnoit est ce que la route est correct
+// -> supprimer id user --> comment/id/refus
+$router->map(
+	'GET',
+	'user/[i:userId]/refusedComment/[i:commentId]',
+	// target :
+	[
+		'action' => 'refusedComment',
+		'controller' => 'MPuget\blog\Controllers\UserController'
+	],
+	'refusedComment'
+);
+$router->generate('refusedComment');
+>>>>>>> 2c9e371 (upload image for new user)
 
 
 // // TODO BEnoit est ce que la route est correct
