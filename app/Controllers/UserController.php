@@ -202,5 +202,4 @@ class UserController
 
     public function deleteUser()
     {
-    }
 }
