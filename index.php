@@ -122,9 +122,12 @@ $router->map(
 $router->generate('formUser');
 
 // TODO benoit le POST c'est correct ?
+// user/id/update
+// userActif = session
+// userActif = admin
 $router->map(
 	'POST',
-	'user/update',
+	'user/[i:userId]/update',
 	[
 		'action' 	=> 'updateUser',
 		'controller' => 'MPuget\blog\Controllers\UserController'
@@ -134,7 +137,7 @@ $router->map(
 $router->generate('updateUser');
 
 // TODO BEnoit est ce que la route est correct
-// -> supprimer id user --> comment/id/refus
+// -> supprimer id user --> comment/id/refused
 $router->map(
 	'GET',
 	'user/[i:userId]/refusedComment/[i:commentId]',

@@ -131,16 +131,14 @@ class UserController
     public function formUser($params)
     {
         $viewData = [];
-
         if ($params['userId']) {
             // ou veux mettre à jours
 
             $userId = intval($params['userId']);
             $user = $this->userRepo->find($userId);
 
-            array_push($viewData, ['user' => $user]);
-            
-        } 
+            $viewData = ['user' => $user];
+        }
         
         echo $this->twig->getTwig()->render('user/formUser.twig', $viewData);
     }
@@ -149,48 +147,57 @@ class UserController
     {
         if (!isset($_POST['identifiant']) && !is_int($_POST['identifiant'])) {
             echo("Il faut l'identifiant d'un utilisateur.");
+            header('Location: /user/' . $userLogin->getId());
             return false;
         }
 
-        $user = $this->userRepo->find($_POST['identifiant']);
+        $userLogin = $this->userRepo->find($_SESSION['userId']);
+        $userChange = $this->userRepo->find($_POST['identifiant']);
 
-        if (isset($_POST['firstname']) && ($_POST['firstname'] !== $user->getFirstname())){
-            $user->setFirstname($_POST['firstname']);
+        // on vérifier que la personne qui veut modifier un user soit cet user, ou une personne admin
+        if(!($_POST['identifiant'] == $userLogin->getId()) && !($userLogin->getRole() === 1) ){
+            echo("Vous ne pouvez pas modifier cette personne");
+            header('Location: /user/' . $userLogin->getId());
+            return false;
         }
-        if (isset($_POST['lastname']) && ($_POST['lastname'] !== $user->getLastname())){
-            $user->setLastname($_POST['lastname']);
+
+        if (isset($_POST['firstname']) && ($_POST['firstname'] !== $userChange->getFirstname())){
+            $userChange->setFirstname($_POST['firstname']);
+        }
+        if (isset($_POST['lastname']) && ($_POST['lastname'] !== $userChange->getLastname())){
+            $userLuserChangeogin->setLastname($_POST['lastname']);
         }
 
         $image = $_FILES['picture'];
-        if (isset($image) && ($image['error'] === 0) && ($image !== $user->getPicture())){
+        if (isset($image) && ($image['error'] === 0) && ($image !== $userChange->getPicture())){
             // Déplacer l'image vers le dossier de destination
             is_dir('public/assets/images/uploads/') ? var_dump('existe') : var_dump('N existe PAS') ;
             $toto = move_uploaded_file($image['tmp_name'], 'public/assets/images/uploads/' . $image['name'] );
             
-            $user->setPicture($image['name']);
+            $userChange->setPicture($image['name']);
         }
 
         if (isset($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)
-        && ($_POST['email'] !== $user->getEmail())){
-            $user->setEmail($_POST['email']);
+        && ($_POST['email'] !== $userChange->getEmail())){
+            $userChange->setEmail($_POST['email']);
         }
-        if (isset($_POST['password']) && ($_POST['password'] !== $user->getPassword())){ 
-            $user->setPassword($_POST['password']);
+        if (isset($_POST['password']) && ($_POST['password'] !== $userChange->getPassword())){ 
+            $userChange->setPassword($_POST['password']);
         }      
         
-        $this->userRepo->updateUser($user);
+        $this->userRepo->updateUser($userChange);
 
-          
+          var_dump($userChange);
         $viewData = [
-            'user' => $user
+            'user' => $userChange
         ];
-        $this->twig->setUserSession($user);
 
-        
-        // TODO Benoit -> header pour recharger ? mais l'update_a ne se met pas a jour?
-        header('Location: /user/' . $user->getId());
-        //echo $this->twig->getTwig()->render('user/user.twig', $viewData);
+        // on vérifier que la personne qui veut modifier un user soit cet user, ou une personne admin
+        if($_POST['identifiant'] == $userLogin->getId()){
+            $this->twig->setUserSession($userLogin);
+        }
 
+        header('Location: /user/' . $userLogin->getId());
     } 
 
     public function deleteUser()

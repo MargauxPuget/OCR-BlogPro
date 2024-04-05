@@ -3,17 +3,17 @@
 {% block content %}
     {% include 'user/launcher.twig' %}
 
-    <h2>{{ userSession ? 'Mettre à jour ' : 'Ajouter'}} un utilisateur</h2>
-{#  TODO nettoyer le adda user qui ne sert plsu a rien  #}
-    <form action="{{ userSession ? '/user/update' : '/user/add'}}" method="{{ 'post' }}" enctype="multipart/form-data">
+    <h2>Mettre à jour un utilisateur</h2>
+{{ dump(user) }}
+    <form action="/user/{{ user.id }}/update" method="post" enctype="multipart/form-data">
 
         <div>
             <label for="firstname">Prénom</label>
-            <input type="text" name="firstname" value="{{ userSession ? userSession.firstname : '' }}">
+            <input type="text" name="firstname" value="{{ user ? user.firstname : '' }}">
         </div>
         <div>
             <label for="lastname">Nom</label>
-            <input type="text" name="lastname" value="{{ userSession ? userSession.lastname : '' }}">
+            <input type="text" name="lastname" value="{{ user ? user.lastname : '' }}">
         </div>
         <div>
             <label for="picture">Image : </label>
@@ -21,15 +21,15 @@
         </div>
         <div>
             <label for="email">Email</label>
-            <input type="email" name="email" value="{{ userSession ? userSession.email : '' }}">
+            <input type="email" name="email" value="{{ user ? user.email : '' }}">
         </div>
         <div>
             <label for="password">mot de passe</label>
-            <input type="password" name="password" value="{{ userSession ? userSession.password : '' }}">
+            <input type="password" name="password" value="{{ user ? user.password : '' }}">
         </div>
 
-        <input hidden type="number" name="identifiant" value="{{ userSession ? userSession.id : '' }}">
-    <button type="submit">{{ userSession ? 'mettre à jour' : 'Créer' }}</button>
+        <input hidden type="number" name="identifiant" value="{{ user ? user.id : '' }}">
+    <button type="submit">{{ user ? 'mettre à jour' : 'Créer' }}</button>
     </form>
 
 {% endblock %}

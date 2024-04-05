@@ -72,7 +72,7 @@ class UserRepository extends AbstractRepository
         if (!empty($result)) {
             return $result->id;
         } else {
-            return null;
+            return -1;
         }
     }
 
