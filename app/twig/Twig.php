@@ -28,13 +28,8 @@ class Twig
 
             $userRepo = new UserRepository();
             $this->user = $userRepo->find($_SESSION['userId']);
-<<<<<<< HEAD
-=======
-            var_dump($this->user);
->>>>>>> b9a6fed (update user WIP)
 
             $this->twig->addGlobal('userSession', $this->user);
-
         }
 
     }
@@ -42,11 +37,6 @@ class Twig
     public function setUserSession($user)
     {
         $this->user = $user;
-<<<<<<< HEAD
-=======
-        var_dump('la', $this->user);
->>>>>>> b9a6fed (update user WIP)
-
         return $this->user;
     }
 

@@ -202,12 +202,17 @@ class UserController
         $this->twig->setUserSession($user);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         // on vérifier que la personne qui veut modifier un user soit cet user, ou une personne admin
         if($updatDataUser['identifiant'] == $userLogin->getId()){
             $this->twig->setUserSession($userLogin);
         }
 =======
         //var_dump($user,  $user->getId());
+=======
+        
+        // TODO Benoit -> header pour recharger ? mais l'update_a ne se met pas a jour?
+>>>>>>> 3167a83 (cleanning)
         header('Location: /user/' . $user->getId());
         //echo $this->twig->getTwig()->render('user/user.twig', $viewData);
 >>>>>>> b9a6fed (update user WIP)
