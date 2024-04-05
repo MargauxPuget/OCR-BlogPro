@@ -189,7 +189,6 @@ class UserController
         
         $this->userRepo->updateUser($userChange);
 
-          var_dump($userChange);
         $viewData = [
             'user' => $userChange
         ];
