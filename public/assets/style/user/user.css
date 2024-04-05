@@ -20,7 +20,6 @@
   width: 60%;
 }
 
-
 .commentUser--1 {
   border: 1px red solid;
   border-radius: 5px;
@@ -34,4 +33,15 @@
 .commentUser-1 {
   border: 1px green solid;
   border-radius: 5px;
+}
+
+.choicePostUser {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.postUser a {
+  display: flex;
+  align-items: center;
 }

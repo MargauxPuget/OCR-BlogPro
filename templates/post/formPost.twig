@@ -1,0 +1,43 @@
+Ecrire un post page de formulaire
+
+{# <?php
+    $updatePost = false;
+    //var_dump($viewData);
+    if (!empty($viewData['post'])) {
+        var_dump($viewData['post']);
+        $updatePost = true;
+    }
+    var_dump($updatePost);
+?>
+
+<h2>Ajouter un utilisateur</h2>
+
+
+<?php if($updatePost) : ?>
+<form action="/updatePost" method="post">
+<?php else : ?>
+<form action="/addPost" method="post">
+<?php endif; ?>
+   <div>
+        <label for="title">Titre</label>
+        <input type="text" name="title" value="<?= (empty($viewData['post'])) ? '' : $viewData['post']->getTitle(); ?>">
+    </div>
+    <div>
+        <label for="body">Message</label>
+        <textarea name="body"><?= (empty($viewData['post'])) ? '' : $viewData['post']->getBody(); ?></textarea>
+    </div>
+    <div>
+        <label for="user">Auteur</label>
+
+        <select name="userId" id="user">
+        <option value="<?= (empty($viewData['post'])) ? '' : $viewData['post']->getUser()->getId(); ?>"><?= (empty($viewData['post'])) ? '-- Choisiez un utilisateur / auteur --' : $viewData['post']->getUser()->getName(); ?></option>
+        <?php foreach ($viewData['userList'] as $user) : ?>
+                
+                <option value="<?= $user->getId() ?>"><?= $user->getName() ?></option>
+        <?php endforeach; ?>
+        </select>
+    </div>
+    <input hidden type="number" name="identifiant" value="<?= (empty($viewData['post'])) ? '' : $viewData['post']->getId() ?>">
+    <button type="submit"><?= ($updatePost) ? 'Mettre à jour' : 'Créer' ; ?></button>
+</form>
+ #}

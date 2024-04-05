@@ -4,27 +4,47 @@
 
 	<div class="headerUser">
 			<h1>Bien le bonjour <span class="nameUser">{{ userSession.name }}</span> !</h1>
-			<a href="/user/{{ userSession.id }}/form"><img class="post_img" src="/public/assets/images/article.png" alt="logo" /></a>
+			<a href="/user/{{ userSession.id }}/form"><img class="post_img" src="/public/assets/images/article.png" alt="modifier mes données" /></a>
 	</div>
 
 	{% if userSession.role %}
 	<h2>Vos commentaires à étudier : </h2>
 	<ul>
-    {% for comment in commentsForValidation %}
-        <li class="commentUser commentUser-{{ comment.status }}">
-			<div>
-				<p class="comment_body">{{ comment.body }}</p>
-				<p>{{ comment.updated_at is not empty ? comment.updated_at : comment.createdAt|date("l d F à G\\hi") }}</p>
-				<p class="comment_author">{{ comment.user.name }}</p>
-			</div>
+		{% if commentsForValidation|length < 1 %}
+		<li class="commentUser">
+				<div>
+					<p class="comment_body">Il n'y a pas de commentaire en attentent de validation</p>
+					
+				</div>
+			</li>
+		{% endif %}
+		{% for comment in commentsForValidation %}
+			<li class="commentUser commentUser-{{ comment.status }}">
+				<div>
+					<p class="comment_body">{{ comment.body }}</p>
+					<p>{{ comment.updated_at is not empty ? comment.updated_at : comment.createdAt|date("l d F à G\\hi") }}</p>
+					<p class="comment_author">{{ comment.user.name }}</p>
+				</div>
 
-			<div class="comment_validation">
-				<a class="comment_accepted" href="/user/{{ userSession.id }}/acceptedComment/{{ comment.id }}"><img class="" src="/public/assets/images/valider.png" alt="valider le commentaire" /></a>
-				<a class="comment_refused" href="/user/{{ userSession.id }}/refusedComment/{{ comment.id }}"><img class="" src="/public/assets/images/rejeter.png" alt="rejeter le commentaire" /></a>
-			</div>
+				<div class="comment_validation">
+					<a class="comment_accepted" href="/user/{{ userSession.id }}/acceptedComment/{{ comment.id }}"><img class="" src="/public/assets/images/valider.png" alt="valider le commentaire" /></a>
+					<a class="comment_refused" href="/user/{{ userSession.id }}/refusedComment/{{ comment.id }}"><img class="" src="/public/assets/images/rejeter.png" alt="rejeter le commentaire" /></a>
+				</div>
+			</li>
+		{% endfor %}
+	</ul>
 
+	<h2>Post : </h2>
+	<ul class="choicePostUser">
+		<li class="postUser">
+			<a href="/user/{{ userSession.id }}/formPost"> Ecrire un nouveau post <img class="post_img" src="/public/assets/images/article.png" alt="écrire un post" /></a>
 		</li>
-    {% endfor %}
+
+		<li>
+	<form class="postUser" action="/listPost" method="post">
+		<button class="btn" type="submit">Voir tous les posts</button>
+	</form>
+		</li>
 	</ul>
 	{% endif %}
 
