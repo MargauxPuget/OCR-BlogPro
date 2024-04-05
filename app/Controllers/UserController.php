@@ -69,9 +69,12 @@ class UserController
 
         // récupération des commentaires de cet utilisateur
         $commentsByUser = $this->commentRepo->findAllforOneUser($user);
+        // récupération des commentaires de cet utilisateur
+        $commentsForValidation = $this->commentRepo->findAllForValidation(0);
 
         $viewData = [
-            'commentsByUser' => $commentsByUser
+            'commentsByUser' => $commentsByUser,
+            'commentsForValidation' => $commentsForValidation
         ];
         echo $this->twig->getTwig()->render('/user/user.twig', $viewData);
     }

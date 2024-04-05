@@ -2,18 +2,15 @@
 
 {% block content %}
 
-		<div class="headerUser">
-				<h1>Bien le bonjour <span class="nameUser">{{ userSession.name }}</span> !</h1>
-				<a href="/user/{{ userSession.id }}/form"><img class="post_img" src="/public/assets/images/article.png" alt="logo" /></a>
-		</div>
+	<div class="headerUser">
+			<h1>Bien le bonjour <span class="nameUser">{{ userSession.name }}</span> !</h1>
+			<a href="/user/{{ userSession.id }}/form"><img class="post_img" src="/public/assets/images/article.png" alt="logo" /></a>
+	</div>
 
-		<h2>Votre activité : </h2>
-		<h2>Vos commentaires : </h2>
-		<ul>
-    {% for comment in commentsByUser %}
-        {# <li class="commentUser">
-			{{ dump(comment) }}
-		</li> #}
+	{% if userSession.role %}
+	<h2>Vos commentaires à étudier : </h2>
+	<ul>
+    {% for comment in commentsForValidation %}
         <li class="commentUser commentUser-{{ comment.status }}">
 			<div>
 				<p class="comment_body">{{ comment.body }}</p>
@@ -21,11 +18,30 @@
 				<p class="comment_author">{{ comment.user.name }}</p>
 			</div>
 
-			<a class="comment_delete" href="{{ post.id }}/deleteComment/{{ comment.id }}"><img class="" src="/public/assets/images/poubelle.png" alt="insta" /></a>
+			<div class="comment_validation">
+				<a class="comment_accepted" href="{{ post.id }}/acceptedComment/{{ comment.id }}"><img class="" src="/public/assets/images/valider.png" alt="valider le commentaire" /></a>
+				<a class="comment_refused" href="{{ post.id }}/refusedComment/{{ comment.id }}"><img class="" src="/public/assets/images/rejeter.png" alt="rejeter le commentaire" /></a>
+			</div>
 
 		</li>
-        {# <li>{{ comment|e }}</li> #}
     {% endfor %}
-		</ul>
+	</ul>
+	{% endif %}
+
+	<h2>Vos commentaires : </h2>
+	<ul>
+    {% for comment in commentsByUser %}
+        <li class="commentUser commentUser-{{ comment.status }}">
+			<div>
+				<p class="comment_body">{{ comment.body }}</p>
+				<p>{{ comment.updated_at is not empty ? comment.updated_at : comment.createdAt|date("l d F à G\\hi") }}</p>
+				<p class="comment_author">{{ comment.user.name }}</p>
+			</div>
+
+			<a class="comment_delete" href="{{ post.id }}/deleteComment/{{ comment.id }}"><img class="" src="/public/assets/images/poubelle.png" alt="supprimer" /></a>
+
+		</li>
+    {% endfor %}
+	</ul>
 
 {% endblock %}
