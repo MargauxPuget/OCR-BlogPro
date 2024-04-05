@@ -135,16 +135,25 @@ class CommentRepository extends AbstractRepository
         return $comment;
     }
 
-    public function updateComment(Comment $comment)
-    {
-    }
-
     public function deleteComment(Comment $comment) : bool
     {
         $sql = "DELETE FROM `comment` WHERE id = ( :id) ";
         $pdoStatement = $this->pdo->prepare($sql);
         $pdoStatement->execute([
             'id' => $comment->getId(),
+        ]);
+
+        return true;
+    }
+
+    public function changedStatusComment(Comment $comment, int $newStatus) : bool
+    {
+        $sql = "UPDATE comment SET status=:status
+        WHERE id=:id";
+        $pdoStatement = $this->pdo->prepare($sql);
+        $pdoStatement->execute([
+            'id'        => $comment->getId(),
+            'status'    => $newStatus,
         ]);
 
         return true;

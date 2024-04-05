@@ -19,8 +19,8 @@
 			</div>
 
 			<div class="comment_validation">
-				<a class="comment_accepted" href="{{ post.id }}/acceptedComment/{{ comment.id }}"><img class="" src="/public/assets/images/valider.png" alt="valider le commentaire" /></a>
-				<a class="comment_refused" href="{{ post.id }}/refusedComment/{{ comment.id }}"><img class="" src="/public/assets/images/rejeter.png" alt="rejeter le commentaire" /></a>
+				<a class="comment_accepted" href="/user/{{ userSession.id }}/acceptedComment/{{ comment.id }}"><img class="" src="/public/assets/images/valider.png" alt="valider le commentaire" /></a>
+				<a class="comment_refused" href="/user/{{ userSession.id }}/refusedComment/{{ comment.id }}"><img class="" src="/public/assets/images/rejeter.png" alt="rejeter le commentaire" /></a>
 			</div>
 
 		</li>
