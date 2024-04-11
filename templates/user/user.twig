@@ -55,19 +55,25 @@
 {% endif %}
 
 <h2>Vos commentaires : </h2>
-<ul>
-{% for comment in commentsByUser %}
-	<li class="commentUser commentUser-{{ comment.status }}">
-		<div>
-			<p class="comment_body">{{ comment.body }}</p>
-			<p>{{ comment.updated_at is not empty ? comment.updated_at : comment.createdAt|date("l d F à G\\hi") }}</p>
-			<p class="comment_author">{{ comment.user.name }}</p>
-		</div>
 
-		<a class="comment_delete" href="{{ post.id }}/deleteComment/{{ comment.id }}"><img class="" src="/public/assets/images/poubelle.png" alt="supprimer" /></a>
+{% if commentsByUser is not empty %}
+	<ul>
+	{% for comment in commentsByUser %}
+		<li class="commentUser commentUser-{{ comment.status }}">
+			<div>
+				<p class="comment_body">{{ comment.body }}</p>
+				<p>{{ comment.updated_at is not empty ? comment.updated_at : comment.createdAt|date("l d F à G\\hi") }}</p>
+				<p class="comment_author">{{ comment.user.name }}</p>
+			</div>
 
-	</li>
-{% endfor %}
-</ul>
+			<a class="comment_delete" href="{{ post.id }}/deleteComment/{{ comment.id }}"><img class="" src="/public/assets/images/poubelle.png" alt="supprimer" /></a>
+
+		</li>
+	{% endfor %}
+	</ul>
+
+{% else %}
+	<p>Vous n'avez pas encore écrit de commentaire !</p>
+{% endif %}
 
 {% endblock %}
