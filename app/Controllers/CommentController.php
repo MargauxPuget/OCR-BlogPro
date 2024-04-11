@@ -24,17 +24,19 @@ class CommentController
         
         // vérifier que l'utilisateur est un admin
         $user = $this->userRepo->find($_SESSION['userId']);
+
+        $dataNewComment = $_POST;
         if ($user->getRole() === 1) {
             // modifier le status du commentaire
             $comment = $this->commentRepo->find($params['commentId']);
-        var_dump($_POST['action']);
-            if (isset($_POST['action'])
-                && (($_POST['action']) === "validated"
-                || ($_POST['action']) === "pause"
-                || ($_POST['action']) === "refused")
+        var_dump($dataNewComment['action']);
+            if (isset($dataNewComment['action'])
+                && (($dataNewComment['action']) === "validated"
+                || ($dataNewComment['action']) === "pause"
+                || ($dataNewComment['action']) === "refused")
             ) {
                 var_dump('ici');
-                $comment = $this->commentRepo->changedStatusComment($comment, $_POST['action']);
+                $comment = $this->commentRepo->changedStatusComment($comment, $dataNewComment['action']);
             }
         }
         header('Location: /user/' . $user->getId());

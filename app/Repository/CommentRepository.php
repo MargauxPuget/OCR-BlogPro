@@ -79,15 +79,38 @@ class CommentRepository extends AbstractRepository
         return $comments;
     }
 
-    public function findAllforOneUser(User $user): ?Array
+    public function findAllforOneUser(User $user, int $status = null): ?Array
     {
-        $pdoStatement = $this->pdo->prepare('SELECT id FROM `comment`
-        WHERE user_id=:userId ORDER BY `created_at` DESC');
-        $pdoStatement->execute([
-            "userId" => $user->getId(),
-        ]);
+        $value =[];
+        if (isset($status)) {
+            $value = [
+                'source' => $status,
+                'dest'   => "status"
+            ];
+            var_dump('status plein', $value);
+
+            $pdoStatement = $this->pdo->prepare('SELECT id FROM `comment`
+            WHERE status=:status ORDER BY `created_at` DESC');
+            $pdoStatement->execute([
+                "status" => $status,
+            ]);
+        } else {
+            $value = [
+                'source' => $user->getId(),
+                'dest'   => "userId"
+            ];
+            var_dump('status vide', $value['dest']);
+
+            $pdoStatement = $this->pdo->prepare('SELECT id FROM `comment`
+            WHERE user_id=:user_id ORDER BY `created_at` DESC');
+            $pdoStatement->execute([
+                "user_id" => $user->getId(),
+            ]);
+        }
+
         $commentList = $pdoStatement->fetchAll();
 
+        var_dump($commentList);
         $comments = [];
         foreach ($commentList as $comment) {
 

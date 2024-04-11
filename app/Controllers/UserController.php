@@ -82,7 +82,7 @@ class UserController
         // récupération des commentaires de cet utilisateur
         $commentsByUser = $this->commentRepo->findAllforOneUser($user);
         // récupération des commentaires de cet utilisateur
-        $commentsForValidation = $this->commentRepo->findAllForValidation(0);
+        $commentsForValidation = $this->commentRepo->findAllforOneUser($user, 0);
 
         $viewData = [
             'commentsByUser' => $commentsByUser,
@@ -145,27 +145,28 @@ class UserController
 
     public function updateUser()
     {
-        if (!isset($_POST['identifiant']) && !is_int($_POST['identifiant'])) {
+        $updatDataUser = $_POST;
+        if (!isset($updatDataUser['identifiant']) && !is_int($updatDataUser['identifiant'])) {
             echo("Il faut l'identifiant d'un utilisateur.");
             header('Location: /user/' . $userLogin->getId());
             return false;
         }
 
         $userLogin = $this->userRepo->find($_SESSION['userId']);
-        $userChange = $this->userRepo->find($_POST['identifiant']);
+        $userChange = $this->userRepo->find($updatDataUser['identifiant']);
 
         // on vérifier que la personne qui veut modifier un user soit cet user, ou une personne admin
-        if(!($_POST['identifiant'] == $userLogin->getId()) && !($userLogin->getRole() === 1) ){
+        if(!($updatDataUser['identifiant'] == $userLogin->getId()) && !($userLogin->getRole() === 1) ){
             echo("Vous ne pouvez pas modifier cette personne");
             header('Location: /user/' . $userLogin->getId());
             return false;
         }
 
-        if (isset($_POST['firstname']) && ($_POST['firstname'] !== $userChange->getFirstname())){
-            $userChange->setFirstname($_POST['firstname']);
+        if (isset($updatDataUser['firstname']) && ($updatDataUser['firstname'] !== $userChange->getFirstname())){
+            $userChange->setFirstname($updatDataUser['firstname']);
         }
-        if (isset($_POST['lastname']) && ($_POST['lastname'] !== $userChange->getLastname())){
-            $userLuserChangeogin->setLastname($_POST['lastname']);
+        if (isset($updatDataUser['lastname']) && ($updatDataUser['lastname'] !== $userChange->getLastname())){
+            $userLuserChangeogin->setLastname($updatDataUser['lastname']);
         }
 
         $image = $_FILES['picture'];
@@ -177,12 +178,12 @@ class UserController
             $userChange->setPicture($image['name']);
         }
 
-        if (isset($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)
-        && ($_POST['email'] !== $userChange->getEmail())){
-            $userChange->setEmail($_POST['email']);
+        if (isset($updatDataUser['email']) || !filter_var($updatDataUser['email'], FILTER_VALIDATE_EMAIL)
+        && ($updatDataUser['email'] !== $userChange->getEmail())){
+            $userChange->setEmail($updatDataUser['email']);
         }
-        if (isset($_POST['password']) && ($_POST['password'] !== $userChange->getPassword())){ 
-            $userChange->setPassword($_POST['password']);
+        if (isset($updatDataUser['password']) && ($updatDataUser['password'] !== $userChange->getPassword())){ 
+            $userChange->setPassword($updatDataUser['password']);
         }      
         
         $this->userRepo->updateUser($userChange);
@@ -192,7 +193,7 @@ class UserController
         ];
 
         // on vérifier que la personne qui veut modifier un user soit cet user, ou une personne admin
-        if($_POST['identifiant'] == $userLogin->getId()){
+        if($updatDataUser['identifiant'] == $userLogin->getId()){
             $this->twig->setUserSession($userLogin);
         }
 
