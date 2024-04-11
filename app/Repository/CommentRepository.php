@@ -97,6 +97,7 @@ class CommentRepository extends AbstractRepository
 
         $commentList = $pdoStatement->fetchAll();
 
+        var_dump($commentList);
         $comments = [];
         foreach ($commentList as $comment) {
 
