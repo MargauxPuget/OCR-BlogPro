@@ -27,8 +27,15 @@ class CommentController
         if ($user->getRole() === 1) {
             // modifier le status du commentaire
             $comment = $this->commentRepo->find($params['commentId']);
-        
-            $comment = $this->commentRepo->changedStatusComment($comment, $_POST['action']);
+        var_dump($_POST['action']);
+            if (isset($_POST['action'])
+                && (($_POST['action']) === "validated"
+                || ($_POST['action']) === "pause"
+                || ($_POST['action']) === "refused")
+            ) {
+                var_dump('ici');
+                $comment = $this->commentRepo->changedStatusComment($comment, $_POST['action']);
+            }
         }
         header('Location: /user/' . $user->getId());
     }
