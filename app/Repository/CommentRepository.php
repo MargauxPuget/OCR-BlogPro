@@ -97,26 +97,6 @@ class CommentRepository extends AbstractRepository
 
         $commentList = $pdoStatement->fetchAll();
 
-        var_dump($commentList);
-        $comments = [];
-        foreach ($commentList as $comment) {
-
-            $comment = $this->find($comment['id']);
-            $comments[] = $comment;
-        }
-        
-        return $comments;
-    }
-
-    public function findAllForValidation(int $status): ?Array
-    {
-        $pdoStatement = $this->pdo->prepare('SELECT id FROM `comment`
-        WHERE status=:status ORDER BY `created_at` DESC');
-        $pdoStatement->execute([
-            "status" => $status,
-        ]);
-        $commentList = $pdoStatement->fetchAll();
-
         $comments = [];
         foreach ($commentList as $comment) {
 
