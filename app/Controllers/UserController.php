@@ -168,7 +168,6 @@ class UserController
         }
         if (isset($updatDataUser['lastname']) && ($updatDataUser['lastname'] !== $userChange->getLastname())){
             $userLuserChangeogin->setLastname($updatDataUser['lastname']);
-
         }
 
         $image = $_FILES['picture'];
