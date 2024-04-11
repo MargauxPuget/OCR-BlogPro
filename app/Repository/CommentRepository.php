@@ -87,19 +87,18 @@ class CommentRepository extends AbstractRepository
                 'source' => $status,
                 'dest'   => "status"
             ];
-            var_dump('status plein', $value);
 
             $pdoStatement = $this->pdo->prepare('SELECT id FROM `comment`
-            WHERE status=:status ORDER BY `created_at` DESC');
+            WHERE :dest=:soruce ORDER BY `created_at` DESC');
             $pdoStatement->execute([
-                "status" => $status,
+                "source" => $status,
+                "dest" => 'status',
             ]);
         } else {
             $value = [
                 'source' => $user->getId(),
                 'dest'   => "userId"
             ];
-            var_dump('status vide', $value['dest']);
 
             $pdoStatement = $this->pdo->prepare('SELECT id FROM `comment`
             WHERE user_id=:user_id ORDER BY `created_at` DESC');
@@ -108,26 +107,6 @@ class CommentRepository extends AbstractRepository
             ]);
         }
 
-        $commentList = $pdoStatement->fetchAll();
-
-        var_dump($commentList);
-        $comments = [];
-        foreach ($commentList as $comment) {
-
-            $comment = $this->find($comment['id']);
-            $comments[] = $comment;
-        }
-        
-        return $comments;
-    }
-
-    public function findAllForValidation(int $status): ?Array
-    {
-        $pdoStatement = $this->pdo->prepare('SELECT id FROM `comment`
-        WHERE status=:status ORDER BY `created_at` DESC');
-        $pdoStatement->execute([
-            "status" => $status,
-        ]);
         $commentList = $pdoStatement->fetchAll();
 
         $comments = [];
