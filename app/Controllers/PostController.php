@@ -104,15 +104,14 @@ class PostController
 
         if (
             !isset($dataComment['body'])
-            || !isset($dataComment['userSessionId'])
-            || !intval($dataComment['userSessionId']) === $_SESSION['userId']
+            || !isset($_SESSION['userId'])
         ) {
             echo('Il faut un message et un utilisateur valide pour soumettre le formulaire.');
             return;
         }
 
         $comment = new Comment();
-        $user = $this->userRepo->find($dataComment['userSessionId']);
+        $user = $this->userRepo->find($_SESSION['userId']);
         $post = $this->postRepo->find($params['postId']);
 
         $comment->setBody($dataComment['body']);
