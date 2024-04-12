@@ -51,7 +51,7 @@ class PostController
         $postId = $params['postId'];
         $post = $this->postRepo->find($postId);
 
-        $commentList = $this->commentRepo->findAllforOnePost($post);
+        $commentList = $this->commentRepo->findAllActiveforOnePost($post);
         $userList = $this->userRepo->findAll();
 
         $viewData = [
