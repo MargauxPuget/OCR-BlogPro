@@ -31,3 +31,25 @@
   display: flex;
   gap: 30px;
 }
+
+.post_btn_list {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.post_btn_list .btn a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.post_btn_list img {
+  width: 35px;
+}
+
+.link_see_all_posts {
+  margin: 20px;
+  text-align: end;
+}
