@@ -70,8 +70,23 @@ class PostController
     {
     }
 
-    public function updatePost()
+    public function updatedStatusPost($params)
     {
+        var_dump($params);
+        
+        $postId = $params['postId'];
+        if (!isset($postId) && !is_int($postId)
+            && !isset($params['status'])
+            && ($params['status'] === 'archive' || $params['status'] === 'active')
+        ) {
+            echo("Il faut l'identifiant d'un post.");
+            return false;
+        }
+        $post = $this->postRepo->find($postId);
+
+        $post = $this->postRepo->changedStatusPost($post, $params['status']);
+
+        header('Location: /user/' . $_SESSION['userId']);
     } 
 
     public function deletePost()

@@ -76,6 +76,34 @@ class PostRepository extends AbstractRepository
         return $posts;
     }
 
+    public function findFromStatus(string $status = null, int $nb=0, int $page=0) : Array
+    {
+        if (!isset($status)) {
+            return [];
+        }
+        var_dump($status);
+        if ($nb === 0) {
+            $pdoStatement = $this->pdo->prepare('SELECT id FROM `post` WHERE status=:status ');
+        } else {
+            $pdoStatement = $this->pdo->prepare('SELECT id FROM `post` WHERE status=:status LIMIT :nb OFFSET :offSet');
+            $pdoStatement->bindValue(':nb', $nb, PDO::PARAM_INT);
+            $pdoStatement->bindValue(':offSet', $page*$nb, PDO::PARAM_INT);
+            
+        }
+        
+            $pdoStatement->bindValue(':status', $status, PDO::PARAM_STR);
+        $pdoStatement->execute();
+
+        $postList = $pdoStatement->fetchAll();
+        $posts = [];
+        foreach ($postList as $post) {
+            $post = $this->find($post['id']);
+            $posts[] = $post;
+        }
+        //var_dump($posts);
+        return $posts;
+    }
+
     public function addPost(Post $post) : Post
     {
         $pdoStatement = $this->pdo->prepare("INSERT INTO post (title, chapo, body, user_id)
@@ -105,6 +133,17 @@ class PostRepository extends AbstractRepository
             'body'      => (isset($updatePost['body'])) ? $updatePost['body'] : $post->getBody(),
             'userId'    => (isset($updatePost['userId'])) ? $updatePost['userId'] : $post->getUser()->getId(),
             'updatedAt' => $post->setUpdatedAt(date('Y-m-d H:i:s'))->getUpdatedAt()
+        ]);
+    }
+
+    public function changedStatusPost(Post $post, string $status)
+    {
+        $sql = "UPDATE post SET status=:status
+        WHERE id=:id";
+        $pdoStatement = $this->pdo->prepare($sql);
+        $pdoStatement->execute([
+            'id'     => $post->getId(),
+            'status' => $status
         ]);
     }
 
