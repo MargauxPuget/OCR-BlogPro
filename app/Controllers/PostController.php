@@ -70,8 +70,23 @@ class PostController
     {
     }
 
-    public function updatePost()
+    public function updatedStatusPost($params)
     {
+        var_dump($params);
+        
+        $postId = $params['postId'];
+        if (!isset($postId) && !is_int($postId)
+            && !isset($params['status'])
+            && ($params['status'] === 'archive' || $params['status'] === 'active')
+        ) {
+            echo("Il faut l'identifiant d'un post.");
+            return false;
+        }
+        $post = $this->postRepo->find($postId);
+
+        $post = $this->postRepo->changedStatusPost($post, $params['status']);
+
+        header('Location: /user/' . $_SESSION['userId']);
     } 
 
     public function deletePost()
@@ -85,16 +100,18 @@ class PostController
     public function addComment($params)
     {
         $dataComment = $_POST;
+
         if (
             !isset($dataComment['body'])
-            || !isset($dataComment['userId'])
+            || !isset($dataComment['userSessionId'])
+            || !intval($dataComment['userSessionId']) === $_SESSION['userId']
         ) {
             echo('Il faut un message et un utilisateur valide pour soumettre le formulaire.');
             return;
         }
 
         $comment = new Comment();
-        $user = $this->userRepo->find($dataComment['userId']);
+        $user = $this->userRepo->find($dataComment['userSessionId']);
         $post = $this->postRepo->find($params['postId']);
 
         $comment->setBody($dataComment['body']);
@@ -106,7 +123,7 @@ class PostController
         }
         $comment->setCreatedAt(date('Y-m-d H:i:s'));
 
-        $comment = $this->commentRepo->addComment($comment);
+        $this->commentRepo->addComment($comment);
 
         header('Location: /post/' . $params['postId']);
     }

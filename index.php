@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 // require de nos Controllers
@@ -177,6 +178,18 @@ $router->map(
 $router->generate('singlePost');
 
 
+$router->map(
+	'GET',
+	'post/[i:postId]/update/[a:status]',
+	// target :
+	[
+		'action' => 'updatedStatusPost',
+		'controller' => 'MPuget\blog\Controllers\PostController'
+	],
+	'updatedStatusPost'
+	);
+$router->generate('updatedStatusPost');
+
 
 
 //*--------------------------
@@ -224,7 +237,6 @@ $router->generate('deleteComment');
 
 
 $match = $router->match();
-
 
 //* -----------------------------------------------------
 //*                     Dispatcher

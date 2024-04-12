@@ -3,21 +3,14 @@
 
     <form action="/post/{{ post.id }}/addComment" method="post">
         <div class="commentForm_field">
-            <label for="body">Message</label>
-            <textarea name="body" placeholder="Votre commentaire ..."></textarea>
+            <textarea name="body" placeholder="Votre commentaire ..."{{ (userSession is empty) ? 'disabled' }}></textarea>
         </div>
-        <div class="commentForm_field">
-            <label for="user">Choisissez un utilisateur : </label>
-
-            <select name="userId" id="user">
-                <option value="">-- Choisiez un utilisateur / auteur --</option>
-
-                {% for user in userList %}
-                    <option value="{{ user.id }}">{{ user.name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-		
-	    <button class="btn btn--add" type="submit">Commenter !</button>
+        
+		<input hidden type="number" name="userSessionId" value="{{ userSession.id }}">
+	    <button class="btn btn--add" type="submit" {{ (userSession is empty) ? 'disabled' }}>Commenter !</button>
     </form>
+
+    {% if userSession is empty %}
+        <p>Connectez vous pour commenter !</p>
+    {% endif %}
 </div>
