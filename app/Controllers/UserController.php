@@ -88,7 +88,7 @@ class UserController
         // récupération des commentaires de cet utilisateur
         $commentsForValidation = $this->commentRepo->findAllforOneUser($user, 0);
         // récupération des commentaires de cet utilisateur
-        $allPosts = $this->postRepo->findAll(3);
+        $allPosts = $this->postRepo->findFromStatus('active', 3);
 
         $viewData = [
             'allPosts' => $allPosts,
