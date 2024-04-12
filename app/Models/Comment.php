@@ -15,7 +15,7 @@ class Comment
     use IdTrait;
     use TimeTrait;
 
-    private int $status;
+    private int $status = 0;
     private ?string $body;
     private ?User $user;
     private ?Post $post;
