@@ -173,7 +173,7 @@ class UserController
         if (isset($image) && ($image['error'] === 0) && ($image !== $userChange->getPicture())){
             // Déplacer l'image vers le dossier de destination
             //is_dir('public/assets/images/uploads/') ? var_dump('existe') : var_dump('N existe PAS') ;
-            $toto = move_uploaded_file($image['tmp_name'], 'public/assets/images/uploads/' . $image['name'] );
+            move_uploaded_file($image['tmp_name'], 'public/assets/images/uploads/' . $image['name'] );
             
             $userChange->setPicture($image['name']);
         }
