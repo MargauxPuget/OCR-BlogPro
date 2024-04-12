@@ -9,6 +9,7 @@ class Twig
 {
     private $twig;
     private $loader;
+    private $user;
 
     public function __construct()
     {
@@ -26,13 +27,21 @@ class Twig
         if (isset($_SESSION['userId'])) {
 
             $userRepo = new UserRepository();
-            $user = $userRepo->find($_SESSION['userId']);
+            $this->user = $userRepo->find($_SESSION['userId']);
 
-            $this->twig->addGlobal('userSession', $user);
+            $this->twig->addGlobal('userSession', $this->user);
 
         }
 
     }
+
+    public function setUserSession($user)
+    {
+        $this->user = $user;
+
+        return $this->user;
+    }
+
     public function getTwig()
     {
         return $this->twig;

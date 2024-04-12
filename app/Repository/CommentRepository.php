@@ -35,6 +35,7 @@ class CommentRepository extends AbstractRepository
             $result->post = $post;
 
             $comment->setId($result->id);
+            $comment->setStatus($result->status);
             $comment->setBody($result->body);
             $comment->setUser($result->user);
             $comment->setPost($result->post);
@@ -78,6 +79,34 @@ class CommentRepository extends AbstractRepository
         return $comments;
     }
 
+    public function findAllforOneUser(User $user, int $status = null): ?Array
+    {
+        if (isset($status)) {
+            $pdoStatement = $this->pdo->prepare('SELECT id FROM `comment`
+            WHERE status=:source ORDER BY `created_at` DESC');
+            $pdoStatement->execute([
+                "source" => $status,
+            ]);
+        } else {
+            $pdoStatement = $this->pdo->prepare('SELECT id FROM `comment`
+            WHERE user_id=:user_id ORDER BY `created_at` DESC');
+            $pdoStatement->execute([
+                "user_id" => $user->getId(),
+            ]);
+        }
+
+        $commentList = $pdoStatement->fetchAll();
+
+        $comments = [];
+        foreach ($commentList as $comment) {
+
+            $comment = $this->find($comment['id']);
+            $comments[] = $comment;
+        }
+        
+        return $comments;
+    }
+
     public function addComment($comment)
     {
         $pdoStatement = $this->pdo->prepare("INSERT INTO comment (body, user_id, post_id)
@@ -96,16 +125,38 @@ class CommentRepository extends AbstractRepository
         return $comment;
     }
 
-    public function updateComment(Comment $comment)
-    {
-    }
-
     public function deleteComment(Comment $comment) : bool
     {
         $sql = "DELETE FROM `comment` WHERE id = ( :id) ";
         $pdoStatement = $this->pdo->prepare($sql);
         $pdoStatement->execute([
             'id' => $comment->getId(),
+        ]);
+
+        return true;
+    }
+
+    public function changedStatusComment(Comment $comment, string $newStatus) : bool
+    {
+        $codeStatus = null;
+        switch ($newStatus) {
+            case 'refused':
+                $codeStatus = -1;
+                break;
+            case 'pause':
+                $codeStatus = 0;
+                break;
+            case 'validated':
+                $codeStatus = 1;
+                break;
+        }
+
+        $sql = "UPDATE comment SET status=:status
+        WHERE id=:id";
+        $pdoStatement = $this->pdo->prepare($sql);
+        $pdoStatement->execute([
+            'id'        => $comment->getId(),
+            'status'    => $codeStatus,
         ]);
 
         return true;

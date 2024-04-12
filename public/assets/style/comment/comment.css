@@ -29,6 +29,16 @@
   margin-right: 10px;
 }
 
-.comment_delete img{
+.comment_validation {
+  display: flex;
+  margin-right: 10px;
+  gap: 10px;
+  align-items: flex-end;
+
+}
+
+.comment_delete img,
+.comment_accepted img,
+.comment_refused img{
   width: 35px;
 }

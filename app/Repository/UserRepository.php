@@ -32,7 +32,11 @@ class UserRepository extends AbstractRepository
         // pour récupérer un seul objet de type User, on utilise 
         // la méthode fetchObject() de PDO !
         $result = $pdoStatement->fetchObject();
+        
 
+        if ( !$result ) {
+            return $user = null;
+        }
         $user = new User();
         
         if (!empty($result)) {
@@ -40,11 +44,16 @@ class UserRepository extends AbstractRepository
             $user->setRole($result->role);
             $user->setFirstname($result->firstname);
             $user->setLastname($result->lastname);
+            if($result->picture) {
+                $user->setPicture($result->picture);
+            }
             $user->setName();
             $user->setEmail($result->email);
             $user->setPassword($result->password);
             $user->setCreatedAt($result->created_at);
+            !empty($result->updated_at) ? $user->setUpdatedAt($result->updated_at) : null;
         }
+        
         return $user;
     }
 
@@ -63,17 +72,18 @@ class UserRepository extends AbstractRepository
         if (!empty($result)) {
             return $result->id;
         } else {
-            return null;
+            return -1;
         }
     }
 
     public function addUser(User $user): ?User
     {
-        $sql = "INSERT INTO user (firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)";
+        $sql = "INSERT INTO user (firstname, lastname, picture, email, password) VALUES (:firstname, :lastname, :picture, :email, :password)";
         $pdoStatement = $this->pdo->prepare($sql);
         $pdoStatement->execute([
             'firstname' => $user->getFirstname(),
             'lastname'  => $user->getLastname(),
+            'picture'   => $user->getPicture(),
             'email'     => $user->getEmail(),
             'password'  => $user->getPassword(),
         ]);
@@ -87,13 +97,14 @@ class UserRepository extends AbstractRepository
 
     public function updateUser(User $user)
     {
-        $sql = "UPDATE user SET firstname=:firstname, lastname=:lastname, email=:email, password=:password, updated_at=:updatedAt
+        $sql = "UPDATE user SET firstname=:firstname, lastname=:lastname, picture=:picture, email=:email, password=:password, updated_at=:updatedAt
         WHERE id=:id";
         $pdoStatement = $this->pdo->prepare($sql);
         $pdoStatement->execute([
             'id'        => $user->getId(),
             'firstname' => (isset($user->firstname)) ? $user->firstname : $user->getFirstname(),
             'lastname'  => (isset($user->lastname)) ? $user->lastname : $user->getLastname(),
+            'picture'  => (isset($user->picture)) ? $user->picture : $user->getPicture(),
             'email'     => (isset($user->email)) ? $user->email : $user->getEmail(),
             'password'  => (isset($user->password)) ? $user->password : $user->getPassword(),
             'updatedAt' => $user->setUpdatedAt(date('Y-m-d H:i:s'))->getUpdatedAt()

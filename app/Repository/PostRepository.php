@@ -26,13 +26,16 @@ class PostRepository extends AbstractRepository
             $userRepo = new UserRepository();
             $userId = $result->user_id;
             $user = $userRepo->find($userId);
+    
             $result->user = $user;
 
             $post->setId($result->id);
             $post->setTitle($result->title);
             $post->setChapo($result->chapo);
             $post->setBody($result->body);
-            $post->setUser($result->user);
+            if($user) {
+                $post->setUser($result->user);
+            }
             $post->setCreatedAt($result->created_at);
             $post->setUpdatedAt($result->updated_at);
         }

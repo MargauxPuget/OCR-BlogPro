@@ -24,7 +24,7 @@ trait TimeTrait
         return $this;
     }  
 
-    public function getUpdatedAt() : self
+    public function getUpdatedAt() : string
     {
         return $this->updated_at;
     }

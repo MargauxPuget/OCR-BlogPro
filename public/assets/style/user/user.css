@@ -1,0 +1,62 @@
+.headerUser {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerUser h1{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.headerUser img{
+  width: 68px;
+  height: 68px;
+}
+
+.headerUser img.pictureUser{
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: rgb(219, 219, 219);
+  padding: 10px;
+}
+
+.commentUser {
+  border: 1px black solid;
+  border-radius: 5px;
+  margin: 5px 0;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+}
+
+.commentUser--1 {
+  border: 1px red solid;
+  border-radius: 5px;
+}
+
+.commentUser-0 {
+  border: 1px orange solid;
+  border-radius: 5px;
+}
+
+.commentUser-1 {
+  border: 1px green solid;
+  border-radius: 5px;
+}
+
+.choicePostUser {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.postUser a {
+  display: flex;
+  align-items: center;
+}

@@ -35,7 +35,7 @@ class PostController
         }
 
         $postList = $this->postRepo->findAll($nbPostPerPage, $params['page']-1);
-        
+
         $viewData = [
             'postList'      => $postList,
             'nbPage'        => $nbPage,

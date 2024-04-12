@@ -7,21 +7,25 @@ use MPuget\blog\Models\Post;
 use MPuget\blog\Models\User;
 use MPuget\blog\Models\TimeTrait;
 use MPuget\blog\Repository\UserRepository;
+use MPuget\blog\Repository\CommentRepository;
 
 class UserController
 {
     protected $userRepo;
+    protected $commentRepo;
     protected $twig;
 
     public function __construct(){
         $this->userRepo = new UserRepository();
+        $this->commentRepo = new CommentRepository();
         $this->twig = new Twig();
     }
 
     public function addUser()
     {
         $newUser = $_POST;
-        
+        $image = isset($_FILES['picture']) ? $_FILES['picture'] : null ;
+       
         if (
         empty($newUser['firstname'])
         || empty($newUser['lastname'])
@@ -30,6 +34,7 @@ class UserController
         || empty($newUser['password'])
         || !(strlen($newUser['password']) >= 8)
         || !(preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).+$/', $newUser['password'])) //Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule et un chiffre.
+        || !(isset($image) && ($image['error'] === 0))
         ) {
             $validatAddUser = false;
         } else {
@@ -39,6 +44,16 @@ class UserController
             $user->setEmail($newUser['email']);
             $user->setPassword(md5($newUser['password']));
             $user->setCreatedAt(date('Y-m-d H:i:s'));
+
+            if (isset($image)) {
+                // Déplacer l'image vers le dossier de destination
+                // is_dir('public/assets/images/uploads/') ? var_dump('existe') : var_dump('N existe PAS') ;
+                $resultMoveImg = move_uploaded_file($image['tmp_name'], 'public/assets/images/uploads/' . $image['name'] );
+                if($resultMoveImg){
+
+                    $user->setPicture($image['name']);
+                }
+            }
 
             $newUser = $this->userRepo->addUser($user);
 
@@ -58,10 +73,22 @@ class UserController
     {
         if (!isset($_SESSION['userId'])) {
             header('Location: /');
-        } else {
-            $viewData = [];
-            echo $this->twig->getTwig()->render('/user/user.twig', $viewData);
+            die;
         }
+
+        // récupération de cet utilisateur
+        $user = $this->userRepo->find($_SESSION['userId']);
+
+        // récupération des commentaires de cet utilisateur
+        $commentsByUser = $this->commentRepo->findAllforOneUser($user);
+        // récupération des commentaires de cet utilisateur
+        $commentsForValidation = $this->commentRepo->findAllforOneUser($user, 0);
+
+        $viewData = [
+            'commentsByUser' => $commentsByUser,
+            'commentsForValidation' => $commentsForValidation
+        ];
+        echo $this->twig->getTwig()->render('/user/user.twig', $viewData);
     }
     
     public function loginUser()
@@ -89,11 +116,7 @@ class UserController
             
             $_SESSION['userId'] = $userLogin->getId();
 
-            $viewData = [
-                'user' => $userLogin,
-                'responceMessage' => "Vous êtes connecté(e) !",
-                'boolMessage' => true
-            ];
+            header('Location: /');
         }
 
         echo $this->twig->getTwig()->render('home.twig', $viewData);
@@ -105,8 +128,76 @@ class UserController
         header('Location: /');
     }
 
+    public function formUser($params)
+    {
+        $viewData = [];
+        if ($params['userId']) {
+            // ou veux mettre à jours
+
+            $userId = intval($params['userId']);
+            $user = $this->userRepo->find($userId);
+
+            $viewData = ['user' => $user];
+        }
+        
+        echo $this->twig->getTwig()->render('user/formUser.twig', $viewData);
+    }
+
     public function updateUser()
     {
+        $updatDataUser = $_POST;
+        if (!isset($updatDataUser['identifiant']) && !is_int($updatDataUser['identifiant'])) {
+            echo("Il faut l'identifiant d'un utilisateur.");
+            header('Location: /user/' . $userLogin->getId());
+            return false;
+        }
+
+        $userLogin = $this->userRepo->find($_SESSION['userId']);
+        $userChange = $this->userRepo->find($updatDataUser['identifiant']);
+
+        // on vérifier que la personne qui veut modifier un user soit cet user, ou une personne admin
+        if(!($updatDataUser['identifiant'] == $userLogin->getId()) && !($userLogin->getRole() === 1) ){
+            echo("Vous ne pouvez pas modifier cette personne");
+            header('Location: /user/' . $userLogin->getId());
+            return false;
+        }
+
+        if (isset($updatDataUser['firstname']) && ($updatDataUser['firstname'] !== $userChange->getFirstname())){
+            $userChange->setFirstname($updatDataUser['firstname']);
+        }
+        if (isset($updatDataUser['lastname']) && ($updatDataUser['lastname'] !== $userChange->getLastname())){
+            $userLuserChangeogin->setLastname($updatDataUser['lastname']);
+        }
+
+        $image = $_FILES['picture'];
+        if (isset($image) && ($image['error'] === 0) && ($image !== $userChange->getPicture())){
+            // Déplacer l'image vers le dossier de destination
+            //is_dir('public/assets/images/uploads/') ? var_dump('existe') : var_dump('N existe PAS') ;
+            $toto = move_uploaded_file($image['tmp_name'], 'public/assets/images/uploads/' . $image['name'] );
+            
+            $userChange->setPicture($image['name']);
+        }
+
+        if (isset($updatDataUser['email']) || !filter_var($updatDataUser['email'], FILTER_VALIDATE_EMAIL)
+        && ($updatDataUser['email'] !== $userChange->getEmail())){
+            $userChange->setEmail($updatDataUser['email']);
+        }
+        if (isset($updatDataUser['password']) && ($updatDataUser['password'] !== $userChange->getPassword())){ 
+            $userChange->setPassword($updatDataUser['password']);
+        }      
+        
+        $this->userRepo->updateUser($userChange);
+
+        $viewData = [
+            'user' => $userChange
+        ];
+
+        // on vérifier que la personne qui veut modifier un user soit cet user, ou une personne admin
+        if($updatDataUser['identifiant'] == $userLogin->getId()){
+            $this->twig->setUserSession($userLogin);
+        }
+
+        header('Location: /user/' . $userLogin->getId());
     } 
 
     public function deleteUser()

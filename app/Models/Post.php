@@ -64,7 +64,7 @@ class Post
 
 	public function getUser(): ?User
     {
-        return $this->user;
+        return isset($this->user) ? $this->user : null ;
     }
 
     public function setUser(User $user): self
