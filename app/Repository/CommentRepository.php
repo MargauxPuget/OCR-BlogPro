@@ -113,7 +113,7 @@ class CommentRepository extends AbstractRepository
         $pdoStatement = $this->pdo->prepare("INSERT INTO comment (status, body, user_id, post_id)
         VALUES (:status, :body, :userId, :postId)");
         $pdoStatement->execute([
-            'status' => 0,
+            'status' => $comment->getStatus(),
             'body' => $comment->getBody(),
             'userId'  => intval($comment->getUser()->getId()),
             'postId'  => intval($comment->getPost()->getId()),
