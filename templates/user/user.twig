@@ -11,6 +11,34 @@
 
 	{% if userSession.role %}
 
+		{% if allPosts is not empty %}
+			<ul class="">
+
+				{% for post in allPosts %}
+					<li class="post">
+						<div>
+							<h3 class="post_title"><img class="post_img" src="/public/assets/images/article.png" alt="logo" />{{ post.title }}</h3>
+							<p>{{ post.chapo }}</p>
+							<p class="post_author">{{ post.user ? post.user.name : 'Autheur inconnue' }}</p>
+							<p>{{ post.updated_at is not empty ? post.updated_at : post.createdAt }}</p>
+						</div>
+						<ul class="post_btn_list">
+							<li class="btn">
+								<a class="post_delete" href="{{ post.id }}/deleteComment/{{ comment.id }}">Supprimer<img class="" src="/public/assets/images/poubelle.png" alt="supprimer"/></a>
+							</li>
+							<li class="btn">
+								<a class="post_read" href="/post/{{ post.id }}">Voir<img class="" src="/public/assets/images/vision.png" alt="supprimer"/></a>
+							</li>
+							<li class="btn">
+								<a class="post_update" href="/post/{{ post.id }}">Modifier<img class="" src="/public/assets/images/article.png" alt="supprimer"/></a>
+							</li>
+						</ul>
+					</li>
+				{% endfor %}	
+			</ul>
+			<div class="link_see_all_posts"><a class="btn" href="admin/posts">Voir tous les posts</a></div>
+
+		{% endif %}
 
 		<h2>Post :</h2>
 		<ul class="choicePostUser">
