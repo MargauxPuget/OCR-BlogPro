@@ -114,13 +114,13 @@ class PostController
         $user = $this->userRepo->find($_SESSION['userId']);
         $post = $this->postRepo->find($params['postId']);
 
+        if (!isset($user) || !isset($post)) {
+            return;
+        }
+        
+        $comment->setUser($user);
+        $comment->setPost($post);
         $comment->setBody($dataComment['body']);
-        if (isset($user)) {
-            $comment->setUser($user);
-        }
-        if (isset($post)) {
-            $comment->setPost($post);
-        }
         $comment->setCreatedAt(date('Y-m-d H:i:s'));
 
         $this->commentRepo->addComment($comment);
