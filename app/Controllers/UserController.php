@@ -6,18 +6,21 @@ use MPuget\blog\twig\Twig;
 use MPuget\blog\Models\Post;
 use MPuget\blog\Models\User;
 use MPuget\blog\Models\TimeTrait;
+use MPuget\blog\Repository\PostRepository;
 use MPuget\blog\Repository\UserRepository;
 use MPuget\blog\Repository\CommentRepository;
 
 class UserController
 {
     protected $userRepo;
+    protected $postRepo;
     protected $commentRepo;
     protected $twig;
 
     public function __construct(){
         $this->userRepo = new UserRepository();
         $this->commentRepo = new CommentRepository();
+        $this->postRepo = new PostRepository();
         $this->twig = new Twig();
     }
 
@@ -84,8 +87,11 @@ class UserController
 
         // récupération des commentaires de cet utilisateur
         $commentsForValidation = $this->commentRepo->findAllforOneUser($user, 0);
+        // récupération des commentaires de cet utilisateur
+        $allPosts = $this->postRepo->findAll(3);
 
         $viewData = [
+            'allPosts' => $allPosts,
             'commentsByUser' => $commentsByUser,
             'commentsForValidation' => $commentsForValidation
         ];
