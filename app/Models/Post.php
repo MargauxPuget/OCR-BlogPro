@@ -16,7 +16,9 @@ class Post
     use IdTrait;
     use TimeTrait;
 
+    private ?string $status = 'archive';
     private ?string $title;
+    private ?string $image;
     private ?string $chapo;
     private ?string $body;
     private User $user;
@@ -24,6 +26,18 @@ class Post
     
     public function __construct()
     {
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
     }
 
     public function getTitle(): ?string
@@ -34,6 +48,18 @@ class Post
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return isset($this->image) ? $this->image : null ;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
