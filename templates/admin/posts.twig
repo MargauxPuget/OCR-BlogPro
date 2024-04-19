@@ -24,7 +24,12 @@
 	<p class="">{{ post.status }}</p>
 	<p class="">{{ post.title }}</p>
 	<p class="">{{ post.user ? post.user.name : 'Non renseigné' }}</p>
-	<p class="">{{ post.image }}</p>
+	<p class="">
+		{% if post.image %}
+			<img class='pictureUser' src="/public/assets/images/uploads/{{ post.image }}" alt=""/>
+		{% else %}
+			pas d'image
+		{% endif %}
 	<p class="">{{ post.nbComment }}</p>
 	<ul class="post_btn_list">	
 		<li class="btn btn_delete">
