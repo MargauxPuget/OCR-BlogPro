@@ -4,6 +4,14 @@
   padding: 10px 20px 0;
 }
 
+.post.post-active{
+  border:1px solid rgb(231, 252, 173);
+}
+
+.post.post-archive{
+  border:1px solid rgb(252, 204, 173);
+}
+
 .post_title {
   display: flex;
   align-items: center;
