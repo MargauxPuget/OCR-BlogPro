@@ -15,7 +15,7 @@
 			<ul class="">
 
 				{% for post in allPosts %}
-					<li class="post">
+					<li class="post post-{{post.status}}">
 						<div>
 							<h3 class="post_title"><img class="post_img" src="/public/assets/images/article.png" alt="logo" />{{ post.title }}</h3>
 							<p>{{ post.chapo }}</p>
