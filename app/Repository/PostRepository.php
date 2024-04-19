@@ -84,7 +84,7 @@ class PostRepository extends AbstractRepository
         if (!isset($status)) {
             return [];
         }
-        var_dump($status);
+
         if ($nb === 0) {
             $pdoStatement = $this->pdo->prepare('SELECT id FROM `post` WHERE status=:status ');
         } else {
@@ -103,7 +103,7 @@ class PostRepository extends AbstractRepository
             $post = $this->find($post['id']);
             $posts[] = $post;
         }
-        //var_dump($posts);
+        
         return $posts;
     }
 

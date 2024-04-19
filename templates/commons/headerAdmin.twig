@@ -1,0 +1,42 @@
+<header class="header">
+	<div class="">
+		<span class ="nameAuthor">Margaux Puget</span>
+		<div class="header_title">
+				<img class="header_img" src="/public/assets/images/employe.png" alt="logo" />
+				<h1>Un site pour vous </h1>
+		</div>
+				<span class="header_subtitle">Le site dont vous avez besoin</span>
+	</div>
+<hr class="header_separat">
+	<div class="">
+		<div>
+			{% if userSession %}
+				<p class="header_userLogin">{{ userSession.name }}</p>
+				<div class="header_wrapper_userLogin">
+					<a href="/user/{{ userSession.id }}">Mon compte</a>
+					<a href="/logoutUser">Se déconnecter</a>
+				</div>
+			{% else %}
+				<button class="{{ userSession ? '' : 'js-openPopup'}} header_btn_login" type="submit">
+					Se connecter !
+				</button>
+			{% endif %}
+		</div>
+		<nav class="navigation">
+			<li>
+				<a href="/">Home</a>
+			</li>
+			<li>
+				<a href="/admin/users">User</a>
+			</li>
+			<li>
+				<a href="/admin/posts">Post</a>
+			</li>
+			<li>
+				<a href="/admin/comments">Comments</a>
+			</li>
+		</nav>	
+	</div>
+
+
+</header>

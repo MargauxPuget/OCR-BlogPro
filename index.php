@@ -136,6 +136,22 @@ $router->map(
 $router->generate('updateUser');
 
 
+//*--------------------------
+//*   Admin
+//*--------------------------
+
+$router->map(
+	'GET',
+	'admin/posts',
+	[
+		'action' 		 => 'adminAllPost',
+		'controller' => 'MPuget\blog\Controllers\PostController'
+	],
+	'allPost'
+);
+$router->generate('allPost');
+
+
 //* --------------------------
 //*   Post
 //* --------------------------

@@ -45,6 +45,25 @@ class PostController
         echo $this->twig->getTwig()->render('post/home.twig', $viewData);
     }
 
+    public function adminAllPost()
+    {
+        $nbPost = $this->postRepo->nbAll();
+        $nbPostPerPage = 20;
+        $nbPage = ceil($nbPost/$nbPostPerPage);
+
+       
+
+        $postList = $this->postRepo->findAll($nbPostPerPage, 0);
+
+        $viewData = [
+            'postList'      => $postList,
+            'nbPage'        => $nbPage,
+            'pageActive'    => 0
+        ];
+
+        echo $this->twig->getTwig()->render('admin/posts.twig', $viewData);
+    }
+
     public function singlePost($params)
     {
         $postId = $params['postId'];
@@ -121,6 +140,7 @@ class PostController
         $comment->setPost($post);
         $comment->setBody($dataComment['body']);
         $comment->setCreatedAt(date('Y-m-d H:i:s'));
+
 
         $this->commentRepo->addComment($comment);
 
