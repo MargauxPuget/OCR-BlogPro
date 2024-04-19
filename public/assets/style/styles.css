@@ -5,6 +5,7 @@
 @import 'utility/btn.css';
 @import 'utility/list.css';
 @import 'utility/input.css';
+@import 'admin/post.css';
 @import 'post/post.css';
 @import 'user/user.css';
 @import 'post/pagination.css';

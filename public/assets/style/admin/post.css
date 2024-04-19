@@ -1,0 +1,20 @@
+.adminPost {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 2fr;
+
+  border: solid black 1px;
+  padding: 5px 0;
+}
+
+
+.adminPost .btn_update:hover {
+	background: rgb(252, 214, 158);
+}
+
+.adminPost .btn_read:hover {
+	background: rgb(203, 252, 158);
+}
+
+.adminPost .btn_delete:hover {
+	background: rgb(252, 158, 158);
+}

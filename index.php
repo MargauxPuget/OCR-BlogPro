@@ -135,7 +135,6 @@ $router->map(
 );
 $router->generate('updateUser');
 
-
 // todo a verifier que ca ne manque pas !!
 // // TODO BEnoit est ce que la route est correct
 // $router->map(
