@@ -1,11 +1,16 @@
 .adminPost {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 2fr;
+  grid-template-columns: 0.5fr 1fr 2fr 2fr 1fr 1fr 2fr;
+
+  align-items: center;
 
   border: solid black 1px;
   padding: 5px 0;
 }
 
+.adminPost .btn {
+	margin: 2px;
+}
 
 .adminPost .btn_update:hover {
 	background: rgb(252, 214, 158);
