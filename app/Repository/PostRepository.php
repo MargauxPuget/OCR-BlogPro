@@ -30,7 +30,11 @@ class PostRepository extends AbstractRepository
             $result->user = $user;
 
             $post->setId($result->id);
+            $post->setStatus($result->status);
             $post->setTitle($result->title);
+            if($result->image) {
+                $post->setImage($result->image);
+            }
             $post->setChapo($result->chapo);
             $post->setBody($result->body);
             if($user) {

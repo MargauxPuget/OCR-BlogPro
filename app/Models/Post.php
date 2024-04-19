@@ -18,6 +18,7 @@ class Post
 
     private ?string $status = 'archive';
     private ?string $title;
+    private ?string $image;
     private ?string $chapo;
     private ?string $body;
     private User $user;
@@ -47,6 +48,18 @@ class Post
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return isset($this->image) ? $this->image : null ;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
