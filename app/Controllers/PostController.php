@@ -50,7 +50,7 @@ class PostController
         $postId = $params['postId'];
         $post = $this->postRepo->find($postId);
 
-        $commentList = $this->commentRepo->findAllforOnePost($post);
+        $commentList = $this->commentRepo->findAllActiveforOnePost($post);
         $userList = $this->userRepo->findAll();
 
         $viewData = [
@@ -103,24 +103,23 @@ class PostController
 
         if (
             !isset($dataComment['body'])
-            || !isset($dataComment['userSessionId'])
-            || !intval($dataComment['userSessionId']) === $_SESSION['userId']
+            || !isset($_SESSION['userId'])
         ) {
             echo('Il faut un message et un utilisateur valide pour soumettre le formulaire.');
             return;
         }
 
         $comment = new Comment();
-        $user = $this->userRepo->find($dataComment['userSessionId']);
+        $user = $this->userRepo->find($_SESSION['userId']);
         $post = $this->postRepo->find($params['postId']);
 
+        if (!isset($user) || !isset($post)) {
+            return;
+        }
+        
+        $comment->setUser($user);
+        $comment->setPost($post);
         $comment->setBody($dataComment['body']);
-        if (isset($user)) {
-            $comment->setUser($user);
-        }
-        if (isset($post)) {
-            $comment->setPost($post);
-        }
         $comment->setCreatedAt(date('Y-m-d H:i:s'));
 
         $this->commentRepo->addComment($comment);

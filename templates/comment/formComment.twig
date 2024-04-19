@@ -6,7 +6,6 @@
             <textarea name="body" placeholder="Votre commentaire ..."{{ (userSession is empty) ? 'disabled' }}></textarea>
         </div>
         
-		<input hidden type="number" name="userSessionId" value="{{ userSession.id }}">
 	    <button class="btn btn--add" type="submit" {{ (userSession is empty) ? 'disabled' }}>Commenter !</button>
     </form>
 

@@ -60,7 +60,7 @@ class CommentRepository extends AbstractRepository
         return $comments;
     }
 
-    public function findAllforOnePost(Post $post): ?Array
+    public function findAllActiveforOnePost(Post $post): ?Array
     {
         $pdoStatement = $this->pdo->prepare('SELECT id FROM `comment`
         WHERE post_id=:postId AND status=:status ORDER BY `created_at` DESC');
@@ -113,7 +113,7 @@ class CommentRepository extends AbstractRepository
         $pdoStatement = $this->pdo->prepare("INSERT INTO comment (status, body, user_id, post_id)
         VALUES (:status, :body, :userId, :postId)");
         $pdoStatement->execute([
-            'status' => 0,
+            'status' => $comment->getStatus(),
             'body' => $comment->getBody(),
             'userId'  => intval($comment->getUser()->getId()),
             'postId'  => intval($comment->getPost()->getId()),
@@ -163,5 +163,4 @@ class CommentRepository extends AbstractRepository
 
         return true;
     }
-
 }
