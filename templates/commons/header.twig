@@ -29,6 +29,11 @@
 			<li>
 				<a href="/posts">Articles</a>
 			</li>
+			{% if userSession.role %}
+			<li>
+				<a href="/admin/posts">Admin</a>
+			</li>
+			{% endif %}
 		</nav>	
 	</div>
 
