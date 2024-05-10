@@ -62,11 +62,16 @@ class PostRepository extends AbstractRepository
     public function findAll(int $nb=0, int $page=0) : Array
     {
         if ($nb === 0) {
-            $pdoStatement = $this->pdo->prepare('SELECT id FROM `post`');
+            $pdoStatement = $this->pdo->prepare('
+                SELECT id
+                FROM `post`
+                ORDER BY id DESC
+            ');
         } else {
             $pdoStatement = $this->pdo->prepare("
                 SELECT id
                 FROM `post`
+                ORDER BY id DESC
                 LIMIT :nb OFFSET :offSet
             ");
             $pdoStatement->bindValue(':nb', $nb, PDO::PARAM_INT);
@@ -90,9 +95,9 @@ class PostRepository extends AbstractRepository
         }
 
         if ($nb === 0) {
-            $pdoStatement = $this->pdo->prepare('SELECT id FROM `post` WHERE status=:status ');
+            $pdoStatement = $this->pdo->prepare('SELECT id FROM `post` WHERE status=:status ORDER BY id DESC');
         } else {
-            $pdoStatement = $this->pdo->prepare('SELECT id FROM `post` WHERE status=:status LIMIT :nb OFFSET :offSet');
+            $pdoStatement = $this->pdo->prepare('SELECT id FROM `post` WHERE status=:status ORDER BY id DESC LIMIT :nb OFFSET :offSet');
             $pdoStatement->bindValue(':nb', $nb, PDO::PARAM_INT);
             $pdoStatement->bindValue(':offSet', $page*$nb, PDO::PARAM_INT);
             
