@@ -16,7 +16,7 @@ class Post
     use IdTrait;
     use TimeTrait;
 
-    private ?string $status = 'archive';
+    private ?string $status = 'active';
     private ?string $title;
     private ?string $image;
     private ?string $chapo;
@@ -60,7 +60,6 @@ class Post
     public function setImage(string $image): self
     {
         $this->image = $image;
-
         return $this;
     }
 

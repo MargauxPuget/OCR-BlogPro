@@ -87,6 +87,42 @@ class PostController
 
     public function addPost()
     {
+
+        $newPost = $_POST;
+        $image = isset($_FILES['picture']) ? $_FILES['picture'] : null ;
+
+        if (
+        !isset($newPost['title'])
+        || !isset($newPost['chapo'])
+        || !isset($newPost['body'])
+        ) {
+            echo('Il faut un title et un chapo et un article valide pour soumettre le formulaire.');
+            return;
+        }
+
+        $post = new Post($newPost);
+
+        $user = $this->userRepo->find($_SESSION['userId']);
+        $int = intval($user->getId());
+
+        $post->setTitle($newPost['title']);
+        if (isset($image)) {
+            // Déplacer l'image vers le dossier de destination
+            // is_dir('public/assets/images/uploads/') ? var_dump('existe') : var_dump('N existe PAS') ;
+            $resultMoveImg = move_uploaded_file($image['tmp_name'], 'public/assets/images/uploads/' . $image['name'] );
+            if($resultMoveImg){
+                $post->setImage($image['name']);
+            }
+        }
+        $post->setChapo($newPost['chapo']);
+        $post->setBody($newPost['body']);
+        $post->setUser($user);
+        $post->setCreatedAt(date('Y-m-d H:i:s'));
+
+
+        $post = $this->postRepo->addPost($post);
+       
+        header('Location: /post/' . $post->getid());
     }
 
     public function updatedStatusPost($params)
