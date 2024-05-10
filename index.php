@@ -217,6 +217,17 @@ $router->map(
 	);
 $router->generate('updatedStatusPost');
 
+$router->map(
+	'POST',
+	'post/addPost',
+	// target :
+	[
+		'action' => 'addPost',
+		'controller' => 'MPuget\blog\Controllers\PostController'
+	],
+	'addPost'
+);
+$router->generate('addPost');
 
 
 //*--------------------------

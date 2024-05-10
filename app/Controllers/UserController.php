@@ -210,4 +210,24 @@ class UserController
     public function deleteUser()
     {
     }
+
+    public function formPost($params)
+    {
+        $user = $this->userRepo->find($_SESSION['userId']);
+        if (
+            $params['userId'] != $user->getId()
+            || $user->getRole() != 1
+        ){
+            header('Location: /');
+            return;
+        }
+
+        $viewData = [
+            'updatePost' => false,
+            /* 'post'      => $post,
+            'userList'  => $userList, */
+        ];
+
+        echo $this->twig->getTwig()->render('post/formPost.twig', $viewData);
+    }
 }
