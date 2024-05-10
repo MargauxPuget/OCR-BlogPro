@@ -4,4 +4,35 @@ services:
     image: maildev/maildev
     container_name: maildev
     ports: [ "1025", "1080" ]
-   
+
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: OCR_blog
+    volumes:
+      - dbData:/var/lib/mysql
+
+  php-apache:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8081:80
+
+volumes:
+  dbData:
