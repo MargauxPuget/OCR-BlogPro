@@ -30,7 +30,11 @@ class PostRepository extends AbstractRepository
             $result->user = $user;
 
             $post->setId($result->id);
+            $post->setStatus($result->status);
             $post->setTitle($result->title);
+            if($result->image) {
+                $post->setImage($result->image);
+            }
             $post->setChapo($result->chapo);
             $post->setBody($result->body);
             if($user) {
@@ -52,14 +56,22 @@ class PostRepository extends AbstractRepository
         return intval($nbPost['COUNT(*)']);
     }
 
+    // TODO Benoit je voudrais regrouper les deux fonctions suivantes
+    // ! elles récupèrent toute sles deux un certaine nombre de posts la deuxième ne récupère que certain status
+    // ! bonus je voudrais que dans la seconde $status soit un tableau est donc qu'il y ai plusieur choix possible de 0 à 3 aujourd'hui. est ce Possible
     public function findAll(int $nb=0, int $page=0) : Array
     {
         if ($nb === 0) {
-            $pdoStatement = $this->pdo->prepare('SELECT id FROM `post`');
+            $pdoStatement = $this->pdo->prepare('
+                SELECT id
+                FROM `post`
+                ORDER BY id DESC
+            ');
         } else {
             $pdoStatement = $this->pdo->prepare("
                 SELECT id
                 FROM `post`
+                ORDER BY id DESC
                 LIMIT :nb OFFSET :offSet
             ");
             $pdoStatement->bindValue(':nb', $nb, PDO::PARAM_INT);
@@ -76,14 +88,43 @@ class PostRepository extends AbstractRepository
         return $posts;
     }
 
+    public function findFromStatus(string $status = null, int $nb=0, int $page=0) : Array
+    {
+        if (!isset($status)) {
+            return [];
+        }
+
+        if ($nb === 0) {
+            $pdoStatement = $this->pdo->prepare('SELECT id FROM `post` WHERE status=:status ORDER BY id DESC');
+        } else {
+            $pdoStatement = $this->pdo->prepare('SELECT id FROM `post` WHERE status=:status ORDER BY id DESC LIMIT :nb OFFSET :offSet');
+            $pdoStatement->bindValue(':nb', $nb, PDO::PARAM_INT);
+            $pdoStatement->bindValue(':offSet', $page*$nb, PDO::PARAM_INT);
+            
+        }
+        
+        $pdoStatement->bindValue(':status', $status, PDO::PARAM_STR);
+        $pdoStatement->execute();
+
+        $postList = $pdoStatement->fetchAll();
+        $posts = [];
+        foreach ($postList as $post) {
+            $post = $this->find($post['id']);
+            $posts[] = $post;
+        }
+        
+        return $posts;
+    }
+
     public function addPost(Post $post) : Post
     {
-        $pdoStatement = $this->pdo->prepare("INSERT INTO post (title, chapo, body, user_id)
-        VALUES (:title, :chapo, :body, :userId)");
+        $pdoStatement = $this->pdo->prepare("INSERT INTO post (title, chapo, body, image, user_id)
+        VALUES (:title, :chapo, :body, :image, :userId)");
         $pdoStatement->execute([
             'title'     => $post->getTitle(),
             'chapo'      => $post->getChapo(),
             'body'      => $post->getBody(),
+            'image'      => $post->getImage(),
             'userId'    => $post->getUser()->getId(),
         ]);
 
@@ -105,6 +146,17 @@ class PostRepository extends AbstractRepository
             'body'      => (isset($updatePost['body'])) ? $updatePost['body'] : $post->getBody(),
             'userId'    => (isset($updatePost['userId'])) ? $updatePost['userId'] : $post->getUser()->getId(),
             'updatedAt' => $post->setUpdatedAt(date('Y-m-d H:i:s'))->getUpdatedAt()
+        ]);
+    }
+
+    public function changedStatusPost(Post $post, string $status)
+    {
+        $sql = "UPDATE post SET status=:status
+        WHERE id=:id";
+        $pdoStatement = $this->pdo->prepare($sql);
+        $pdoStatement->execute([
+            'id'     => $post->getId(),
+            'status' => $status
         ]);
     }
 

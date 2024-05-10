@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 // require de nos Controllers
@@ -134,6 +135,34 @@ $router->map(
 );
 $router->generate('updateUser');
 
+$router->map(
+	'GET',
+	'user/[i:userId]/formPost',
+	[
+		'action' 	=> 'formPost',
+		'controller' => 'MPuget\blog\Controllers\UserController'
+	],
+	'formPost'
+);
+$router->generate('formPost');
+
+
+
+//*--------------------------
+//*   Admin
+//*--------------------------
+
+$router->map(
+	'GET',
+	'admin/posts',
+	[
+		'action' 		 => 'adminAllPost',
+		'controller' => 'MPuget\blog\Controllers\PostController'
+	],
+	'allPost'
+);
+$router->generate('allPost');
+
 
 //* --------------------------
 //*   Post
@@ -177,6 +206,29 @@ $router->map(
 $router->generate('singlePost');
 
 
+$router->map(
+	'GET',
+	'post/[i:postId]/update/[a:status]',
+	// target :
+	[
+		'action' => 'updatedStatusPost',
+		'controller' => 'MPuget\blog\Controllers\PostController'
+	],
+	'updatedStatusPost'
+	);
+$router->generate('updatedStatusPost');
+
+$router->map(
+	'POST',
+	'post/addPost',
+	// target :
+	[
+		'action' => 'addPost',
+		'controller' => 'MPuget\blog\Controllers\PostController'
+	],
+	'addPost'
+);
+$router->generate('addPost');
 
 
 //*--------------------------
@@ -224,7 +276,6 @@ $router->generate('deleteComment');
 
 
 $match = $router->match();
-
 
 //* -----------------------------------------------------
 //*                     Dispatcher
