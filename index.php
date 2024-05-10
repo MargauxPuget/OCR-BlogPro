@@ -135,6 +135,18 @@ $router->map(
 );
 $router->generate('updateUser');
 
+$router->map(
+	'GET',
+	'user/[i:userId]/formPost',
+	[
+		'action' 	=> 'formPost',
+		'controller' => 'MPuget\blog\Controllers\UserController'
+	],
+	'formPost'
+);
+$router->generate('formPost');
+
+
 
 //*--------------------------
 //*   Admin
@@ -206,6 +218,17 @@ $router->map(
 	);
 $router->generate('updatedStatusPost');
 
+$router->map(
+	'POST',
+	'post/addPost',
+	// target :
+	[
+		'action' => 'addPost',
+		'controller' => 'MPuget\blog\Controllers\PostController'
+	],
+	'addPost'
+);
+$router->generate('addPost');
 
 
 //*--------------------------

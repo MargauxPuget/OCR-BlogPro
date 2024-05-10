@@ -37,24 +37,18 @@
 					</li>
 				{% endfor %}	
 			</ul>
-			<div class="link_see_all_posts"><a class="btn" href="/admin/posts">Voir tous les posts</a></div>
-
+			<ul class="link_list">
+				<li class="link_new_posts">
+					<a class="btn" href="/user/{{ userSession.id }}/formPost">
+						Ecrire un nouveau post
+						<img class="post_img" src="/public/assets/images/article.png" alt="écrire un post"/>
+					</a>
+				</li>
+				<li class="link_see_all_posts">
+					<a class="btn" href="/admin/posts">Voir tous les posts</a>
+				</li>
+			</ul>
 		{% endif %}
-
-		<h2>Post :</h2>
-		<ul class="choicePostUser">
-			<li class="postUser">
-				<a href="/user/{{ userSession.id }}/formPost">
-					Ecrire un nouveau post
-					<img class="post_img" src="/public/assets/images/article.png" alt="écrire un post"/></a>
-			</li>
-
-			<li>
-				<form class="postUser" action="/listPost" method="post">
-					<button class="btn" type="submit">Voir tous les posts</button>
-				</form>
-			</li>
-		</ul>
 
 		<h2>Vos commentaires à étudier :</h2>
 		<ul>
