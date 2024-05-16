@@ -127,8 +127,6 @@ class PostController
 
     public function updatedStatusPost($params)
     {
-        var_dump($params);
-        
         $postId = $params['postId'];
         if (!isset($postId) && !is_int($postId)
             && !isset($params['status'])

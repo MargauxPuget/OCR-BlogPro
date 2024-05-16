@@ -64,10 +64,10 @@
   justify-content: space-around;
 }
 
-.link_new_posts
-.link_see_all_posts {
-  margin: 20px;
-  
+.link_new_posts,
+.link_see_all_posts,
+.link_see_all_comments {
+  margin: 20px;  
 }
 
 .link_new_posts a {
