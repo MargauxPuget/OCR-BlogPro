@@ -12,31 +12,6 @@
 	{% if userSession.role %}
 
 		{% if allPosts is not empty %}
-			<ul class="">
-
-				{% for post in allPosts %}
-					<li class="post post-{{post.status}}">
-						<div>
-							<h3 class="post_title"><img class="post_img" src="/public/assets/images/article.png" alt="logo" />{{ post.title }}</h3>
-							<p>{{ post.chapo }}</p>
-							<p class="post_author">{{ post.user ? post.user.name : 'Autheur inconnue' }}</p>
-							<p>{{ post.updated_at is not empty ? post.updated_at : post.createdAt }}</p>
-						</div>
-						<ul class="post_btn_list">
-						
-							<li class="btn">
-								<a class="post_delete" href="/post/{{ post.id }}/update/archive">Supprimer<img class="" src="/public/assets/images/poubelle.png" alt="supprimer l'article"/></a>
-							</li>
-							<li class="btn">
-								<a class="post_read" href="/post/{{ post.id }}">Voir<img class="" src="/public/assets/images/vision.png" alt="voir l'article"/></a>
-							</li>
-							<li class="btn">
-								<a class="post_update" href="/post/{{ post.id }}/update">Modifier<img class="" src="/public/assets/images/article.png" alt="modifier l'article"/></a>
-							</li>
-						</ul>
-					</li>
-				{% endfor %}	
-			</ul>
 			<ul class="link_list">
 				<li class="link_new_posts">
 					<a class="btn" href="/user/{{ userSession.id }}/formPost">
@@ -46,6 +21,9 @@
 				</li>
 				<li class="link_see_all_posts">
 					<a class="btn" href="/admin/posts">Voir tous les posts</a>
+				</li>
+				<li class="link_see_all_comments">
+					<a class="btn" href="/admin/comments">Voir tous les Comments</a>
 				</li>
 			</ul>
 		{% endif %}
