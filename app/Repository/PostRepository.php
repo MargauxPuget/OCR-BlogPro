@@ -134,19 +134,22 @@ class PostRepository extends AbstractRepository
         return $post;
     }
 
-    public function updatePost(Post $post)
+    public function updatePost(Post $post) : Post
     {
-        $sql = "UPDATE post SET title=:title, chapo=:chapo, body=:body, user_id=:userId, updated_at=:updatedAt
+        $sql = "UPDATE post SET title=:title, image=:image, chapo=:chapo, body=:body, user_id=:userId, updated_at=:updatedAt
         WHERE id=:id";
         $pdoStatement = $this->pdo->prepare($sql);
         $pdoStatement->execute([
             'id'        => $post->getId(),
             'title'     => (isset($updatePost['title'])) ? $updatePost['title'] : $post->getTitle(),
+            'image'      => (isset($updatePost['image'])) ? $updatePost['image'] : $post->getImage(),
             'chapo'      => (isset($updatePost['chapo'])) ? $updatePost['chapo'] : $post->getChapo(),
             'body'      => (isset($updatePost['body'])) ? $updatePost['body'] : $post->getBody(),
             'userId'    => (isset($updatePost['userId'])) ? $updatePost['userId'] : $post->getUser()->getId(),
             'updatedAt' => $post->setUpdatedAt(date('Y-m-d H:i:s'))->getUpdatedAt()
         ]);
+
+        return $post;
     }
 
     public function changedStatusPost(Post $post, string $status)

@@ -4,11 +4,9 @@
 
     Ecrire un post page de formulaire
 
-    <h2>Ajouter un nouvel article</h2>
+    <h2>{{ post ? 'Ajouter un nouvel article' : 'Mettre à jour cet article' }}</h2>
 
-
-
-    <form action="{{ post ? '/updatePost' : '/post/addPost' }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ post ? '/admin/posts/' ~ post.id ~'/update' : '/post/addPost' }}" method="POST" enctype="multipart/form-data">
         <div>
             <label for="title">Titre</label>
             <input type="text" name="title" value="{{ post ? post.title : ''}}">
@@ -25,12 +23,11 @@
             <label for="picture">Image : </label>
             <input type="file" id="picture" name="picture"  value="{{ post ? post.image : '' }}">
         </div>
-
        
         <input hidden type="text" name="status" value="{{ post ? post.status : 'active' }}">
         <input hidden type="number" name="userId" value="{{ post ? post.user.id : userSession.id }}">
 
-        <input hidden type="number" name="identifiant" value="<?= (empty($viewData['post'])) ? '' : $viewData['post']->getId() ?>">
+        <input hidden type="number" name="identifiant" value="{{ post ? post.id : '' }}">
         <button type="submit">{{ post ? 'Mettre à jour' : 'Créer'}}</button>
     </form>
 
