@@ -222,10 +222,13 @@ class UserController
             return;
         }
 
+        $postId =  isset($params['postId']) ? $params['postId'] : null  ;
+        $post =  isset($postId) ? $this->postRepo->find($postId) : null;
+
+
         $viewData = [
             'updatePost' => false,
-            /* 'post'      => $post,
-            'userList'  => $userList, */
+            'post'       => $post,
         ];
 
         echo $this->twig->getTwig()->render('post/formPost.twig', $viewData);

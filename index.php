@@ -149,6 +149,17 @@ $router->generate('updateUser');
 // );
 // $router->generate('refusedComment');
 
+$router->map(
+	'GET',
+	'user/[i:userId]/posts/[i:postId]/formPost',
+	[
+		'action' 		 => 'formPost',
+		'controller' => 'MPuget\blog\Controllers\UserController'
+	],
+	'updateFormPost'
+);
+$router->generate('updateFormPost');
+
 
 // // TODO BEnoit est ce que la route est correct
 // $router->map(

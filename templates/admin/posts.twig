@@ -5,43 +5,51 @@
 
 <h2>Admin POST : CRUD utilisateur</h2>
 
-
-<div class="adminPost" >
-
-	<p class="">id</p>
-	<p class="">status</p>
-	<p class="">titre</p>
-	<p class="">user</p>
-	<p class="">image</p>
-	<p class="">nbComment</p>
-	<p class="">Action</p>
-
+<div class="link_new_posts">
+	<a class="btn" href="/user/{{ userSession.id }}/formPost">
+		Ecrire un nouveau post
+		<img class="post_img" src="/public/assets/images/article.png" alt="écrire un post"/>
+	</a>
 </div>
-{% for key, post in postList %}
 
-<div class="adminPost" >
-	<p class="">{{ post.id }}</p>
-	<p class="">{{ post.status }}</p>
-	<p class="">{{ post.title }}</p>
-	<p class="">{{ post.user ? post.user.name : 'Non renseigné' }}</p>
-	<p class="">
-		{% if post.image %}
-			<img class='pictureUser' src="/public/assets/images/uploads/{{ post.image }}" alt=""/>
-		{% else %}
-			pas d'image
-		{% endif %}
-	<p class="">{{ post.nbComment }}</p>
-	<ul class="post_btn_list">	
-		<li class="btn btn_delete">
-			<a class="post_delete" href="/post/{{ post.id }}/update/archive"><img class="" src="/public/assets/images/poubelle.png" alt="supprimer l'article"/></a>
-		</li>
-		<li class="btn btn_read">
-			<a class="post_read" href="/post/{{ post.id }}"><img class="" src="/public/assets/images/vision.png" alt="voir l'article"/></a>
-		</li>
-		<li class="btn btn_update">
-			<a class="post_update" href="/post/{{ post.id }}/update"><img class="" src="/public/assets/images/article.png" alt="modifier l'article"/></a>
-		</li>
-	</ul>
+<div>
+	<div class="adminPost" >
+		<p class="">id</p>
+		<p class="">status</p>
+		<p class="">titre</p>
+		<p class="">user</p>
+		<p class="">image</p>
+		<p class="">nbComment</p>
+		<p class="">Action</p>
+
+	</div>
+	{% for key, post in postList %}
+
+	<div class="adminPost" >
+		<p class="">{{ post.id }}</p>
+		<p class="">{{ post.status }}</p>
+		<p class="">{{ post.title }}</p>
+		<p class="">{{ post.user ? post.user.name : 'Non renseigné' }}</p>
+		<p class="">
+			{% if post.image %}
+				<img class='pictureUser' src="/public/assets/images/uploads/{{ post.image }}" alt=""/>
+			{% else %}
+				pas d'image
+			{% endif %}
+		<p class="">{{ post.nbComment }}</p>
+		<ul class="post_btn_list">
+			<li class="btn btn_read">
+				<a class="post_read" href="/post/{{ post.id }}"><img class="" src="/public/assets/images/vision.png" alt="voir l'article"/></a>
+			</li>
+			<li class="btn btn_update">
+				<a class="post_update" href="/user/{{ userSession.id }}/posts/{{ post.id }}/formPost"><img class="" src="/public/assets/images/article.png" alt="modifier l'article"/></a>
+			</li>
+			<li class="btn btn_delete">
+				<a class="post_delete" href="/post/{{ post.id }}/update/archive"><img class="" src="/public/assets/images/poubelle.png" alt="supprimer l'article"/></a>
+			</li>
+		</ul>
+
+	</div>
 
 </div>
 
