@@ -80,10 +80,7 @@ class PostController
 
         echo $this->twig->getTwig()->render('post/post.twig', $viewData);
     }
-    
-    public function formPost()
-    {
-    }
+
 
     public function addPost()
     {
@@ -124,6 +121,47 @@ class PostController
        
         header('Location: /post/' . $post->getid());
     }
+
+    public function updatePost($params)
+    {
+        $updatDataPost = $_POST;
+        $postChange = $this->postRepo->find($params['postId']);
+
+        if ($this->userRepo->find($_SESSION['userId'])->getRole() != 1) {
+            header('Location: /');
+            return false;
+        }
+       
+        if (!isset($updatDataPost['identifiant']) && !is_int($updatDataPost['identifiant'])) {
+            echo("Il faut l'identifiant d'un post.");
+            header('Location: /admin/posts');
+            return false;
+        }
+
+        if (isset($updatDataPost['title']) && ($updatDataPost['title'] !== $postChange->getTitle())){
+            $postChange->setTitle($updatDataPost['title']);
+        }
+        if (isset($updatDataPost['chapo']) && ($updatDataPost['chapo'] !== $postChange->getChapo())){
+            $postChange->setChapo($updatDataPost['chapo']);
+        }
+        if (isset($updatDataPost['body']) && ($updatDataPost['body'] !== $postChange->getBody())){
+            $postChange->setBody($updatDataPost['body']);
+        }
+
+
+        $image = $_FILES['picture'];
+        if (isset($image) && ($image['error'] === 0) && ($image !== $postChange->getImage())){
+            // Déplacer l'image vers le dossier de destination
+            //is_dir('public/assets/images/uploads/') ? var_dump('existe') : var_dump('N existe PAS') ;
+            move_uploaded_file($image['tmp_name'], 'public/assets/images/uploads/' . $image['name'] );
+            
+            $postChange->setImage($image['name']);
+        }
+
+        $post = $this->postRepo->updatePost($postChange);
+
+        header('Location: /post/' . $post->getId());
+    } 
 
     public function updatedStatusPost($params)
     {

@@ -146,6 +146,17 @@ $router->map(
 );
 $router->generate('formPost');
 
+$router->map(
+	'GET',
+	'user/[i:userId]/posts/[i:postId]/formPost',
+	[
+		'action' 		 => 'formPost',
+		'controller' => 'MPuget\blog\Controllers\UserController'
+	],
+	'updateFormPost'
+);
+$router->generate('updateFormPost');
+
 
 
 //*--------------------------
@@ -162,6 +173,17 @@ $router->map(
 	'allPost'
 );
 $router->generate('allPost');
+
+$router->map(
+	'POST',
+	'admin/posts/[i:postId]/update',
+	[
+		'action' 		 => 'updatePost',
+		'controller' => 'MPuget\blog\Controllers\PostController'
+	],
+	'updatePost'
+);
+$router->generate('updatePost');
 
 
 //* --------------------------
