@@ -18,14 +18,6 @@
         </div>
         <ul class="post_btn">
             <li class="btn btn--add"> <a href="/post/{{ post.id }}">Voir</a></li>
-            <form action="/formPost" method="post">
-                <input hidden type="number" name="identifiant" value="{{ post.id}}">
-                <button class="btn btn--update" type="submit">Modifier</button>
-            </form>
-            <form action="/deletePost" method="post">
-                <input hidden type="number" name="identifiant" value="{{ post.id}}">
-                <button class="btn btn--delete" type="submit">Supprimer</button>
-            </form>
         </ul>
     </li>
     {% endfor %}	
