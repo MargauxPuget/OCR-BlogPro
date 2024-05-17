@@ -45,20 +45,22 @@ class PostController
         echo $this->twig->getTwig()->render('post/home.twig', $viewData);
     }
 
-    public function adminAllPost()
+    public function adminAllPost($params)
     {
         $nbPost = $this->postRepo->nbAll();
-        $nbPostPerPage = 20;
+        $nbPostPerPage = 5;
         $nbPage = ceil($nbPost/$nbPostPerPage);
 
-       
+        if (!isset($params['page'])){
+            $params['page'] = 1;
+        }
 
-        $postList = $this->postRepo->findAll($nbPostPerPage, 0);
+        $postList = $this->postRepo->findAll($nbPostPerPage, $params['page']-1);
 
         $viewData = [
             'postList'      => $postList,
             'nbPage'        => $nbPage,
-            'pageActive'    => 0
+            'pageActive'    => $params['page']
         ];
 
         echo $this->twig->getTwig()->render('admin/posts.twig', $viewData);
