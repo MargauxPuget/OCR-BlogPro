@@ -36,6 +36,7 @@
 			{% else %}
 				pas d'image
 			{% endif %}
+		</p>
 		<p class="">{{ post.nbComment }}</p>
 		<ul class="post_btn_list">
 			<li class="btn btn_read">
@@ -60,7 +61,7 @@
 
 <ul class="pagination">
     {% for i in 1..nbPage %}
-            <li class="{{pageActive == i ? 'pageActive': ''}}"><a href="/posts/{{ i }}">{{ i }}</a></li>
+            <li class="{{pageActive == i ? 'pageActive': ''}}"><a href="/admin/posts/{{ i }}">{{ i }}</a></li>
     {% endfor %}
 </ul>
 

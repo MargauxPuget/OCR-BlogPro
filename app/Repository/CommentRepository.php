@@ -2,6 +2,7 @@
 
 namespace MPuget\blog\Repository;
 
+use PDO;
 use MPuget\blog\Models\Comment;
 use MPuget\blog\Models\User;
 use MPuget\blog\Models\Post;
@@ -46,9 +47,37 @@ class CommentRepository extends AbstractRepository
         return $comment;
     }
 
-    public function findAll(): Post
+    public function nbAll() : Int
     {
-        $pdoStatement = $this->pdo->prepare('SELECT id FROM `comment`');
+        $pdoStatement = $this->pdo->prepare('SELECT COUNT(*) FROM `comment`');
+        $pdoStatement->execute();
+        $nbComment = $pdoStatement->fetch();
+
+        return intval($nbComment['COUNT(*)']);
+    }
+
+
+
+
+    public function findAll(int $nb=0, int $page=0) : Array
+    {
+        if ($nb === 0) {
+            $pdoStatement = $this->pdo->prepare('
+                SELECT id
+                FROM `comment`
+                ORDER BY id DESC
+            ');
+        } else {
+            $pdoStatement = $this->pdo->prepare("
+                SELECT id
+                FROM `comment`
+                ORDER BY id DESC
+                LIMIT :nb OFFSET :offSet
+            ");
+            $pdoStatement->bindValue(':nb', $nb, PDO::PARAM_INT);
+            $pdoStatement->bindValue(':offSet', $page*$nb, PDO::PARAM_INT);
+        }
+
         $pdoStatement->execute();
         $commentList = $pdoStatement->fetchAll();
         $comments = [];
@@ -59,6 +88,10 @@ class CommentRepository extends AbstractRepository
         
         return $comments;
     }
+
+
+
+    
 
     public function findAllActiveforOnePost(Post $post): ?Array
     {
