@@ -3,6 +3,7 @@
 {% block content %}
 
 	<h1><img class='' src="/public/assets/images/uploads/{{ post.image }}" alt=""/> {{ post.title }}</h1>
+
 	<span class="post_date">{{ post.updatedAt is not empty ? post.updatedAt|date("l d F à G\\hi") : post.createdAt|date("l d F à G\\hi") }}</span>
 	<p>{{ post.body }}</p>
 
