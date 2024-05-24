@@ -43,10 +43,10 @@ class CommentController
 
     public function updateComment($params) {
         // vérifier que l'utilisateur est un admin
-        $user = $this->userRepo->find($_SESSION['userId']);
+        $sessionUser = $this->userRepo->getSessionUser();
 
-        if ($user->getRole() != 1) {
-            header('Location: /user/' . $user->getId());
+        if ($sessionUser->getRole() != 1) {
+            header('Location: /user/' . $sessionUser->getId());
             return;
         }
 

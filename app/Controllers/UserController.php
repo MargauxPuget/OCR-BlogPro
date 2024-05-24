@@ -80,12 +80,12 @@ class UserController
         }
 
         // récupération de cet utilisateur
-        $user = $this->userRepo->find($_SESSION['userId']);
+        $sessionUser = $this->userRepo->getSessionUser();
 
         // récupération des commentaires de cet utilisateur
-        $commentsByUser = $this->commentRepo->findAllforOneUser($user);
+        $commentsByUser = $this->commentRepo->findAllforOneUser($sessionUser);
         // récupération des commentaires de cet utilisateur
-        $commentsForValidation = $this->commentRepo->findAllforOneUser($user, 0);
+        $commentsForValidation = $this->commentRepo->findAllforOneUser($sessionUser, 0);
         // récupération des commentaires de cet utilisateur
         $allPosts = $this->postRepo->findFromStatus('active', 3);
 
