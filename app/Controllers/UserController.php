@@ -215,7 +215,7 @@ class UserController
         $sessionUser = $this->userRepo->getSessionUser();
         if (
             $params['userId'] != $sessionUser->getId()
-            || $sessionUser->getRole() != 1
+            || !($sessionUser->getRole() == 1)
         ){
             header('Location: /');
             return;
