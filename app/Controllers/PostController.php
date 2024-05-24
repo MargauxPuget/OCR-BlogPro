@@ -82,7 +82,6 @@ class PostController
         echo $this->twig->getTwig()->render('post/post.twig', $viewData);
     }
 
-
     public function addPost()
     {
 
@@ -100,8 +99,7 @@ class PostController
 
         $post = new Post($newPost);
 
-        $user = $this->userRepo->find($_SESSION['userId']);
-        $int = intval($user->getId());
+        $sessionUser = $this->userRepo->getSessionUser();
 
         $post->setTitle($newPost['title']);
         if (isset($image)) {
@@ -114,7 +112,7 @@ class PostController
         }
         $post->setChapo($newPost['chapo']);
         $post->setBody($newPost['body']);
-        $post->setUser($user);
+        $post->setUser($sessionUser);
         $post->setCreatedAt(date('Y-m-d H:i:s'));
 
 
@@ -202,14 +200,14 @@ class PostController
         }
 
         $comment = new Comment();
-        $user = $this->userRepo->find($_SESSION['userId']);
+        $sessionUser = $this->userRepo->getSessionUser();
         $post = $this->postRepo->find($params['postId']);
 
         if (!isset($user) || !isset($post)) {
             return;
         }
         
-        $comment->setUser($user);
+        $comment->setUser($sessionUser);
         $comment->setPost($post);
         $comment->setBody($dataComment['body']);
         $comment->setCreatedAt(date('Y-m-d H:i:s'));

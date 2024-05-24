@@ -56,6 +56,21 @@ class UserRepository extends AbstractRepository
         return $user;
     }
 
+    public function getSessionUser()
+    {
+
+        if (!isset($_SESSION['userId'])) {
+            return false;
+        }
+
+        $user = $this->find($_SESSION['userId']);
+
+        if (!isset($user)) {
+            return false;
+        }
+        return $user;
+    }
+
     public function findBy(string $email, string $password): int
     {
         $pdoStatement = $this->pdo->prepare('SELECT * FROM `user` WHERE email = :email AND password = :password');
