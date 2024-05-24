@@ -2,8 +2,8 @@ version: "3.8"
 services:
   mailer:
     image: maildev/maildev
-    container_name: maildev
-    ports: [ "1025", "1080" ]
+    container_name: maildev-toto
+    ports: [ "1026", "1081" ]
 
   db:
     image: mysql
@@ -14,7 +14,7 @@ services:
     volumes:
       - dbData:/var/lib/mysql
 
-  php-apache:
+  php:
     build: .
     ports:
       - "8080:80"
