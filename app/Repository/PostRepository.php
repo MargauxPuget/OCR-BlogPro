@@ -58,7 +58,7 @@ class PostRepository extends AbstractRepository
 
     // TODO Benoit je voudrais regrouper les deux fonctions suivantes
     // ! elles récupèrent toute sles deux un certaine nombre de posts la deuxième ne récupère que certain status
-    // ! bonus je voudrais que dans la seconde $status soit un tableau est donc qu'il y ai plusieur choix possible de 0 à 3 aujourd'hui. est ce Possible
+    // ! bonus je voudrais que dans la seconde $status soit un tableau est donc qu'il y ai plusieurs choix possible de 0 à 3 aujourd'hui. est ce Possible
     public function findAll(int $nb=0, int $page=0) : Array
     {
         if ($nb === 0) {
@@ -88,18 +88,18 @@ class PostRepository extends AbstractRepository
         return $posts;
     }
 
-    public function findFromStatus(string $status = null, int $nb=0, int $page=0) : Array
+    public function findFromStatus(string $status = null, int $limit=0, int $page=0) : Array
     {
         if (!isset($status)) {
-            return [];
+            return $this->findAll();
         }
 
-        if ($nb === 0) {
+        if ($limit === 0) {
             $pdoStatement = $this->pdo->prepare('SELECT id FROM `post` WHERE status=:status ORDER BY id DESC');
         } else {
             $pdoStatement = $this->pdo->prepare('SELECT id FROM `post` WHERE status=:status ORDER BY id DESC LIMIT :nb OFFSET :offSet');
-            $pdoStatement->bindValue(':nb', $nb, PDO::PARAM_INT);
-            $pdoStatement->bindValue(':offSet', $page*$nb, PDO::PARAM_INT);
+            $pdoStatement->bindValue(':nb', $limit, PDO::PARAM_INT);
+            $pdoStatement->bindValue(':offSet', $page*$limit, PDO::PARAM_INT);
             
         }
         
