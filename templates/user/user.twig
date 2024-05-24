@@ -28,37 +28,7 @@
 			</ul>
 		{% endif %}
 
-		<h2>Vos commentaires à étudier :</h2>
-		<ul>
-			{% if commentsForValidation|length < 1 %}
-				<li class="commentUser">
-					<div>
-						<p class="comment_body">Il n'y a pas de commentaire en attentent de validation</p>
-
-					</div>
-				</li>
-			{% endif %}
-			{% for comment in commentsForValidation %}
-				<li class="commentUser commentUser-{{ comment.status }}">
-					<div>
-						<p class="comment_body">{{ comment.body }}</p>
-						<p>{{ comment.updated_at is not empty ? comment.updated_at : comment.createdAt|date("l d F à G\\hi") }}</p>
-						<p class="comment_author">{{ comment.user.name }}</p>
-					</div>
-
-					<div class="comment_validation">
-						<form action="/comment/{{ comment.id }}/update" method="post">
-							<input hidden type="text" name="action" value="validated">
-							<button class="comment_accepted" type="submit"><img class="" src="/public/assets/images/valider.png" alt="valider le commentaire"/></button>
-						</form>
-						<form action="/comment/{{ comment.id }}/update" method="post">
-							<input hidden type="text" name="action" value="refused">
-							<button class="comment_refused" type="submit"><img class="" src="/public/assets/images/rejeter.png" alt="rejeter le commentaire"/></button>
-						</form>
-					</div>
-				</li>
-			{% endfor %}
-		</ul>
+		
 	{% endif %}
 
 	<h2>Vos commentaires :</h2>
