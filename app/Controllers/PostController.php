@@ -26,6 +26,7 @@ class PostController
 
     public function home($params)
     {
+        var_dump('hello');
         $nbPost = $this->postRepo->nbAll();
         $nbPostPerPage = 5;
         $nbPage = ceil($nbPost/$nbPostPerPage);

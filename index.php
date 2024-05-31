@@ -154,7 +154,7 @@ $router->generate('postHome');
 
 $router->map(
 	'GET',
-	'posts',
+	'/posts',
 	// target :
 	[
 		'action' => 'home',
