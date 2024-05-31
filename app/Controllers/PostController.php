@@ -46,12 +46,31 @@ class PostController
         echo $this->twig->getTwig()->render('post/home.twig', $viewData);
     }
 
+    public function adminAllPost()
+    {
+        $nbPost = $this->postRepo->nbAll();
+        $nbPostPerPage = 20;
+        $nbPage = ceil($nbPost/$nbPostPerPage);
+
+       
+
+        $postList = $this->postRepo->findAll($nbPostPerPage, 0);
+
+        $viewData = [
+            'postList'      => $postList,
+            'nbPage'        => $nbPage,
+            'pageActive'    => 0
+        ];
+
+        echo $this->twig->getTwig()->render('admin/posts.twig', $viewData);
+    }
+
     public function singlePost($params)
     {
         $postId = $params['postId'];
         $post = $this->postRepo->find($postId);
 
-        $commentList = $this->commentRepo->findAllforOnePost($post);
+        $commentList = $this->commentRepo->findAllActiveforOnePost($post);
         $userList = $this->userRepo->findAll();
 
         $viewData = [
@@ -62,17 +81,102 @@ class PostController
 
         echo $this->twig->getTwig()->render('post/post.twig', $viewData);
     }
-    
-    public function formPost()
-    {
-    }
 
     public function addPost()
     {
+
+        $newPost = $_POST;
+        $image = isset($_FILES['picture']) ? $_FILES['picture'] : null ;
+
+        if (
+        !isset($newPost['title'])
+        || !isset($newPost['chapo'])
+        || !isset($newPost['body'])
+        ) {
+            echo('Il faut un title et un chapo et un article valide pour soumettre le formulaire.');
+            return;
+        }
+
+        $post = new Post($newPost);
+
+        $sessionUser = $this->userRepo->getSessionUser();
+
+        $post->setTitle($newPost['title']);
+        if (isset($image)) {
+            // Déplacer l'image vers le dossier de destination
+            // is_dir('public/assets/images/uploads/') ? var_dump('existe') : var_dump('N existe PAS') ;
+            $resultMoveImg = move_uploaded_file($image['tmp_name'], 'public/assets/images/uploads/' . $image['name'] );
+            if($resultMoveImg){
+                $post->setImage($image['name']);
+            }
+        }
+        $post->setChapo($newPost['chapo']);
+        $post->setBody($newPost['body']);
+        $post->setUser($sessionUser);
+        $post->setCreatedAt(date('Y-m-d H:i:s'));
+
+
+        $post = $this->postRepo->addPost($post);
+       
+        header('Location: /post/' . $post->getid());
     }
 
-    public function updatePost()
+    public function updatePost($params)
     {
+        $updatDataPost = $_POST;
+        $postChange = $this->postRepo->find($params['postId']);
+
+        if ($this->userRepo->find($_SESSION['userId'])->getRole() != 1) {
+            header('Location: /');
+            return false;
+        }
+       
+        if (!isset($updatDataPost['identifiant']) && !is_int($updatDataPost['identifiant'])) {
+            echo("Il faut l'identifiant d'un post.");
+            header('Location: /admin/posts');
+            return false;
+        }
+
+        if (isset($updatDataPost['title']) && ($updatDataPost['title'] !== $postChange->getTitle())){
+            $postChange->setTitle($updatDataPost['title']);
+        }
+        if (isset($updatDataPost['chapo']) && ($updatDataPost['chapo'] !== $postChange->getChapo())){
+            $postChange->setChapo($updatDataPost['chapo']);
+        }
+        if (isset($updatDataPost['body']) && ($updatDataPost['body'] !== $postChange->getBody())){
+            $postChange->setBody($updatDataPost['body']);
+        }
+
+
+        $image = $_FILES['picture'];
+        if (isset($image) && ($image['error'] === 0) && ($image !== $postChange->getImage())){
+            // Déplacer l'image vers le dossier de destination
+            //is_dir('public/assets/images/uploads/') ? var_dump('existe') : var_dump('N existe PAS') ;
+            move_uploaded_file($image['tmp_name'], 'public/assets/images/uploads/' . $image['name'] );
+            
+            $postChange->setImage($image['name']);
+        }
+
+        $post = $this->postRepo->updatePost($postChange);
+
+        header('Location: /post/' . $post->getId());
+    } 
+
+    public function updatedStatusPost($params)
+    {
+        $postId = $params['postId'];
+        if (!isset($postId) && !is_int($postId)
+            && !isset($params['status'])
+            && ($params['status'] === 'archive' || $params['status'] === 'active')
+        ) {
+            echo("Il faut l'identifiant d'un post.");
+            return false;
+        }
+        $post = $this->postRepo->find($postId);
+
+        $post = $this->postRepo->changedStatusPost($post, $params['status']);
+
+        header('Location: /user/' . $_SESSION['userId']);
     } 
 
     public function deletePost()
@@ -86,28 +190,30 @@ class PostController
     public function addComment($params)
     {
         $dataComment = $_POST;
+
         if (
             !isset($dataComment['body'])
-            || !isset($dataComment['userId'])
+            || !isset($_SESSION['userId'])
         ) {
             echo('Il faut un message et un utilisateur valide pour soumettre le formulaire.');
             return;
         }
 
         $comment = new Comment();
-        $user = $this->userRepo->find($dataComment['userId']);
+        $sessionUser = $this->userRepo->getSessionUser();
         $post = $this->postRepo->find($params['postId']);
 
+        if (!isset($user) || !isset($post)) {
+            return;
+        }
+        
+        $comment->setUser($sessionUser);
+        $comment->setPost($post);
         $comment->setBody($dataComment['body']);
-        if (isset($user)) {
-            $comment->setUser($user);
-        }
-        if (isset($post)) {
-            $comment->setPost($post);
-        }
         $comment->setCreatedAt(date('Y-m-d H:i:s'));
 
-        $comment = $this->commentRepo->addComment($comment);
+
+        $this->commentRepo->addComment($comment);
 
         header('Location: /post/' . $params['postId']);
     }

@@ -32,7 +32,6 @@ class UserRepository extends AbstractRepository
         // pour récupérer un seul objet de type User, on utilise 
         // la méthode fetchObject() de PDO !
         $result = $pdoStatement->fetchObject();
-        
 
         if ( !$result ) {
             return $user = null;
@@ -54,6 +53,21 @@ class UserRepository extends AbstractRepository
             !empty($result->updated_at) ? $user->setUpdatedAt($result->updated_at) : null;
         }
         
+        return $user;
+    }
+
+    public function getSessionUser()
+    {
+
+        if (!isset($_SESSION['userId'])) {
+            return false;
+        }
+
+        $user = $this->find($_SESSION['userId']);
+
+        if (!isset($user)) {
+            return false;
+        }
         return $user;
     }
 

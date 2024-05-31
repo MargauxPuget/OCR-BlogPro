@@ -4,7 +4,6 @@
     {% include 'user/launcher.twig' %}
 
     <h2>Mettre à jour un utilisateur</h2>
-{{ dump(user) }}
     <form action="/user/{{ user.id }}/update" method="post" enctype="multipart/form-data">
 
         <div>
@@ -14,6 +13,10 @@
         <div>
             <label for="lastname">Nom</label>
             <input type="text" name="lastname" value="{{ user ? user.lastname : '' }}">
+        </div>
+        <div>
+            <label for="picture">Image : </label>
+            <input type="file" id="picture" name="picture">
         </div>
         <div>
             <label for="picture">Image : </label>

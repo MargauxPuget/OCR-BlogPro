@@ -30,7 +30,6 @@ class Twig
             $this->user = $userRepo->find($_SESSION['userId']);
 
             $this->twig->addGlobal('userSession', $this->user);
-
         }
 
     }
@@ -38,7 +37,6 @@ class Twig
     public function setUserSession($user)
     {
         $this->user = $user;
-
         return $this->user;
     }
 

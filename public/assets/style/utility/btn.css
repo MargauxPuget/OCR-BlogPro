@@ -1,30 +1,35 @@
 .btn {
-  border: grey 1px solid;
-  padding: 5px 12px;
-  margin: 20px 3px;
-  border-radius: 5px;
-  color: black;
-  text-decoration: none;
+	border: grey 1px solid;
+	padding: 5px 12px;
+	margin: 20px 3px;
+	border-radius: 5px;
+	color: black;
+	text-decoration: none;
 }
 
 .btn--add {
-  background-color: rgb(114, 172, 29);
+	background-color: rgb(202, 230, 161);
 }
 
 .btn--update {
-  background-color: rgb(218, 156, 42);
+	background-color: rgb(218, 156, 42);
 }
 
 .btn--delete {
-  background-color: rgb(172, 29, 29);
+	background-color: rgb(172, 29, 29);
 }
 
 .btn--login {
-  background-color: rgb(79, 143, 216);
+	background-color: rgb(79, 143, 216);
 }
 
 .btn--form {
-  align-items: end;
-  display: block;
-  margin: 20px auto;
+	align-items: end;
+	display: block;
+	margin: 20px auto;
+}
+
+.btn:disabled {
+	background-color: grey;
+	cursor: default;
 }

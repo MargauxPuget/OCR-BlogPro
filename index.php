@@ -125,7 +125,7 @@ $router->map(
 $router->generate('formUser');
 
 $router->map(
-	'POST',
+	'POST', //TODO a verifier sinon GET
 	'user/[i:userId]/update',
 	[
 		'action' 	=> 'updateUser',
@@ -135,6 +135,44 @@ $router->map(
 );
 $router->generate('updateUser');
 
+// todo a verifier que ca ne manque pas !!
+// // TODO BEnoit est ce que la route est correct
+// $router->map(
+// 	'GET',
+// 	'user/[i:userId]/refusedComment/[i:commentId]',
+// 	// target :
+// 	[
+// 		'action' => 'refusedComment',
+// 		'controller' => 'MPuget\blog\Controllers\UserController'
+// 	],
+// 	'refusedComment'
+// );
+// $router->generate('refusedComment');
+
+$router->map(
+	'GET',
+	'user/[i:userId]/posts/[i:postId]/formPost',
+	[
+		'action' 		 => 'formPost',
+		'controller' => 'MPuget\blog\Controllers\UserController'
+	],
+	'updateFormPost'
+);
+$router->generate('updateFormPost');
+
+
+// // TODO BEnoit est ce que la route est correct
+// $router->map(
+// 	'GET',
+// 	'user/[i:userId]/acceptedComment/[i:commentId]',
+// 	// target :
+// 	[
+// 		'action' => 'acceptedComment',
+// 		'controller' => 'MPuget\blog\Controllers\UserController'
+// 	],
+// 	'acceptedComment'
+// );
+// $router->generate('refusedComment');
 
 //* --------------------------
 //*   Post
@@ -154,7 +192,7 @@ $router->generate('postHome');
 
 $router->map(
 	'GET',
-	'/posts',
+	'posts',
 	// target :
 	[
 		'action' => 'home',
@@ -178,6 +216,29 @@ $router->map(
 $router->generate('singlePost');
 
 
+$router->map(
+	'GET',
+	'post/[i:postId]/update/[a:status]',
+	// target :
+	[
+		'action' => 'updatedStatusPost',
+		'controller' => 'MPuget\blog\Controllers\PostController'
+	],
+	'updatedStatusPost'
+	);
+$router->generate('updatedStatusPost');
+
+$router->map(
+	'POST',
+	'post/addPost',
+	// target :
+	[
+		'action' => 'addPost',
+		'controller' => 'MPuget\blog\Controllers\PostController'
+	],
+	'addPost'
+);
+$router->generate('addPost');
 
 
 //*--------------------------
@@ -225,7 +286,6 @@ $router->generate('deleteComment');
 
 
 $match = $router->match();
-
 
 //* -----------------------------------------------------
 //*                     Dispatcher

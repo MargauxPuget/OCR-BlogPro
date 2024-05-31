@@ -60,12 +60,13 @@ class CommentRepository extends AbstractRepository
         return $comments;
     }
 
-    public function findAllforOnePost(Post $post): ?Array
+    public function findAllActiveforOnePost(Post $post): ?Array
     {
         $pdoStatement = $this->pdo->prepare('SELECT id FROM `comment`
-        WHERE post_id=:postId ORDER BY `created_at` DESC');
+        WHERE post_id=:postId AND status=:status ORDER BY `created_at` DESC');
         $pdoStatement->execute([
             "postId" => $post->getId(),
+            "status" => 1,
         ]);
         $commentList = $pdoStatement->fetchAll();
 
@@ -78,7 +79,6 @@ class CommentRepository extends AbstractRepository
         
         return $comments;
     }
-
     public function findAllforOneUser(User $user, int $status = null): ?Array
     {
         if (isset($status)) {
@@ -109,9 +109,10 @@ class CommentRepository extends AbstractRepository
 
     public function addComment($comment)
     {
-        $pdoStatement = $this->pdo->prepare("INSERT INTO comment (body, user_id, post_id)
-        VALUES (:body, :userId, :postId)");
+        $pdoStatement = $this->pdo->prepare("INSERT INTO comment (status, body, user_id, post_id)
+        VALUES (:status, :body, :userId, :postId)");
         $pdoStatement->execute([
+            'status' => $comment->getStatus(),
             'body' => $comment->getBody(),
             'userId'  => intval($comment->getUser()->getId()),
             'postId'  => intval($comment->getPost()->getId()),
@@ -161,5 +162,4 @@ class CommentRepository extends AbstractRepository
 
         return true;
     }
-
 }
