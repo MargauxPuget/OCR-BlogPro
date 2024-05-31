@@ -1,0 +1,31 @@
+.adminComment {
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 2fr 1fr 2fr;
+
+  align-items: center;
+
+  border: solid black 1px;
+  padding: 5px 0;
+}
+
+.commentAdmin--1 {
+  color: red;
+}
+
+.commentAdmin-0 {
+  color:  orange;
+}
+
+.commentAdmin-1 {
+  color:  green;
+}
+
+
+
+.adminComment .btn_validate:hover {
+	background: rgb(162, 235, 150);
+}
+
+.adminComment .btn_rejeted:hover {
+	background: rgb(252, 158, 158);
+}

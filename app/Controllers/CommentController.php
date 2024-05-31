@@ -20,24 +20,52 @@ class CommentController
         $this->twig = new Twig();
     }
 
+    public function adminAllComments($params)
+    {
+        $nbComment = $this->commentRepo->nbAll();
+        $nbCommentPerPage = 20;
+        $nbPage = ceil($nbComment/$nbCommentPerPage);       
+
+        if (!isset($params['page'])){
+            $params['page'] = 1;
+        }
+
+        $commentList = $this->commentRepo->findAll($nbCommentPerPage, $params['page']-1);
+
+        $viewData = [
+            'commentList'      => $commentList,
+            'nbPage'        => $nbPage,
+            'pageActive'    => $params['page']
+        ];
+
+        echo $this->twig->getTwig()->render('admin/comments.twig', $viewData);
+    }
+
     public function updateComment($params) {
-        
+       
         // vérifier que l'utilisateur est un admin
-        $user = $this->userRepo->find($_SESSION['userId']);
+        $sessionUser = $this->userRepo->getSessionUser();
+
+        if ($sessionUser->getRole() != 1) {
+            header('Location: /user/' . $sessionUser->getId());
+            return;
+        }
 
         $dataNewComment = $_POST;
-        if ($user->getRole() === 1) {
-            // modifier le status du commentaire
-            $comment = $this->commentRepo->find($params['commentId']);
-            
-            if (isset($dataNewComment['action'])
-                && (($dataNewComment['action']) === "validated"
-                || ($dataNewComment['action']) === "pause"
-                || ($dataNewComment['action']) === "refused")
-            ) {
-                $comment = $this->commentRepo->changedStatusComment($comment, $dataNewComment['action']);
-            }
+
+        // modifier le status du commentaire
+        $comment = $this->commentRepo->find($params['commentId']);
+        
+        if (isset($dataNewComment['action'])
+            && (($dataNewComment['action']) === "validated"
+            || ($dataNewComment['action']) === "pause"
+            || ($dataNewComment['action']) === "refused")
+        ) {
+            $comment = $this->commentRepo->changedStatusComment($comment, $dataNewComment['action']);
         }
-        header('Location: /user/' . $user->getId());
+
+        header('Location: /admin/comments/1');
+        // header('Location: /user/' . $sessionUser->getId());
+
     }
 }

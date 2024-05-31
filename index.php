@@ -135,6 +135,88 @@ $router->map(
 );
 $router->generate('updateUser');
 
+$router->map(
+	'GET',
+	'user/[i:userId]/formPost',
+	[
+		'action' 	=> 'formPost',
+		'controller' => 'MPuget\blog\Controllers\UserController'
+	],
+	'formPost'
+);
+$router->generate('formPost');
+
+$router->map(
+	'GET',
+	'user/[i:userId]/posts/[i:postId]/formPost',
+	[
+		'action' 		 => 'formPost',
+		'controller' => 'MPuget\blog\Controllers\UserController'
+	],
+	'updateFormPost'
+);
+$router->generate('updateFormPost');
+
+
+
+//*--------------------------
+//*   Admin
+//*--------------------------
+
+$router->map(
+	'GET',
+	'admin/posts',
+	[
+		'action' 		 => 'adminAllPost',
+		'controller' => 'MPuget\blog\Controllers\PostController'
+	],
+	'allPostSimple'
+);
+$router->generate('allPostSimple');
+
+$router->map(
+	'GET',
+	'admin/posts/[i:page]',
+	[
+		'action' 		 => 'adminAllPost',
+		'controller' => 'MPuget\blog\Controllers\PostController'
+	],
+	'allPost'
+);
+$router->generate('allPost');
+
+$router->map(
+	'POST',
+	'admin/posts/[i:postId]/update',
+	[
+		'action' 		 => 'updatePost',
+		'controller' => 'MPuget\blog\Controllers\PostController'
+	],
+	'updatePost'
+);
+$router->generate('updatePost');
+
+$router->map(
+	'GET',
+	'admin/comments',
+	[
+		'action' 		 => 'adminAllComments',
+		'controller' => 'MPuget\blog\Controllers\CommentController'
+	],
+	'allCommentSimple'
+);
+$router->generate('allCommentSimple');
+
+$router->map(
+	'GET',
+	'admin/comments/[i:page]',
+	[
+		'action' 		 => 'adminAllComments',
+		'controller' => 'MPuget\blog\Controllers\CommentController'
+	],
+	'allComments'
+);
+$router->generate('allComments');
 
 //* --------------------------
 //*   Post
@@ -149,7 +231,7 @@ $router->map(
 		'controller' => 'MPuget\blog\Controllers\PostController'
 	],
 	'postHome'
-	);
+);
 $router->generate('postHome');
 
 $router->map(
@@ -161,7 +243,7 @@ $router->map(
 		'controller' => 'MPuget\blog\Controllers\PostController'
 	],
 	'postHomeSimple'
-	);
+);
 $router->generate('postHomeSimple');
 
 
@@ -174,10 +256,33 @@ $router->map(
 		'controller' => 'MPuget\blog\Controllers\PostController'
 	],
 	'singlePost'
-	);
+);
 $router->generate('singlePost');
 
 
+$router->map(
+	'GET',
+	'post/[i:postId]/update/[a:status]',
+	// target :
+	[
+		'action' => 'updatedStatusPost',
+		'controller' => 'MPuget\blog\Controllers\PostController'
+	],
+	'updatedStatusPost'
+	);
+$router->generate('updatedStatusPost');
+
+$router->map(
+	'POST',
+	'post/addPost',
+	// target :
+	[
+		'action' => 'addPost',
+		'controller' => 'MPuget\blog\Controllers\PostController'
+	],
+	'addPost'
+);
+$router->generate('addPost');
 
 
 //*--------------------------
@@ -225,7 +330,6 @@ $router->generate('deleteComment');
 
 
 $match = $router->match();
-
 
 //* -----------------------------------------------------
 //*                     Dispatcher

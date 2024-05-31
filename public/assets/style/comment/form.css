@@ -1,11 +1,12 @@
 .commentForm {
   border: 1px solid gray;
   margin: 10px;
-  padding: 10px 30px 0;
+  padding: 10px 30px;
   background: rgb(214, 214, 214);
   border-radius: 10px;
   height: fit-content;
   width: fit-content;
+  max-width: 40%;
 }
 
 .commentForm_title {

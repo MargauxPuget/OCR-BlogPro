@@ -6,18 +6,21 @@ use MPuget\blog\twig\Twig;
 use MPuget\blog\Models\Post;
 use MPuget\blog\Models\User;
 use MPuget\blog\Models\TimeTrait;
+use MPuget\blog\Repository\PostRepository;
 use MPuget\blog\Repository\UserRepository;
 use MPuget\blog\Repository\CommentRepository;
 
 class UserController
 {
     protected $userRepo;
+    protected $postRepo;
     protected $commentRepo;
     protected $twig;
 
     public function __construct(){
         $this->userRepo = new UserRepository();
         $this->commentRepo = new CommentRepository();
+        $this->postRepo = new PostRepository();
         $this->twig = new Twig();
     }
 
@@ -77,14 +80,17 @@ class UserController
         }
 
         // récupération de cet utilisateur
-        $user = $this->userRepo->find($_SESSION['userId']);
+        $sessionUser = $this->userRepo->getSessionUser();
 
         // récupération des commentaires de cet utilisateur
-        $commentsByUser = $this->commentRepo->findAllforOneUser($user);
+        $commentsByUser = $this->commentRepo->findAllforOneUser($sessionUser);
         // récupération des commentaires de cet utilisateur
-        $commentsForValidation = $this->commentRepo->findAllforOneUser($user, 0);
+        $commentsForValidation = $this->commentRepo->findAllforOneUser($sessionUser, 0);
+        // récupération des commentaires de cet utilisateur
+        $allPosts = $this->postRepo->findFromStatus('active', 3);
 
         $viewData = [
+            'allPosts' => $allPosts,
             'commentsByUser' => $commentsByUser,
             'commentsForValidation' => $commentsForValidation
         ];
@@ -173,7 +179,7 @@ class UserController
         if (isset($image) && ($image['error'] === 0) && ($image !== $userChange->getPicture())){
             // Déplacer l'image vers le dossier de destination
             //is_dir('public/assets/images/uploads/') ? var_dump('existe') : var_dump('N existe PAS') ;
-            $toto = move_uploaded_file($image['tmp_name'], 'public/assets/images/uploads/' . $image['name'] );
+            move_uploaded_file($image['tmp_name'], 'public/assets/images/uploads/' . $image['name'] );
             
             $userChange->setPicture($image['name']);
         }
@@ -202,5 +208,28 @@ class UserController
 
     public function deleteUser()
     {
+    }
+
+    public function formPost($params)
+    {
+        $sessionUser = $this->userRepo->getSessionUser();
+        if (
+            $params['userId'] != $sessionUser->getId()
+            || !($sessionUser->getRole() == 1)
+        ){
+            header('Location: /');
+            return;
+        }
+
+        $postId =  isset($params['postId']) ? $params['postId'] : null  ;
+        $post =  isset($postId) ? $this->postRepo->find($postId) : null;
+
+
+        $viewData = [
+            'updatePost' => false,
+            'post'       => $post,
+        ];
+
+        echo $this->twig->getTwig()->render('post/formPost.twig', $viewData);
     }
 }

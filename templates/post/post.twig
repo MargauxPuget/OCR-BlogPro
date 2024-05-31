@@ -2,11 +2,12 @@
 
 {% block content %}
 
-	<h1>{{ post.title }}</h1>
-	<span class="post_date">{{ post.updated_at is not empty ? post.updated_at : post.createdAt|date("l d F à G\\hi") }}</span>
+	<h1><img class='' src="/public/assets/images/uploads/{{ post.image }}" alt=""/> {{ post.title }}</h1>
+
+	<span class="post_date">{{ post.updatedAt is not empty ? post.updatedAt|date("l d F à G\\hi") : post.createdAt|date("l d F à G\\hi") }}</span>
 	<p>{{ post.body }}</p>
 
-	<p class="post_author">{{ post.user ? post.user.name : 'toto' }}</p>
+	<p class="post_author">{{ post.user ? post.user.name : 'Autheur inconnu' }}</p>
 
 	<div class="comments">
 		{% include 'comment/listComment.twig' %}

@@ -1,0 +1,62 @@
+
+{% extends "baseAdmin.twig" %}
+
+{% block content %}
+
+<h2>Admin COMMENT : CRUD utilisateur</h2>
+
+<div>
+	<div class="adminComment" >
+		<p class="">id</p>
+		<p class="">status</p>
+		<p class="">body</p>
+		<p class="">user</p>
+		<p class="">Action</p>
+	</div>
+	{% for key, comment in commentList %}
+
+	<div class="adminComment" >
+		<p class="">{{ comment.id }}</p>
+
+
+      {% if comment.status == -1 %}
+        		<p class="commentAdmin-{{ comment.status }}">Rejeté</p>
+      {% elseif comment.status == 1 %}
+        		<p class="commentAdmin-{{ comment.status }}">publié</p>
+      {% else %}
+        		<p class="commentAdmin-{{ comment.status }}">Attente de décision</p>
+      {% endif %}
+
+
+		<p class="">{{ comment.body }}</p>
+		<p class="">{{ comment.user ? comment.user.name : 'Non renseigné' }}</p>
+
+		<ul class="post_btn_list">
+			<li class="btn btn_validate">
+				<form action="/comment/{{ comment.id }}/update" method="post">
+					<input hidden type="text" name="action" value="validated">
+					<button class="comment_accepted" type="submit"><img class="" src="/public/assets/images/valider.png" alt="valider le commentaire"/></button>
+				</form>
+			</li>
+			<li class="btn btn_rejeted">
+				<form action="/comment/{{ comment.id }}/update" method="post">
+					<input hidden type="text" name="action" value="refused">
+					<button class="comment_refused" type="submit"><img class="" src="/public/assets/images/rejeter.png" alt="rejeter le commentaire"/></button>
+				</form>
+			</li>
+		</ul>
+
+	</div>
+
+	{% endfor %}	
+
+</div>
+
+
+<ul class="pagination">
+    {% for i in 1..nbPage %}
+		<li class="{{ pageActive == i ? 'pageActive': ''}}"><a href="/admin/comments/{{ i }}">{{ i }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
