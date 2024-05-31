@@ -83,7 +83,7 @@ class UserController
         $sessionUser = $this->userRepo->getSessionUser();
 
         // récupération des commentaires de cet utilisateur
-        $commentsByUser = $this->commentRepo->findAllforOneUser($user);
+        $commentsByUser = $this->commentRepo->findAllforOneUser($sessionUser);
 
         // récupération des commentaires de cet utilisateur
         $commentsForValidation = $this->commentRepo->findAllforOneUser($sessionUser, 0);
