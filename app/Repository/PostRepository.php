@@ -118,9 +118,10 @@ class PostRepository extends AbstractRepository
 
     public function addPost(Post $post) : Post
     {
-        $pdoStatement = $this->pdo->prepare("INSERT INTO post (title, chapo, body, image, user_id)
-        VALUES (:title, :chapo, :body, :image, :userId)");
+        $pdoStatement = $this->pdo->prepare("INSERT INTO post (status, title, chapo, body, image, user_id)
+        VALUES (:status, :title, :chapo, :body, :image, :userId)");
         $pdoStatement->execute([
+            'status'     => $post->getStatus(),
             'title'     => $post->getTitle(),
             'chapo'      => $post->getChapo(),
             'body'      => $post->getBody(),

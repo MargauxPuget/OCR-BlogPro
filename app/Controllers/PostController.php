@@ -205,7 +205,8 @@ class PostController
         $sessionUser = $this->userRepo->getSessionUser();
         $post = $this->postRepo->find($params['postId']);
 
-        if (!isset($user) || !isset($post)) {
+        if (!isset($sessionUser) || !isset($post)) {
+            echo 'Il faut un utilisateur connecter';
             return;
         }
         

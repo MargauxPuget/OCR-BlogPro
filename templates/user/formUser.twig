@@ -5,6 +5,7 @@
 
 
     <h2>Mettre à jour un utilisateur</h2>
+    <form action="/user/{{ user.id }}/update" method="post" enctype="multipart/form-data">
         <div>
             <label for="firstname">Prénom</label>
             <input type="text" name="firstname" value="{{ user ? user.firstname : '' }}">
@@ -18,16 +19,12 @@
             <input type="file" id="picture" name="picture">
         </div>
         <div>
-            <label for="picture">Image : </label>
-            <input type="file" id="picture" name="picture">
-        </div>
-        <div>
             <label for="email">Email</label>
             <input type="email" name="email" value="{{ user ? user.email : '' }}">
         </div>
         <div>
             <label for="password">mot de passe</label>
-            <input type="password" name="password" value="{{ user ? user.password : '' }}">
+            <input type="password" name="password" value="">
         </div>
 
         <input hidden type="number" name="identifiant" value="{{ user ? user.id : '' }}">

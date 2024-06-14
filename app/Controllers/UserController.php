@@ -177,9 +177,12 @@ class UserController
         }
 
         $image = $_FILES['picture'];
-        if (isset($image) && ($image['error'] === 0) && ($image !== $userChange->getPicture())){
+        if (isset($image) && ($image['error'] === 0)){
             // Déplacer l'image vers le dossier de destination
             //is_dir('public/assets/images/uploads/') ? var_dump('existe') : var_dump('N existe PAS') ;
+            
+            move_uploaded_file($image['tmp_name'], 'public/assets/images/uploads/' . $image['name'] );
+            
             $userChange->setPicture($image['name']);
         }
 
@@ -207,4 +210,26 @@ class UserController
 
     public function deleteUser()
     {}
+
+    public function formPost($params)
+    {
+        $sessionUser = $this->userRepo->getSessionUser();
+        if (
+            $params['userId'] != $sessionUser->getId()
+            || !($sessionUser->getRole() == 1)
+        ){
+            header('Location: /');
+            return;
+        }
+
+        $postId =  isset($params['postId']) ? $params['postId'] : null  ;
+        $post =  isset($postId) ? $this->postRepo->find($postId) : null;
+
+        $viewData = [
+            'updatePost' => false,
+            'post'       => $post,
+        ];
+
+        echo $this->twig->getTwig()->render('post/formPost.twig', $viewData);
+    }
 }

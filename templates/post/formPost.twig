@@ -9,26 +9,26 @@
     <form action="{{ post ? '/admin/posts/' ~ post.id ~'/update' : '/post/addPost' }}" method="POST" enctype="multipart/form-data">
         <div>
             <label for="title">Titre</label>
-            <input type="text" name="title" value="{{ post ? post.title : ''}}">
+            <input type="text" name="title" value="{{ post ? post.title : 'Ebeniste'}}">
         </div>
         <div>
             <label for="chapo">Chapo</label>
-            <textarea name="chapo">{{ post ? post.chapo : ''}}</textarea>
+            <textarea name="chapo">{{ post ? post.chapo : 'Un ebeniste traville le bois.'}}</textarea>
         </div>
         <div>
             <label for="body">Article</label>
-            <textarea name="body">{{ post ? post.body : ''}}</textarea>
+            <textarea name="body">{{ post ? post.body : 'Un ebeniste traville le bois. Il peut fabriquer de nouveau meuble ou restaurer des pièces anciennes.'}}</textarea>
         </div>
         <div>
             <label for="picture">Image : </label>
             <input type="file" id="picture" name="picture"  value="{{ post ? post.image : '' }}">
         </div>
-       
+
         <input hidden type="text" name="status" value="{{ post ? post.status : 'active' }}">
         <input hidden type="number" name="userId" value="{{ post ? post.user.id : userSession.id }}">
 
         <input hidden type="number" name="identifiant" value="{{ post ? post.id : '' }}">
-        <button type="submit">{{ post ? 'Mettre à jour' : 'Créer'}}</button>
+        <button class="btn" type="submit">{{ post ? 'Mettre à jour' : 'Créer'}}</button>
     </form>
 
 
