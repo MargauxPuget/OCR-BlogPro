@@ -201,8 +201,8 @@ class PostController
         $dataComment = $_POST;
 
         if (
-            !isset($dataComment['body'])
-            || !isset($_SESSION['userId'])
+            empty(trim($dataComment['body']))
+            || empty(trim($_SESSION['userId']))
         ) {
             echo('Il faut un message et un utilisateur valide pour soumettre le formulaire.');
             return;

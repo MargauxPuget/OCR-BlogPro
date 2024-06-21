@@ -37,7 +37,6 @@ class UserController
         || empty($newUser['password'])
         || !(strlen($newUser['password']) >= 8)
         || !(preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).+$/', $newUser['password'])) //Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule et un chiffre.
-        || !(isset($image) && ($image['error'] === 0))
         ) {
             $validatAddUser = false;
         } else {
