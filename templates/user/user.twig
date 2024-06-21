@@ -43,25 +43,11 @@
 						<p class="comment_author">{{ comment.user.name }}</p>
 					</div>
 
-					<a class="comment_delete" href="{{ post.id }}/deleteComment/{{ comment.id }}"><img class="" src="/public/assets/images/poubelle.png" alt="supprimer"/></a>
+					<a class="comment_delete" href="/comment/{{ comment.id }}/delete"><img class="" src="/public/assets/images/poubelle.png" alt="supprimer"/></a>
 
 				</li>
 			{% endfor %}
 		</ul>
 	{% endif %}
 
-	{% if commentsByUser is not empty %}
-		<ul>
-			{% for comment in commentsByUser %}
-				<li class="commentUser commentUser-{{ comment.status }}">
-					<div>
-						<p class="comment_body">{{ comment.body }}</p>
-						<p>{{ comment.updated_at is not empty ? comment.updated_at : comment.createdAt|date("l d F à G\\hi") }}</p>
-						<p class="comment_author">{{ comment.user.name }}</p>
-					</div>
-
-				</li>
-			{% endfor %}
-		</ul>
-	{% endif %}
 {% endblock %}

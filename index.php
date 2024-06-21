@@ -315,7 +315,7 @@ $router->generate('addComment');
 
 $router->map(
 	'GET',
-	'post/[i:postId]/deleteComment/[i:commentId]',
+	'comment/[i:commentId]/delete',
 	// target :
 	[
 		'action' => 'deleteComment',

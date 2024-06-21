@@ -240,6 +240,7 @@ class PostController
         $comment = $this->commentRepo->deleteComment($comment);
         }
 
-        header('Location: /post/' . $params['postId']);
+        $sessionUser = $this->userRepo->getSessionUser();
+        header('Location: /user/' . $sessionUser->getId());
     }
 }
