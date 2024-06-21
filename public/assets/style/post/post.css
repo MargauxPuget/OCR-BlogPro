@@ -82,3 +82,13 @@
   align-items: center;
   justify-content: space-around;
 }
+
+img.picturePost {
+  width: 48px;
+  height: 48px;
+}
+
+.post_picturePost {
+  width: 200px;
+  height: 200px;
+}

@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<h2>Admin POST : CRUD utilisateur</h2>
+<h2>Tous les posts</h2>
 
 <div class="link_new_posts">
 	<a class="btn" href="/user/{{ userSession.id }}/formPost">
@@ -17,7 +17,7 @@
 		<p class="">id</p>
 		<p class="">status</p>
 		<p class="">titre</p>
-		<p class="">user</p>
+		<p class="">auteur</p>
 		<p class="">image</p>
 		<p class="">nbComment</p>
 		<p class="">Action</p>
@@ -32,7 +32,7 @@
 		<p class="">{{ post.user ? post.user.name : 'Non renseigné' }}</p>
 		<p class="">
 			{% if post.image %}
-				<img class='pictureUser' src="/public/assets/images/uploads/{{ post.image }}" alt=""/>
+				<img class='picturePost' src="/public/assets/images/uploads/{{ post.image }}" alt=""/>
 			{% else %}
 				pas d'image
 			{% endif %}

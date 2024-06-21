@@ -4,20 +4,20 @@
 
     Ecrire un post page de formulaire
 
-    <h2>{{ post ? 'Ajouter un nouvel article' : 'Mettre à jour cet article' }}</h2>
+    <h2>{{ post ? 'Mettre à jour cet article' : 'Ajouter un nouvel article' }}</h2>
 
     <form action="{{ post ? '/admin/posts/' ~ post.id ~'/update' : '/post/addPost' }}" method="POST" enctype="multipart/form-data">
         <div>
             <label for="title">Titre</label>
-            <input type="text" name="title" value="{{ post ? post.title : 'Ebeniste'}}">
+            <input type="text" name="title" value="{{ post ? post.title : ''}}">
         </div>
         <div>
             <label for="chapo">Chapo</label>
-            <textarea name="chapo">{{ post ? post.chapo : 'Un ebeniste traville le bois.'}}</textarea>
+            <textarea name="chapo">{{ post ? post.chapo : ''}}</textarea>
         </div>
         <div>
             <label for="body">Article</label>
-            <textarea name="body">{{ post ? post.body : 'Un ebeniste traville le bois. Il peut fabriquer de nouveau meuble ou restaurer des pièces anciennes.'}}</textarea>
+            <textarea name="body">{{ post ? post.body : ''}}</textarea>
         </div>
         <div>
             <label for="picture">Image : </label>

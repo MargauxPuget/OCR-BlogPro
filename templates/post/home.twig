@@ -11,7 +11,14 @@
 
     <li class="post">
         <div>
-            <h3 class="post_title"><img class="post_img" src="/public/assets/images/article.png" alt="logo" />{{ post.title }}</h3>
+            <h3 class="post_title">
+                {% if post.image is not empty %}
+                    <img class="post_img" src="/public/assets/images/uploads/{{ post.image }}" alt="logo" />
+                {% else %}
+                    <img class="post_img" src="/public/assets/images/article.png" alt="logo" />
+                {%  endif %}
+                {{ post.title }}
+            </h3>
             <p>{{ post.chapo }}</p>
             <p class="post_author">{{ post.user ? post.user.name : 'Autheur inconnu' }}</p>
             <p>{{ post.updated_at is not empty ? post.updated_at : post.createdAt }}</p>

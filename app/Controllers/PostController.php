@@ -26,7 +26,6 @@ class PostController
 
     public function home($params)
     {
-        var_dump('hello');
         $nbPost = $this->postRepo->nbAll();
         $nbPostPerPage = 5;
         $nbPage = ceil($nbPost/$nbPostPerPage);
@@ -86,16 +85,22 @@ class PostController
 
     public function addPost()
     {
-
+        // echo'<pre>';
+        // var_dump('adda', $_POST);
+        // echo'</pre>';
         $newPost = $_POST;
         $image = isset($_FILES['picture']) ? $_FILES['picture'] : null ;
 
+        
+        // echo'<pre>';
+        // var_dump('verif', empty(""), empty(trim($newPost['title'])));
+        // echo'</pre>';
         if (
-        !isset($newPost['title'])
-        || !isset($newPost['chapo'])
-        || !isset($newPost['body'])
+        empty(trim($newPost['title']))
+        || empty(trim($newPost['chapo']))
+        || empty(trim($newPost['body']))
         ) {
-            echo('Il faut un title et un chapo et un article valide pour soumettre le formulaire.');
+            echo('Erreur : Il faut un title et un chapo et un article valide pour soumettre le formulaire.');
             return;
         }
 
@@ -139,13 +144,15 @@ class PostController
             return false;
         }
 
-        if (isset($updatDataPost['title']) && ($updatDataPost['title'] !== $postChange->getTitle())){
+        if (!empty(trim($updatDataPost['title']))){
             $postChange->setTitle($updatDataPost['title']);
         }
-        if (isset($updatDataPost['chapo']) && ($updatDataPost['chapo'] !== $postChange->getChapo())){
+
+        if (!empty(trim($updatDataPost['chapo']))){
             $postChange->setChapo($updatDataPost['chapo']);
         }
-        if (isset($updatDataPost['body']) && ($updatDataPost['body'] !== $postChange->getBody())){
+
+        if (!empty(trim($updatDataPost['body'])) ){
             $postChange->setBody($updatDataPost['body']);
         }
 
@@ -154,7 +161,7 @@ class PostController
         if (isset($image) && ($image['error'] === 0) && ($image !== $postChange->getImage())){
             // Déplacer l'image vers le dossier de destination
             //is_dir('public/assets/images/uploads/') ? var_dump('existe') : var_dump('N existe PAS') ;
-            move_uploaded_file($image['tmp_name'], 'public/assets/images/uploads/' . $image['name'] );
+            $result = move_uploaded_file($image['tmp_name'], 'public/assets/images/uploads/' . $image['name'] );
             
             $postChange->setImage($image['name']);
         }
