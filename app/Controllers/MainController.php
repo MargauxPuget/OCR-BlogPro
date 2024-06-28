@@ -50,6 +50,6 @@ class MainController
     public function contactForm()
     {
         $mail = new Mail();
-        $mail->sendMail();
+        $mail->sendMail([]);
     }
 }

@@ -8,10 +8,12 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class Mail {
 
-    // pour pouvoir utiliser la fonction de amil il faut, lancer le conteneur docker de maildev (docker compose up -d on peut vérifier qu'il est up avec docker compose ps)
+    // pour pouvoir utiliser la fonction de amil il faut,
+    // lancer le conteneur docker de maildev (docker compose up -d
+    // on peut vérifier qu'il est up avec docker compose ps)
     public function sendMail (Array $data) : bool
     {
-        $transport = (new \Swift_SmtpTransport('172.18.0.2', 1025));
+        $transport = (new \Swift_SmtpTransport('mailer', 1025));
 
         // Create the Mailer using your created Transport
         $mailer = new \Swift_Mailer($transport);

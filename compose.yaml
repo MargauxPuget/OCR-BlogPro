@@ -1,9 +1,13 @@
 version: "3.8"
 services:
+
+
   mailer:
     image: maildev/maildev
     container_name: maildev-toto
-    ports: [ "1026", "1081" ]
+    ports: 
+      - 1025:1025
+      - 1080:1080
 
   db:
     image: mysql
@@ -33,6 +37,7 @@ services:
     restart: always
     ports:
       - 8081:80
+
 
 volumes:
   dbData:

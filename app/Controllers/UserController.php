@@ -154,7 +154,7 @@ class UserController
         $updatDataUser = $_POST;
         if (!isset($updatDataUser['identifiant']) && !is_int($updatDataUser['identifiant'])) {
             echo("Il faut l'identifiant d'un utilisateur.");
-            header('Location: /user/' . $userLogin->getId());
+            header('Location: /user/' . $updatDataUser->getId());
             return false;
         }
 
@@ -172,7 +172,7 @@ class UserController
             $userChange->setFirstname($updatDataUser['firstname']);
         }
         if (isset($updatDataUser['lastname']) && ($updatDataUser['lastname'] !== $userChange->getLastname())){
-            $userLuserChangeogin->setLastname($updatDataUser['lastname']);
+            $userChange->setLastname($updatDataUser['lastname']);
         }
 
         $image = $_FILES['picture'];
