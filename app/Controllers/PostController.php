@@ -26,22 +26,27 @@ class PostController
 
     public function home($params)
     {
+        // donnée pour la pagination
         $nbPost = $this->postRepo->nbAll();
         $nbPostPerPage = 5;
         $nbPage = ceil($nbPost/$nbPostPerPage);
 
+        // par défaut première page
         if (!isset($params['page'])){
             $params['page'] = 1;
         }
 
+        // récupération les posts via le repository
         $postList = $this->postRepo->findAll($nbPostPerPage, $params['page']-1);
 
+        // donnée nécéssaire à l'affichage
         $viewData = [
             'postList'      => $postList,
             'nbPage'        => $nbPage,
             'pageActive'    => $params['page']
         ];
 
+        //demande de l'affichage de ma page
         echo $this->twig->getTwig()->render('post/home.twig', $viewData);
     }
 
