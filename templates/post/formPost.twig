@@ -23,7 +23,6 @@
             <label for="picture">Image : </label>
             <input type="file" id="picture" name="picture"  value="{{ post ? post.image : '' }}">
         </div>
-
         <input hidden type="text" name="status" value="{{ post ? post.status : 'active' }}">
         <input hidden type="number" name="userId" value="{{ post ? post.user.id : userSession.id }}">
 

@@ -71,6 +71,27 @@ class PostController
         echo $this->twig->getTwig()->render('admin/posts.twig', $viewData);
     }
 
+    public function adminAllPost($params)
+    {
+        $nbPost = $this->postRepo->nbAll();
+        $nbPostPerPage = 5;
+        $nbPage = ceil($nbPost/$nbPostPerPage);
+
+        if (!isset($params['page'])){
+            $params['page'] = 1;
+        }
+
+        $postList = $this->postRepo->findAll($nbPostPerPage, $params['page']-1);
+
+        $viewData = [
+            'postList'      => $postList,
+            'nbPage'        => $nbPage,
+            'pageActive'    => $params['page']
+        ];
+
+        echo $this->twig->getTwig()->render('admin/posts.twig', $viewData);
+    }
+
     public function singlePost($params)
     {
         $postId = $params['postId'];
@@ -149,6 +170,7 @@ class PostController
             return false;
         }
 
+<<<<<<< HEAD
         if (!empty(trim($updatDataPost['title']))){
             $postChange->setTitle($updatDataPost['title']);
         }
@@ -158,6 +180,15 @@ class PostController
         }
 
         if (!empty(trim($updatDataPost['body'])) ){
+=======
+        if (isset($updatDataPost['title']) && ($updatDataPost['title'] !== $postChange->getTitle())){
+            $postChange->setTitle($updatDataPost['title']);
+        }
+        if (isset($updatDataPost['chapo']) && ($updatDataPost['chapo'] !== $postChange->getChapo())){
+            $postChange->setChapo($updatDataPost['chapo']);
+        }
+        if (isset($updatDataPost['body']) && ($updatDataPost['body'] !== $postChange->getBody())){
+>>>>>>> 1a282126cb96f7f4b18a9bee5000601df1945269
             $postChange->setBody($updatDataPost['body']);
         }
 
@@ -166,7 +197,11 @@ class PostController
         if (isset($image) && ($image['error'] === 0) && ($image !== $postChange->getImage())){
             // Déplacer l'image vers le dossier de destination
             //is_dir('public/assets/images/uploads/') ? var_dump('existe') : var_dump('N existe PAS') ;
+<<<<<<< HEAD
             $result = move_uploaded_file($image['tmp_name'], 'public/assets/images/uploads/' . $image['name'] );
+=======
+            move_uploaded_file($image['tmp_name'], 'public/assets/images/uploads/' . $image['name'] );
+>>>>>>> 1a282126cb96f7f4b18a9bee5000601df1945269
             
             $postChange->setImage($image['name']);
         }
@@ -206,8 +241,13 @@ class PostController
         $dataComment = $_POST;
 
         if (
+<<<<<<< HEAD
             empty(trim($dataComment['body']))
             || empty(trim($_SESSION['userId']))
+=======
+            !isset($dataComment['body'])
+            || !isset($_SESSION['userId'])
+>>>>>>> 1a282126cb96f7f4b18a9bee5000601df1945269
         ) {
             echo('Il faut un message et un utilisateur valide pour soumettre le formulaire.');
             return;
@@ -217,8 +257,12 @@ class PostController
         $sessionUser = $this->userRepo->getSessionUser();
         $post = $this->postRepo->find($params['postId']);
 
+<<<<<<< HEAD
         if (!isset($sessionUser) || !isset($post)) {
             echo 'Il faut un utilisateur connecter';
+=======
+        if (!isset($user) || !isset($post)) {
+>>>>>>> 1a282126cb96f7f4b18a9bee5000601df1945269
             return;
         }
         
