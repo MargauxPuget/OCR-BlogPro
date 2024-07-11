@@ -8,3 +8,12 @@ dépendance :
 - twig
 - altorouter
 - swiftmailer
+
+
+# Pour lancer le projet
+
+Vous devez faire un :
+```docker composer up -d```
+dans votre navigateur vous trouverez le projet sur localhost:8080
+
+Pour visualisé les mails envoyé il faut utilisé localhost:1080 (c'sest maildev)
