@@ -36,7 +36,7 @@ class MainController
             }
             $viewData = [
                 // 'user' => $user,
-                'responceMessage' => $responseMail ? 'Votre mail est bien parti, je vous réponds dans les meilleur delais !' : 'Il est probable que vous ayez oublié un champ ou que votre email ne soit pas valide !',
+                'responceMessage' => $responseMail ? 'Votre mail est bien parti, je vous réponds dans les meilleurs délais !' : 'Il est probable que vous ayez oublié un champ ou que votre email ne soit pas valide !',
                 'boolMessage' => $responseMail
             ];
         } else {
