@@ -90,16 +90,9 @@ class PostController
 
     public function addPost()
     {
-        // echo'<pre>';
-        // var_dump('adda', $_POST);
-        // echo'</pre>';
         $newPost = $_POST;
         $image = isset($_FILES['picture']) ? $_FILES['picture'] : null ;
 
-        
-        // echo'<pre>';
-        // var_dump('verif', empty(""), empty(trim($newPost['title'])));
-        // echo'</pre>';
         if (
         empty(trim($newPost['title']))
         || empty(trim($newPost['chapo']))
