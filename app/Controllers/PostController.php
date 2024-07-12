@@ -37,7 +37,7 @@ class PostController
         }
 
         // récupération les posts via le repository
-        $postList = $this->postRepo->findAll($nbPostPerPage, $params['page']-1);
+        $postList = $this->postRepo->findFromStatus('active', $nbPostPerPage, $params['page']-1);
 
         // donnée nécéssaire à l'affichage
         $viewData = [
@@ -60,7 +60,7 @@ class PostController
             $params['page'] = 1;
         }
 
-        $postList = $this->postRepo->findAll($nbPostPerPage, $params['page']-1);
+        $postList = $this->postRepo->findFromStatus('active', $nbPostPerPage, $params['page']-1);
 
         $viewData = [
             'postList'      => $postList,
