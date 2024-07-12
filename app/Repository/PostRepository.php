@@ -56,9 +56,6 @@ class PostRepository extends AbstractRepository
         return intval($nbPost['COUNT(*)']);
     }
 
-    // TODO Benoit je voudrais regrouper les deux fonctions suivantes
-    // ! elles récupèrent toute sles deux un certaine nombre de posts la deuxième ne récupère que certain status
-    // ! bonus je voudrais que dans la seconde $status soit un tableau est donc qu'il y ai plusieurs choix possible de 0 à 3 aujourd'hui. est ce Possible
     public function findAll(int $nb=0, int $page=0) : Array
     {
         if ($nb === 0) {
